@@ -1,0 +1,155 @@
+[
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "789e7d4d-282f-1bdb-2745-4c8a9e1511f8",
+    "x": 439,
+    "y": 396,
+    "width": 138,
+    "height": 65,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "First"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "output0",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
+      }
+    ],
+    "bgColor": "#FFFFFF",
+    "color": "#000000",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.UserInput",
+    "id": "81a6736c-1875-7a64-a42a-bfccd2e54024",
+    "x": 487,
+    "y": 422,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "name"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_UserInput",
+    "composite": "789e7d4d-282f-1bdb-2745-4c8a9e1511f8",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#000000",
+    "stroke": 1,
+    "radius": 0,
+    "text": "Mary",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#080808",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "18abbab7-8150-99db-a3c7-9d4727dea967",
+    "x": 385,
+    "y": 206,
+    "width": 244,
+    "height": 130,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "Second"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "input0",
+        "port": "draw2d.InputPort",
+        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      }
+    ],
+    "bgColor": "#FFFFFF",
+    "color": "#000000",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "c9118cf4-9733-0a60-33c6-65129d6d8132",
+    "x": 468,
+    "y": 230,
+    "width": 111,
+    "height": 24,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "output"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "18abbab7-8150-99db-a3c7-9d4727dea967",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "System output",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.UserInput",
+    "id": "6ef2d607-1698-6746-cbad-b96ac1404551",
+    "x": 484,
+    "y": 279,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "input"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_UserInput",
+    "composite": "18abbab7-8150-99db-a3c7-9d4727dea967",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#000000",
+    "stroke": 1,
+    "radius": 0,
+    "text": "User input",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#080808",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Transaction",
+    "id": "279f8cfd-fc45-b736-f41c-718786d7651a",
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
+    "stroke": 1,
+    "color": "#000000",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+    "router": "draw2d.layout.connection.DirectRouter",
+    "radius": 2,
+    "source": {
+      "node": "789e7d4d-282f-1bdb-2745-4c8a9e1511f8",
+      "port": "output0"
+    },
+    "target": {
+      "node": "18abbab7-8150-99db-a3c7-9d4727dea967",
+      "port": "input0"
+    }
+  }
+]
