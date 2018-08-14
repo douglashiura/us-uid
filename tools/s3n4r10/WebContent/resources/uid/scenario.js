@@ -188,3 +188,8 @@ br.ufsc.leb.uid.scenario.ResourceLocator = draw2d.layout.locator.OutputPortLocat
 						.getWidth() / 2, 0);
 			}
 		});
+
+br.ufsc.leb.uid.scenario.Anotacao = function Anotacao(comentario, data) {
+	this.comentario = comentario;
+	this.data = data;
+}

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 public class Scenario {
 
@@ -28,7 +29,7 @@ public class Scenario {
 		byte[] b = new byte[stream.available()];
 		stream.read(b);
 		stream.close();
-		return new String(b);
+		return new String(b, Charset.forName("UTF-8"));
 	}
 
 	public void write(byte[] data) throws IOException {

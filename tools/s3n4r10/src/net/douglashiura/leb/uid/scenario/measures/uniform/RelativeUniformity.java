@@ -15,7 +15,7 @@ public class RelativeUniformity {
 			return 0f;
 		return (uniform / (float) total);
 	}
-
+	
 	public void setUniformInput(Integer uniformInputs) {
 		this.uniformInputs = uniformInputs;
 	}
@@ -32,20 +32,5 @@ public class RelativeUniformity {
 		this.nonUniformOutputs = nonUniformOutputs;
 	}
 
-	public Integer getUniformInputs() {
-		return uniformInputs;
-	}
-
-	public Integer getNonUniformInputs() {
-		return nonUniformInputs;
-	}
-
-	public Integer getNonUniformOutputs() {
-		return nonUniformOutputs;
-	}
-
-	public Integer getUniformOutputs() {
-		return uniformOutputs;
-	}
-
+	
 }

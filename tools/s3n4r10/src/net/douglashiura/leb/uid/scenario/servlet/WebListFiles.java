@@ -26,7 +26,7 @@ public class WebListFiles extends HttpServlet {
 		if (path.endsWith(".us")) {
 			response.setContentType("text/plain; charset=utf-8");
 			response.setCharacterEncoding("UTF-8");
-			String scenario = Project.get(path).getScenario();
+			String scenario = Project.get(path).getScenario().getDocument();
 			response.getWriter().write(scenario.toString());
 		} else {
 			List<String> scenarios = Project.get(path).getScenariesAsNames();

@@ -10,14 +10,14 @@ import test.net.douglashiura.leb.uid.scenario.glue.code.use_case.experiment2.Use
 
 public class TesteDescriptiveMeasures {
 
-	// public static void main(String[] args) throws URISyntaxException, IOException
-	// {
-	// File file = new File(UserAndHelper.class.getResource("cadastro.us").toURI());
-	// File directory = new File(file.getAbsolutePath().replace("cadastro.us", ""));
-	// GetAllScenariosOfAPath scenarios = new GetAllScenariosOfAPath(directory);
-	// DescriptiveMeasures measures = new DescriptiveMeasures(scenarios.getAll());
-	// System.out.print(measures.toString());
-	// }
+//	public static void main(String[] args) throws URISyntaxException, IOException {
+//		File file = new File(UserAndHelper.class.getResource("cadastro.us").toURI());
+//		File directory = new File(file.getAbsolutePath().replace("cadastro.us", ""));
+//		GetAllScenariosOfAPath scenarios = new GetAllScenariosOfAPath(directory);
+//		DescriptiveMeasures measures = new DescriptiveMeasures(scenarios.getAll());
+//		System.out.print(measures.toString());
+//	}
+
 
 	public static void main(String[] args) throws URISyntaxException, IOException {
 		File file = new File(UserOnly.class.getResource("julia/AcessoContato.us").toURI());

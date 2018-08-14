@@ -2,6 +2,7 @@ package net.douglashiura.leb.uid.scenario.data;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,9 +75,14 @@ public class Folder {
 	}
 
 	public void newScenario(String name) throws IOException {
-		File newFile = new File(dir, name + ".us");
-		new Scenario(newFile,null).write("".getBytes());
+		newScenario(name, "");
 
+	}
+
+	public void newScenario(String name, String conteudo) throws IOException {
+		File newFile = new File(dir, name + ".us");
+		new Scenario(newFile,null).write(conteudo.getBytes(Charset.forName("UTF-8")));
+		
 	}
 
 }

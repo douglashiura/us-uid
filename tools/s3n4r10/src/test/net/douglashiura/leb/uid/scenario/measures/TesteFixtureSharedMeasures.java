@@ -18,13 +18,16 @@ public class TesteFixtureSharedMeasures {
 		System.out.print(measures.toString());
 	}
 
-
-//	public static void main(String[] args) throws URISyntaxException, IOException {
-//		File file = new File(UserOnly.class.getResource("julia/AcessoContato.us").toURI());
-//		File directory = new File(file.getAbsolutePath().replace("julia/AcessoContato.us", ""));
-//		GetAllScenariosOfAPath scenarios = new GetAllScenariosOfAPath(directory);
-//		FixtureSharedMeasures measures = new FixtureSharedMeasures(scenarios.getAll());
-//		System.out.print(measures.toString());
-//	}
-//
+	// public static void main(String[] args) throws URISyntaxException, IOException
+	// {
+	// File file = new
+	// File(UserOnly.class.getResource("julia/AcessoContato.us").toURI());
+	// File directory = new
+	// File(file.getAbsolutePath().replace("julia/AcessoContato.us", ""));
+	// GetAllScenariosOfAPath scenarios = new GetAllScenariosOfAPath(directory);
+	// FixtureSharedMeasures measures = new
+	// FixtureSharedMeasures(scenarios.getAll());
+	// System.out.print(measures.toString());
+	// }
+	//
 }

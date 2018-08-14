@@ -18,28 +18,26 @@ public class TestGlueCodeGenerate {
 		assertTrue(generate.toString().contains("@Fixture"));
 	}
 
-	// public static void main(String[] args) throws URISyntaxException, IOException
-	// {
-	// File file = new File(UserAndHelper.class.getResource("cadastro.us").toURI());
-	// File directory = new File(file.getAbsolutePath().replace("cadastro.us", ""));
-	// GlueCodeGenerate generate = new
-	// GlueCodeGenerate("net.douglashiura.message.experiment1", directory);
-	// System.out.print(generate.toString());
-	// }
-	//
-	// // 255
-	// // 834
-	//
-	// public static void main(String[] args) throws URISyntaxException,
-	// IOException {
-	// File file = new
-	// File(UserOnly.class.getResource("julia/AcessoContato.us").toURI());
-	// File directory = new
-	// File(file.getAbsolutePath().replace("julia/AcessoContato.us", ""));
-	// GlueCodeGenerate generate = new
-	// GlueCodeGenerate("net.douglashiura.message.experiment2", directory);
-	// // System.out.print(generate.toString().split("\n").length);
-	// System.out.print(generate.toString());
-	// }
+//	public static void main(String[] args) throws URISyntaxException, IOException {
+//		File file = new File(UserAndHelper.class.getResource("cadastro.us").toURI());
+//		File directory = new File(file.getAbsolutePath().replace("cadastro.us", ""));
+//		GlueCodeGenerate generate = new GlueCodeGenerate("net.douglashiura.message.experiment1", directory);
+//		System.out.print(generate.toString());
+//	}
+//
+//	// 255
+//	// 834
+//
+//	 public static void main(String[] args) throws URISyntaxException,
+//	 IOException {
+//	 File file = new
+//	 File(UserOnly.class.getResource("julia/AcessoContato.us").toURI());
+//	 File directory = new
+//	 File(file.getAbsolutePath().replace("julia/AcessoContato.us", ""));
+//	 GlueCodeGenerate generate = new
+//	 GlueCodeGenerate("net.douglashiura.message.experiment2", directory);
+//	// System.out.print(generate.toString().split("\n").length);
+//	 System.out.print(generate.toString());
+//	 }
 
 }

@@ -65,9 +65,9 @@ public class Project {
 		}
 		return scenarios;
 	}
-
-	public String getScenario() throws IOException {
-		return new Scenario(directory,getDefaultDir()).getDocument();
+	
+	public Scenario getScenario() {
+		return new Scenario(directory,getDefaultDir());
 	}
 
 	public void write(byte[] data) throws IOException {

@@ -1,4 +1,4 @@
-package net.douglashiura.leb.uid.scenario.measures.uniform.values;
+package net.douglashiura.leb.uid.scenario.measures.uniform;
 
 import java.io.IOException;
 import java.util.HashMap;

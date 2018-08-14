@@ -28,7 +28,11 @@ example.PropertyPane = Class.extend({
 	},
 
 	shows : function(figure) {
-		if (figure instanceof br.ufsc.leb.uid.scenario.Interacao
+		if (figure instanceof draw2d.shape.icon.Fork) {
+			this.templateView = new FunctionalDataAnnotations({
+				model : figure
+			});
+		} else if (figure instanceof br.ufsc.leb.uid.scenario.Interacao
 				|| figure instanceof br.ufsc.leb.uid.scenario.Transaction) {
 			this.templateView = new FunctionalDataInteractionView({
 				model : figure
