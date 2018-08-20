@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+  
+ 
+ 
+  <extension
+         point="org.eclipse.debug.ui.launchShortcuts">
+      <shortcut
+            label="Scenario"
+            icon="icons/us.gif"
+            modes="run, debug"
+            class="net.douglashiura.usuid.plugin.tiggres.Run"
+            id="net.douglashiura.usuid.shortCut">
+         <contextualLaunch>
+           <enablement>
+             <with variable="selection">
+               <count value="1"/>
+               <iterate>
+                 <or>
+                 	<test property="org.eclipse.debug.ui.matchesPattern" value="*.us"/>
+                 	<test property="org.eclipse.jdt.launching.isContainer"/>
+                 </or>
+               </iterate>
+             </with>
+           </enablement>
+  		 </contextualLaunch>
+      </shortcut>
+	</extension>
+	
+	
+   <extension point="org.eclipse.ui.views">
+		<category
+			name="Scenario"
+			id="view.Scenario">
+		</category>
+		<view
+			category="view.Scenario"
+			name="Scenario"
+			class="net.douglashiura.usuid.plugin.editor.ScenarioView"
+			id="view.HelloWorldView">
+		</view>
+	</extension>
+   
+    <extension
+          point="org.eclipse.ui.views">
+       <category
+             name="Scenario"
+             id="view.Scenario">
+       </category>
+       <view
+             category="view.Scenario"
+             class="net.douglashiura.usuid.plugin.view.ViewTests"
+             id="view.ViewTests"
+             name="Tests">
+       </view>
+    </extension>
+</plugin>
