@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/feature_usuid_1.0.0.201803261707.jar" id="feature_usuid" version="1.0.0.201803261707">
+      <category name="Test"/>
+   </feature>
+   <category-def name="Test" label="Test"/>
+</site>
