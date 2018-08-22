@@ -1,0 +1,340 @@
+[
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "7b2fecd3-b569-d7c3-c3b4-f7e115656f9d",
+    "x": 475,
+    "y": 485,
+    "width": 50,
+    "height": 50,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "ConfiguracaoDeAplicarTipoSancaoEntregaParcial"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "output0",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "e32eeb60-bad0-0920-4e24-ab6f79acb8ac",
+    "x": 308,
+    "y": 88,
+    "width": 382,
+    "height": 137,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "input0",
+        "port": "draw2d.InputPort",
+        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "6f2140e9-f8b8-400b-6874-300b90f47360",
+    "x": 342,
+    "y": 138,
+    "width": 330,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "e32eeb60-bad0-0920-4e24-ab6f79acb8ac",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "O tipo de sanção \"ENTREGA PARCIAL\" não foi removido",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "x": 293,
+    "y": 283,
+    "width": 413,
+    "height": 155,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "output0",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
+      },
+      {
+        "name": "input0",
+        "port": "draw2d.InputPort",
+        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "e2e919a2-68d0-23de-fa16-345167adce99",
+    "x": 366,
+    "y": 310,
+    "width": 110,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "Tipo de sanção",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "30f936cb-da71-b4de-fdfa-46be45152d26",
+    "x": 554,
+    "y": 308,
+    "width": 50,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "Código",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "3f78ecba-f253-c5b5-01f1-e03ec68ac8e2",
+    "x": 369,
+    "y": 339,
+    "width": 96,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "ADVERTÊNCIA",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "9e3f04bb-dbdb-91c1-4acf-fc82fde4240a",
+    "x": 558,
+    "y": 339,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "1",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "2d269610-931e-3697-43a5-8823e2ac179c",
+    "x": 357,
+    "y": 371,
+    "width": 126,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "ENTREGA PARCIAL",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "72701bb3-be4b-51c0-9485-5c37933597f1",
+    "x": 555,
+    "y": 374,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "9",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.UserInput",
+    "id": "f8dcc73c-e28d-add8-ab4f-653657519937",
+    "x": 432,
+    "y": 284,
+    "width": 117.01667022705078,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_UserInput",
+    "composite": "8280e623-46a0-929b-2281-f6b6c45c2602",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#1B1B1B",
+    "stroke": 1,
+    "radius": 0,
+    "text": "ENTREGA PARCIAL, 2",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#080808",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Transaction",
+    "id": "7e4831fa-10c2-f3d4-36dc-9f9fcdc938e7",
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
+    "stroke": 1,
+    "color": "#1B1B1B",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+    "router": "draw2d.layout.connection.DirectRouter",
+    "radius": 2,
+    "source": {
+      "node": "8280e623-46a0-929b-2281-f6b6c45c2602",
+      "port": "output0"
+    },
+    "target": {
+      "node": "e32eeb60-bad0-0920-4e24-ab6f79acb8ac",
+      "port": "input0"
+    }
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Transaction",
+    "id": "b0eca5ef-4aa3-8b61-7319-16f4518ea669",
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
+    "stroke": 1,
+    "color": "#1B1B1B",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+    "router": "draw2d.layout.connection.DirectRouter",
+    "radius": 2,
+    "source": {
+      "node": "7b2fecd3-b569-d7c3-c3b4-f7e115656f9d",
+      "port": "output0"
+    },
+    "target": {
+      "node": "8280e623-46a0-929b-2281-f6b6c45c2602",
+      "port": "input0"
+    }
+  }
+]

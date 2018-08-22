@@ -1,0 +1,285 @@
+[
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "x": 171,
+    "y": 277,
+    "width": 524,
+    "height": 181,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "output0",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "669526ad-ad0a-93bf-917f-63c33291921c",
+    "x": 473,
+    "y": 381,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "9",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "09252c50-ce12-a2cf-7d12-5ed67e3bacd8",
+    "x": 277,
+    "y": 384,
+    "width": 111,
+    "height": 24,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "ENTREGA PARCIAL",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.UserInput",
+    "id": "16945706-0d52-5dc6-aa33-466fda762376",
+    "x": 389,
+    "y": 279,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_UserInput",
+    "composite": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#1B1B1B",
+    "stroke": 1,
+    "radius": 0,
+    "text": "ADVERTÊNCIA,1",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#080808",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "4699523a-5717-5481-da96-485a2c61719f",
+    "x": 477,
+    "y": 348,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "1",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "250baecf-f2c0-7996-f868-2a7665cbc196",
+    "x": 291,
+    "y": 354,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "ADVERTÊNCIA",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "f71dec2d-990f-3947-c96d-30bea153089a",
+    "x": 473,
+    "y": 314,
+    "width": 43,
+    "height": 23,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "Código",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "ce3b84b5-9fbc-4cc7-834c-3a4cc0decb07",
+    "x": 290,
+    "y": 318,
+    "width": 110,
+    "height": 24,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "Tipo de sanção",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "6d8c40ed-111f-5a7f-a9ec-a40a193d7cbb",
+    "x": 231,
+    "y": 109,
+    "width": 397,
+    "height": 123,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "input0",
+        "port": "draw2d.InputPort",
+        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.SystemOutput",
+    "id": "68505546-32fe-bbcf-6a95-f5c68b87c363",
+    "x": 296,
+    "y": 150,
+    "width": 289,
+    "height": 26,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
+    "composite": "6d8c40ed-111f-5a7f-a9ec-a40a193d7cbb",
+    "ports": [],
+    "bgColor": "none",
+    "color": "#FFFFFF",
+    "stroke": 1,
+    "radius": 0,
+    "text": "O tipo de sanção \"ADVERTÊNCIA\" foi removido",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "fontSize": 12,
+    "fontColor": "#000000",
+    "fontFamily": null
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Transaction",
+    "id": "d3c95ed8-7e92-4715-e35b-7f08c621dc5f",
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
+    "stroke": 1,
+    "color": "#1B1B1B",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+    "router": "draw2d.layout.connection.DirectRouter",
+    "radius": 2,
+    "source": {
+      "node": "459ac1c2-bb40-83df-2f56-1cdc090e673e",
+      "port": "output0"
+    },
+    "target": {
+      "node": "6d8c40ed-111f-5a7f-a9ec-a40a193d7cbb",
+      "port": "input0"
+    }
+  }
+]
