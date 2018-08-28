@@ -35,8 +35,8 @@
 		</table>
 	</form>
 	<br />
-	<form action="updateUserScenario" method="post">
-		<h2>Update User Scenario</h2>
+	<form action="newVersion" method="post">
+		<h2>New version</h2>
 		<table style="padding-left: 50px;">
 			<tbody>
 				<tr>
@@ -46,7 +46,8 @@
 							<%
 								List<Scenario> list = new BeanScenario().getScenarios();
 								for (Scenario scenario : list) {
-									out.println("<option value=\""+scenario.getVirtualName()+"\">"+scenario.getVirtualName()+"</option>");
+									out.println("<option value=\""+scenario.getVirtualName()+
+											"\">"+scenario.getVirtualName()+"</option>");
 								}
 							%>
 
@@ -63,7 +64,7 @@
 				</tr>
 				<tr>
 					<td></td>
-					<td><button>Update scenario</button></td>
+					<td><button>New version</button></td>
 				</tr>
 			</tbody>
 		</table>

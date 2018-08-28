@@ -14,8 +14,8 @@ import net.douglashiura.leb.uid.scenario.data.Folder;
 import net.douglashiura.leb.uid.scenario.data.Project;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 
-@WebServlet("/updateUserScenario")
-public class WebUpdateUserScenario extends HttpServlet {
+@WebServlet("/newVersion")
+public class WebNewVersion extends HttpServlet {
 	private static final String SELECT_SCENARIO = "selectScenario";
 	private static final long serialVersionUID = 1L;
 	private static final String NAME = "scenario";
@@ -47,7 +47,7 @@ public class WebUpdateUserScenario extends HttpServlet {
 				"    \"userData\": { \r\n" +
 				"      \"anotacoes\": [\r\n" +
 				"        {\r\n" +
-				"	       \"comentario\": \"US-UID de origem: " + scenario.getName() + "\",\r\n" +
+				"	       \"comentario\": \"US-UID of origin: " + scenario.getName() + "\",\r\n" +
 				"	       \"data\": \"" + data + "\"\r\n" +
 				"        }\r\n" +
 				"      ]\r\n" +
