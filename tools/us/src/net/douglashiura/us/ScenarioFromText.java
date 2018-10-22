@@ -4,10 +4,16 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 
-public class UScenario {
+import net.douglashiura.us.run.UInput;
+import net.douglashiura.us.run.UInteraction;
+import net.douglashiura.us.run.UOutput;
+import net.douglashiura.us.run.UTransaction;
+
+public class ScenarioFromText {
 
 	private static final Object INTERACTION = "br.ufsc.leb.uid.scenario.Interacao";
 	private static final Object OUTPUT = "br.ufsc.leb.uid.scenario.SystemOutput";
@@ -18,11 +24,11 @@ public class UScenario {
 	private UInteraction first;
 
 	@SuppressWarnings("unchecked")
-	public UScenario(String text) {
+	public ScenarioFromText(String text) {
 		Gson gson = new Gson();
 		this.elements = gson.fromJson(text, List.class);
 		this.interactions = new HashMap<String, UInteraction>();
-		extractInteractons();
+		extractInteractions();
 		extractInputs();
 		extractOutputs();
 		extractTransaction();
@@ -31,23 +37,22 @@ public class UScenario {
 
 	private UInteraction extractFirstState() {
 		Collection<UInteraction> states = interactions.values();
-		for (UInteraction aState : states) {
-			if (nonArrival(aState)) {
-				return aState;
+		for (UInteraction state : states) {
+			if (nonArrival(state)) {
+				return state;
 			}
 		}
 		return null;
 	}
 
 	private boolean nonArrival(UInteraction nonTarget) {
-		for (UInteraction aState : interactions.values()) {
-			UTransaction transaction = aState.getTransaction();
+		for (UInteraction state : interactions.values()) {
+			UTransaction transaction = state.getTransaction();
 			if (transaction != null && nonTarget.equals(transaction.getTarget())) {
 				return false;
 			}
 		}
 		return true;
-
 	}
 
 	private void extractOutputs() {
@@ -88,7 +93,7 @@ public class UScenario {
 		return object.get("text").toString();
 	}
 
-	public void extractInteractons() {
+	public void extractInteractions() {
 		for (Map<String, ?> object : elements) {
 			if (INTERACTION.equals(object.get("type"))) {
 				interactions.put(object.get("id").toString(), build(object));
@@ -100,8 +105,8 @@ public class UScenario {
 		return new UInteraction(extractId(object), extractModel(object));
 	}
 
-	private static String extractId(Map<String, ?> object) {
-		return object.get("id").toString();
+	private static UUID extractId(Map<String, ?> object) {
+		return UUID.fromString(object.get("id").toString());
 	}
 
 	private static String extractModel(Map<String, ?> object) {

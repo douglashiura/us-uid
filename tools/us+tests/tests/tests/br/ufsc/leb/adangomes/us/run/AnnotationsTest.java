@@ -1,13 +1,14 @@
-package test.net.douglashiura.us;
+package tests.br.ufsc.leb.adangomes.us.run;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import net.douglashiura.us.Annotations;
 import net.douglashiura.us.Fixture;
+import net.douglashiura.us.run.Annotations;
+
 @Fixture("Exemplo")
-public class TestAnnotations {
+public class AnnotationsTest {
 
 	@Test
 	public void selfAnnotation() throws Exception {

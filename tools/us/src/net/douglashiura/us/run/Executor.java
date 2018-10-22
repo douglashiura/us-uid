@@ -1,4 +1,4 @@
-package net.douglashiura.us;
+package net.douglashiura.us.run;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -6,12 +6,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.UUID;
 
 import net.douglashiura.picon.ProblemaDeCompilacaoException;
+import net.douglashiura.us.ExceptionInExecution;
+import net.douglashiura.us.ScenarioFromText;
 import net.douglashiura.us.picon.PiconWithUsuid;
-import net.douglashiura.us.serial.Input;
+import net.douglashiura.us.serial.InputFile;
 import net.douglashiura.us.serial.Result;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.serial.Results;
 
 public class Executor {
 
@@ -31,14 +34,14 @@ public class Executor {
 			firstState.execute(this);
 			message(null, Results.END, null);
 		} catch (ExceptionInExecution e) {
-			message(e.getId(), e.getResult(), e.getMensagem());
+			message(e.getUuid(), e.getResult(), e.getMessage());
 		}
 		write.flush();
 	}
 
-	public void message(String id, Results result, String actual) {
+	public void message(UUID uuid, Results result, String actual) {
 		try {
-			write.writeObject(new Result(id, result, actual));
+			write.writeObject(new Result(uuid, result, actual));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -48,11 +51,11 @@ public class Executor {
 		Socket client = new Socket("localhost", 6969);
 		ObjectInputStream entrada = new ObjectInputStream(client.getInputStream());
 		ObjectOutputStream inputStream = new ObjectOutputStream(client.getOutputStream());
-		Input message;
+		InputFile message;
 		try {
-			while ((message = (Input) entrada.readObject()) != null) {
+			while ((message = (InputFile) entrada.readObject()) != null) {
 				Executor executor = new Executor(inputStream);
-				executor.execute(new UScenario(message.getContent()).firstState());
+				executor.execute(new ScenarioFromText(message.getContent()).firstState());
 			}
 		} catch (EOFException terminouAntes) {
 

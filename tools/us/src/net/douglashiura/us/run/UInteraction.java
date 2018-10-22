@@ -1,37 +1,40 @@
-package net.douglashiura.us;
+package net.douglashiura.us.run;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import net.douglashiura.picon.ProblemaDeCompilacaoException;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.ExceptionInExecution;
+import net.douglashiura.us.UtilsLog;
+import net.douglashiura.us.serial.Results;
 
 public class UInteraction {
-	private String model;
+	private String fixtureName;
 	private UTransaction transaction;
 	private List<UInput> inputs;
 	private List<UOutput> outputs;
-	private String id;
+	private UUID uuid;
 
-	public UInteraction(String id, String model) {
-		this.id = id;
-		this.model = model;
+	public UInteraction(UUID uuid, String fixtureName) {
+		this.uuid = uuid;
+		this.fixtureName = fixtureName;
 		this.inputs = new ArrayList<>();
 		this.outputs = new ArrayList<>();
 	}
 
-	public String getModel() {
-		return model;
+	public String getFixtureName() {
+		return fixtureName;
 	}
 
 	public void execute(Executor executor) throws ExceptionInExecution {
 		Object instance = null;
 		try {
-			Class<?> klass = Annotations.getFixture(model);
+			Class<?> klass = Annotations.getFixture(fixtureName);
 			instance = klass.newInstance();
-			executor.message(id, Results.OK, null);
+			executor.message(uuid, Results.OK, null);
 			executor.getPicon().settings(instance);
 		} catch (InstantiationException | IllegalAccessException | NullPointerException | IOException
 				| ClassNotFoundException | IllegalArgumentException | URISyntaxException
@@ -39,7 +42,7 @@ public class UInteraction {
 			String msg = e.getMessage();
 			if (msg == null || "".equals(msg))
 				msg = UtilsLog.toString(e);
-			throw new ExceptionInExecution(id, Results.ERRO, msg);
+			throw new ExceptionInExecution(uuid, Results.ERROR, msg);
 		}
 		for (UOutput aOutput : outputs)
 			aOutput.execute(instance, executor);
@@ -75,8 +78,8 @@ public class UInteraction {
 		outputs.add(output);
 	}
 
-	public String getId() {
-		return id;
+	public UUID getUuid() {
+		return uuid;
 	}
 
 }

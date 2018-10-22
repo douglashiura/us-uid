@@ -1,4 +1,4 @@
-package net.douglashiura.us;
+package net.douglashiura.us.run;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.douglashiura.us.Fixture;
+
 public class Annotations {
+
 	private static Map<String, Class<?>> map = new HashMap<String, Class<?>>();
 
 	public static Class<?> getFixture(String name) throws IOException, ClassNotFoundException, URISyntaxException {
@@ -48,14 +51,14 @@ public class Annotations {
 
 	private static void read(File file, List<Class<?>> classes, String relative) throws ClassNotFoundException, IOException {
 		Class<?> classe;
-		if (file.isFile() && ((classe = getCLassAnnoted(file,relative)) != null))
+		if (file.isFile() && ((classe = getCLassAnnotation(file,relative)) != null))
 			classes.add(classe);
 		if (file.isDirectory())
 			for (File filho : file.listFiles())
 				read(filho, classes, relative);
 	}
 
-	private static Class<?> getCLassAnnoted(File file, String relative) throws ClassNotFoundException, IOException {
+	private static Class<?> getCLassAnnotation(File file, String relative) throws ClassNotFoundException, IOException {
 		if (file.getName().endsWith(".class")) {
 			String name = file.getAbsolutePath().replace(relative, "").replace(".class", "").replace("/", ".");
 			Class<?> klass = Class.forName(name);
