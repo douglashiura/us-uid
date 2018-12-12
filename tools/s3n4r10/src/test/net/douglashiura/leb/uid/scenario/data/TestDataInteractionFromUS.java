@@ -6,9 +6,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.Interaction;
 import net.douglashiura.leb.uid.scenario.ml.data.DataInteraction;
 import net.douglashiura.leb.uid.scenario.ml.data.DataInteractionFromUS;
+import net.douglashiura.us.Interaction;
 
 public class TestDataInteractionFromUS {
 

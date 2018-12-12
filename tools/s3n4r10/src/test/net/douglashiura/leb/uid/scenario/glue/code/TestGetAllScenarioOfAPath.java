@@ -7,8 +7,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.Interaction;
 import net.douglashiura.leb.uid.scenario.glue.code.GetAllScenariosOfAPath;
+import net.douglashiura.us.Interaction;
 import test.net.douglashiura.leb.uid.scenario.measures.uniform.TestUniformValues;
 
 public class TestGetAllScenarioOfAPath {

@@ -3,10 +3,10 @@ package net.douglashiura.leb.uid.scenario.ml.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
 import net.douglashiura.leb.uid.scenario.ml.data.Data.Type;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
 
 public class DataFromUS {
 	private List<Data> instances;
@@ -52,7 +52,7 @@ public class DataFromUS {
 			instance.setOutputs(first.getOutputs().size());
 			instance.setElements(first.getInputs().size() + first.getOutputs().size());
 			instance.setValue(output.getValue());
-			String fixture = output.getFixture();
+			String fixture = output.getFixtureName();
 			fixture = fixture != null && fixture.isEmpty() ? null : fixture;
 			instance.setFixture(fixture);
 			instance.setType(Type.OUTPUT);
@@ -74,7 +74,7 @@ public class DataFromUS {
 			instance.setOutputs(first.getOutputs().size());
 			instance.setElements(first.getInputs().size() + first.getOutputs().size());
 			instance.setValue(input.getValue());
-			String fixture = input.getFixture();
+			String fixture = input.getFixtureName();
 			fixture = fixture != null && fixture.isEmpty() ? null : fixture;
 			instance.setFixture(fixture);
 			instance.setType(Type.INPUT);

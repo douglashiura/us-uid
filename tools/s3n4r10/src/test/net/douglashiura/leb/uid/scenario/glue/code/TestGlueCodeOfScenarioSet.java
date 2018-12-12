@@ -7,8 +7,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.Interaction;
 import net.douglashiura.leb.uid.scenario.glue.code.GlueCodeOfScenarioSet;
+import net.douglashiura.us.Interaction;
 
 public class TestGlueCodeOfScenarioSet {
 

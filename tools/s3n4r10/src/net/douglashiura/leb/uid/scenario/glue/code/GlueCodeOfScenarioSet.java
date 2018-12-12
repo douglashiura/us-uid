@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.douglashiura.leb.uid.scenario.Interaction;
+import net.douglashiura.us.Interaction;
 
 public class GlueCodeOfScenarioSet {
 

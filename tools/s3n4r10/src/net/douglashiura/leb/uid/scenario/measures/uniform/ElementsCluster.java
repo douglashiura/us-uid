@@ -3,9 +3,9 @@ package net.douglashiura.leb.uid.scenario.measures.uniform;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
 
 public class ElementsCluster {
 	private List<Input> inputs;

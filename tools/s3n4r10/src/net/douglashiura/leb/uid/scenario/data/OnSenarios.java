@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
 import net.douglashiura.leb.uid.scenario.ScenarioFromText;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
 
 public class OnSenarios {
 
@@ -41,11 +41,11 @@ public class OnSenarios {
 	private void loadElements(Interaction interacao, String usuid) {
 		List<Input> inputs = interacao.getInputs();
 		for (Input input : inputs) {
-			elements.add(new Element(usuid, Element.Type.INPUT, input.getValue(), input.getFixture()));
+			elements.add(new Element(usuid, Element.Type.INPUT, input.getValue(), input.getFixtureName()));
 		}
 		List<Output> outputs = interacao.getOutputs();
 		for (Output output : outputs) {
-			elements.add(new Element(usuid, Element.Type.OUTPUT, output.getValue(), output.getFixture()));
+			elements.add(new Element(usuid, Element.Type.OUTPUT, output.getValue(), output.getFixtureName()));
 		}
 		if (interacao.getTransaction() != null && interacao.getTransaction().getTarget() != null) {
 			loadElements(interacao.getTransaction().getTarget(), usuid);

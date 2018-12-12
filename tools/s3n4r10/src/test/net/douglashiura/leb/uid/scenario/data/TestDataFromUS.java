@@ -6,11 +6,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
 import net.douglashiura.leb.uid.scenario.ml.data.Data;
 import net.douglashiura.leb.uid.scenario.ml.data.DataFromUS;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
 
 public class TestDataFromUS {
 

@@ -7,6 +7,11 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
+import net.douglashiura.us.Transaction;
+
 public class ScenarioFromText {
 
 	private static final Object INTERACTION = "br.ufsc.leb.uid.scenario.Interacao";
@@ -16,15 +21,15 @@ public class ScenarioFromText {
 	private HashMap<String, Interaction> interactions;
 	private List<Map<String, ?>> elements;
 	private Interaction first;
-	private String origem;
+	private String origin;
 
 	@SuppressWarnings("unchecked")
 	public ScenarioFromText(String text,String scenarioName) {
-		this.origem = scenarioName;
+		this.origin = scenarioName;
 		Gson gson = new Gson();
 		this.elements = gson.fromJson(text, List.class);
 		this.interactions = new HashMap<String, Interaction>();
-		extractInteractons();
+		extractInteractions();
 		extractInputs();
 		extractOutputs();
 		extractTransaction();
@@ -90,7 +95,7 @@ public class ScenarioFromText {
 		return object.get("text").toString();
 	}
 
-	private void extractInteractons() {
+	private void extractInteractions() {
 		try {
 			for (Map<String, ?> object : elements) {
 				if (INTERACTION.equals(object.get("type"))) {
@@ -98,7 +103,7 @@ public class ScenarioFromText {
 				}
 			}
 		} catch (NullPointerException e) {
-			throw new RuntimeException("Erro:"+origem);
+			throw new RuntimeException("Erro:"+origin);
 		}
 	}
 

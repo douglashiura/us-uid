@@ -6,9 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
 
 public class ClassTemplate {
 
@@ -61,7 +61,7 @@ public class ClassTemplate {
 		Set<String> methodsList = new HashSet<>();
 		for (Interaction interaction : interactions) {
 			for (Output output : interaction.getOutputs()) {
-				methodsList.add(output.getFixture());
+				methodsList.add(output.getFixtureName());
 			}
 		}
 		for (String string : emOrdem(methodsList)) {
@@ -83,7 +83,7 @@ public class ClassTemplate {
 		Set<String> methodsList = new HashSet<>();
 		for (Interaction interaction : interactions) {
 			for (Input input : interaction.getInputs()) {
-				methodsList.add(input.getFixture());
+				methodsList.add(input.getFixtureName());
 			}
 		}
 		for (String string : emOrdem(methodsList)) {

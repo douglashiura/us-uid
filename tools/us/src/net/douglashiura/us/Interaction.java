@@ -31,9 +31,9 @@ public class Interaction {
 		return transaction;
 	}
 
-	public void setTransaction(Transaction transaction) {
-		this.transaction = transaction;
-	}
+	public void to(Interaction destination, UUID transactionUuid) {
+		this.transaction = new Transaction(transactionUuid, this, destination);		
+	}	
 
 	public List<Input> getInputs() {
 		return inputs;
@@ -52,8 +52,5 @@ public class Interaction {
 		outputs.add(output);
 	}
 
-	public void to(Interaction destination, UUID transactionUuid) {
-		this.transaction = new Transaction(transactionUuid, this, destination);		
-	}	
 
 }

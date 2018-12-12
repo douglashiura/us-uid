@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
 
 public class FixtureSharedMeasures {
 
@@ -35,17 +35,17 @@ public class FixtureSharedMeasures {
 			statesMap.get(interaction.getFixture()).add(interaction);
 		}
 		for (Input input : inputs) {
-			inputsMap.put(input.getFixture(), new ArrayList<>());
+			inputsMap.put(input.getFixtureName(), new ArrayList<>());
 		}
 		for (Input input : inputs) {
-			inputsMap.get(input.getFixture()).add(input);
+			inputsMap.get(input.getFixtureName()).add(input);
 		}
 
 		for (Output output : outputs) {
-			outputsMap.put(output.getFixture(), new ArrayList<>());
+			outputsMap.put(output.getFixtureName(), new ArrayList<>());
 		}
 		for (Output output : outputs) {
-			outputsMap.get(output.getFixture()).add(output);
+			outputsMap.get(output.getFixtureName()).add(output);
 		}
 	}
 

@@ -1,6 +1,6 @@
 package net.douglashiura.leb.uid.scenario.measures.uniform;
 
-import net.douglashiura.leb.uid.scenario.Interaction;
+import net.douglashiura.us.Interaction;
 
 public class AbsoluteUniformity {
 	private ElementsCluster clusterA;

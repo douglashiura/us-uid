@@ -7,11 +7,11 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
-import net.douglashiura.leb.uid.scenario.Transaction;
 import net.douglashiura.leb.uid.scenario.glue.code.ClassTemplate;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
+import net.douglashiura.us.Transaction;
 
 public class TestGlueCodeOfAnInterection {
 
