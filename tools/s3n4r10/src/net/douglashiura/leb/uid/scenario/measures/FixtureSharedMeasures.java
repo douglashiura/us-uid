@@ -29,10 +29,10 @@ public class FixtureSharedMeasures {
 			read(scenario);
 		}
 		for (Interaction interaction : states) {
-			statesMap.put(interaction.getFixture(), new ArrayList<>());
+			statesMap.put(interaction.getFixtureName(), new ArrayList<>());
 		}
 		for (Interaction interaction : states) {
-			statesMap.get(interaction.getFixture()).add(interaction);
+			statesMap.get(interaction.getFixtureName()).add(interaction);
 		}
 		for (Input input : inputs) {
 			inputsMap.put(input.getFixtureName(), new ArrayList<>());

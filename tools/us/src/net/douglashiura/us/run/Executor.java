@@ -29,7 +29,7 @@ public class Executor {
 		}
 	}
 
-	public void execute(UInteraction firstState) throws UnknownHostException, IOException {
+	public void execute(InteractionRunner firstState) throws UnknownHostException, IOException {
 		try {
 			firstState.execute(this);
 			message(null, Results.END, null);

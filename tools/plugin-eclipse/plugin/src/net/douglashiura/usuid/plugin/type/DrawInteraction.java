@@ -8,13 +8,13 @@ import org.eclipse.swt.graphics.GC;
 public abstract class DrawInteraction implements Rateable {
 	private java.awt.Color cor = java.awt.Color.BLACK;
 
-	abstract List<Input> getInputs();
+	abstract List<InputGeometry> getInputs();
 
 	abstract Geometry getGeometry();
 
-	abstract List<Output> getOutputs();
+	abstract List<OutputGeometry> getOutputs();
 
-	abstract Transaction getTransaction();
+	abstract TransactionGeometry getTransaction();
 
 
 	public void draw(GC gc) {
@@ -34,12 +34,12 @@ public abstract class DrawInteraction implements Rateable {
 	}
 
 	private void drawOutputs(GC gc) {
-		for (Output output : getOutputs())
+		for (OutputGeometry output : getOutputs())
 			output.draw(gc);
 	}
 
 	private void drawInputs(GC gc) {
-		for (Input input : getInputs())
+		for (InputGeometry input : getInputs())
 			input.draw(gc);
 	}
 

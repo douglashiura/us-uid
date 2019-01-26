@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.CoreException;
 import net.douglashiura.us.project.Elements;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Result.Results;
-import net.douglashiura.usuid.plugin.type.Interaction;
+import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.plugin.type.Scenario;
 import net.douglashiura.usuid.plugin.view.Runner;
@@ -24,7 +24,7 @@ public class FileScenario {
 	private IFile member;
 	private List<Result> results;
 	private Map<String, Rateable> elements = null;
-	private Interaction scenario;
+	private InteractionGeometry scenario;
 	private String text;
 	private Notificable notificable;
 
@@ -37,7 +37,7 @@ public class FileScenario {
 		return member.getProjectRelativePath().toString();
 	}
 
-	public Interaction getScenario() throws IOException, CoreException {
+	public InteractionGeometry getScenario() throws IOException, CoreException {
 		if (text == null) {
 			text = read();
 			scenario = new Scenario(text).firstState();

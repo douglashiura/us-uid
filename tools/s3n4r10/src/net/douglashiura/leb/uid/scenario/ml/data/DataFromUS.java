@@ -47,7 +47,7 @@ public class DataFromUS {
 			instance.setStartDistance(interactionsRead);
 			instance.setEndDistance(interactionsForRead);
 			instance.setDeep(deep);
-			instance.setId(first.getId());
+			instance.setUuid(first.getUuid());
 			instance.setInputs(first.getInputs().size());
 			instance.setOutputs(first.getOutputs().size());
 			instance.setElements(first.getInputs().size() + first.getOutputs().size());
@@ -69,7 +69,7 @@ public class DataFromUS {
 			instance.setStartDistance(interactionsRead);
 			instance.setEndDistance(interactionsForRead);
 			instance.setDeep(deep);
-			instance.setId(first.getId());
+			instance.setUuid(first.getUuid());
 			instance.setInputs(first.getInputs().size());
 			instance.setOutputs(first.getOutputs().size());
 			instance.setElements(first.getInputs().size() + first.getOutputs().size());

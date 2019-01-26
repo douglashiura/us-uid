@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.google.gson.Gson;
 
@@ -75,8 +76,7 @@ public class ScenarioFromText {
 				Object target = ((Map<String, ?>) object.get("target")).get("node");
 				Interaction aSource = interactions.get(source);
 				Interaction aTarget = interactions.get(target);
-				Transaction transaction = new Transaction(extractId(object), aSource, aTarget);
-				aSource.setTransaction(transaction);
+				aSource.setTransaction(new Transaction(extractId(object), aSource, aTarget) );
 			}
 		}
 	}
@@ -111,8 +111,8 @@ public class ScenarioFromText {
 		return new Interaction(extractId(object), extractModel(object));
 	}
 
-	private static String extractId(Map<String, ?> object) {
-		return object.get("id").toString();
+	private static UUID extractId(Map<String, ?> object) {
+		return UUID.fromString(object.get("id").toString());
 	}
 
 	private static String extractModel(Map<String, ?> object) {

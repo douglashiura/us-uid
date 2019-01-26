@@ -31,7 +31,7 @@ public class ClassTemplate {
 							+ "\n}";
 
 		return klassTemplate.replace("{PACKAGE}", _package)
-				.replace("{FIXTURE_NAME}", interactions.get(0).getFixture())
+				.replace("{FIXTURE_NAME}", interactions.get(0).getFixtureName())
 				.replace("{METHODS}", mountMethods());
 	}
 
@@ -45,7 +45,7 @@ public class ClassTemplate {
 		Set<String> methodsList = new HashSet<>();
 		for (Interaction interaction : interactions) {
 			if (interaction.getTransaction() != null) {
-				methodsList.add(interaction.getTransaction().getTarget().getFixture());
+				methodsList.add(interaction.getTransaction().getTarget().getFixtureName());
 			}
 		}
 		for (String string : methodsList) {
