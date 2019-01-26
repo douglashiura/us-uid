@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import net.douglashiura.us.CamelCase;
 
-public class TesteCamelCase {
+public class TestCamelCase {
 
 	@Test
 	public void camel() throws Exception {

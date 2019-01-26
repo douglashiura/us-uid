@@ -128,10 +128,6 @@ br.ufsc.leb.uid.scenario.Interacao = draw2d.shape.composite.Jailhouse.extend({
 		var ligacao = new br.ufsc.leb.uid.scenario.Transaction();
 		ligacao.installConnection(this, source);
 		canvas.addFigure(ligacao);
-	},
-
-	evaluate : function(evaluator, result) {
-		evaluator.evaluateInteraction(this, result);
 	}
 });
 
@@ -151,8 +147,10 @@ br.ufsc.leb.uid.scenario.Transaction = draw2d.Connection
 			installConnection : function(source, target) {
 				target.createPort("input",
 						new br.ufsc.leb.uid.scenario.TargetLocator());
-				source.createPort("output",
-						new br.ufsc.leb.uid.scenario.ResourceLocator());
+				if(source.getOutputPort(0)==null){
+					source.createPort("output",
+							new br.ufsc.leb.uid.scenario.ResourceLocator());				
+				}
 				this.setSource(source.getOutputPort(0));
 				this.setTarget(target.getInputPort(0));
 			},

@@ -22,7 +22,7 @@ public abstract class AbstractType {
 		return geometry;
 	}
 
-	public String getFixture() {
+	public String getFixtureName() {
 		return model;
 	}
 

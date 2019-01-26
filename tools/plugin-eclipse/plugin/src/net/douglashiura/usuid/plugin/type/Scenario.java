@@ -44,7 +44,7 @@ public class Scenario {
 	private boolean nonArrival(InteractionGeometry nonTarget) {
 		for (InteractionGeometry aState : interactions.values()) {
 			TransactionGeometry transaction = aState.getTransaction();
-			if (transaction != null && nonTarget.equals(transaction.getTarget())) {
+			if (transaction != null && transaction.getTargets().contains(nonTarget)) {
 				return false;
 			}
 		}
@@ -55,33 +55,53 @@ public class Scenario {
 		for (LinkedTreeMap<String, ?> object : elements) {
 			if (OUTPUT.equals(object.get("type"))) {
 				InteractionGeometry composite = interactions.get(object.get("composite").toString());
-				OutputGeometry output = new OutputGeometry(extractId(object), extractGeometry(object), extractFixture(object),
-						extractValue(object));
+				OutputGeometry output = new OutputGeometry(extractId(object), extractGeometry(object),
+						extractFixture(object), extractValue(object));
 				composite.addOutput(output);
 			}
 		}
 	}
 
+	class InteractionGeometryId {
+		private String id;
+		private InteractionGeometry target;
+
+		public InteractionGeometryId(String id, InteractionGeometry target) {
+			this.id = id;
+			this.target = target;
+
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	private void extractTransaction() {
+		HashMap<InteractionGeometry, TransactionGeometry> transactions = new HashMap<>();
 		for (LinkedTreeMap<String, ?> object : elements) {
 			if (TRANSACTION.equals(object.get("type"))) {
 				Object source = ((LinkedTreeMap<String, ?>) object.get("source")).get("node");
 				Object target = ((LinkedTreeMap<String, ?>) object.get("target")).get("node");
 				InteractionGeometry aSource = interactions.get(source);
 				InteractionGeometry aTarget = interactions.get(target);
-				TransactionGeometry transaction = new TransactionGeometry(extractId(object), aSource, aTarget);
-				aSource.setTransaction(transaction);
+				TransactionGeometry transaction = null;
+				if (transactions.containsKey(source)) {
+					transaction = transactions.get(aSource);
+				} else {
+					transaction = new TransactionGeometry(extractId(object), aSource);
+					transactions.put(aSource, transaction);
+					aSource.setTransaction(transaction);
+				}
+				transaction.addTarget(aTarget);
 			}
 		}
+
 	}
 
 	private void extractInputs() {
 		for (LinkedTreeMap<String, ?> object : elements) {
 			if (INPUT.equals(object.get("type"))) {
 				InteractionGeometry composite = interactions.get(object.get("composite").toString());
-				InputGeometry input = new InputGeometry(extractId(object), extractGeometry(object), extractFixture(object),
-						extractValue(object));
+				InputGeometry input = new InputGeometry(extractId(object), extractGeometry(object),
+						extractFixture(object), extractValue(object));
 				composite.addInput(input);
 			}
 		}

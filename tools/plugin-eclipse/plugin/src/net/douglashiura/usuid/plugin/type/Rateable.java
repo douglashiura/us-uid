@@ -6,7 +6,7 @@ public interface Rateable {
 
 	void rate(Color color);
 
-	String getFixture();
+	String getFixtureName();
 	String getValue();
 
 	Class<?> getType();

@@ -180,7 +180,7 @@ public class ViewTests extends ViewPart {
 			@Override
 			public void run() {
 				saidaValor.setText(rateable.getValue());
-				saidaFixture.setText(rateable.getFixture());
+				saidaFixture.setText(rateable.getFixtureName());
 				saidaResultado.setText(result.getActual() == null ? "" : result.getActual());
 				resultado.layout();
 				saidaValor.getParent().layout();

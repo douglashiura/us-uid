@@ -23,7 +23,7 @@ public class InteractionGeometry extends DrawInteraction implements Rateable {
 		return geometry;
 	}
 
-	public String getFixture() {
+	public String getFixtureName() {
 		return model;
 	}
 

@@ -21,7 +21,7 @@ public class ItemResult extends TreeItem {
 		this.result = result;
 		String identification = "";
 		if (InteractionGeometry.class.equals(element.getType()) || TransactionGeometry.class.equals(element.getType()))
-			identification = element.getFixture();
+			identification = element.getFixtureName();
 		else
 			identification = element.getValue();
 		setText(String.format("(%s) %s", result.getResult(), identification));

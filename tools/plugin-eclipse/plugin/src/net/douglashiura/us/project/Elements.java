@@ -1,6 +1,7 @@
- package net.douglashiura.us.project;
+package net.douglashiura.us.project;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.douglashiura.usuid.plugin.type.InputGeometry;
@@ -11,7 +12,7 @@ import net.douglashiura.usuid.plugin.type.TransactionGeometry;
 
 public class Elements {
 
-	 public static Map<String, Rateable> from(InteractionGeometry firstState) {
+	public static Map<String, Rateable> from(InteractionGeometry firstState) {
 		HashMap<String, Rateable> map = new HashMap<String, Rateable>();
 		ofInteraction(firstState, map);
 		return map;
@@ -26,7 +27,10 @@ public class Elements {
 		if (firstState.getTransaction() != null) {
 			TransactionGeometry transaction = firstState.getTransaction();
 			map.put(transaction.getId(), transaction);
-			ofInteraction(transaction.getTarget(), map);
+			List<InteractionGeometry> transactions = transaction.getTargets();
+			for (InteractionGeometry interactionGeometry : transactions) {
+				ofInteraction(interactionGeometry, map);
+			}
 		}
 
 	}
