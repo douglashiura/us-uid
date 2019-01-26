@@ -1,26 +1,29 @@
 package net.douglashiura.us;
 
+import java.util.UUID;
+
 public abstract class AbstractType {
 
-	private String model;
+	private UUID uuid;
+	private String fixtureName;
 	private String value;
-	private String id;
 
-	public AbstractType(String id,String model, String value) {
-		this.id = id;
-		this.model = model;
+	public AbstractType(UUID uuid,String fixtureName, String value) {
+		this.uuid = uuid;
+		this.fixtureName = fixtureName;
 		this.value = value;
 	}
 
-	public String getModel() {
-		return model;
+	public UUID getUuid() {
+		return uuid;
 	}
-
-	public String getId() {
-		return id;
+	
+	public String getFixtureName() {
+		return fixtureName;
 	}
 	
 	public String getValue() {
 		return value;
 	}
+	
 }

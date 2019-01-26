@@ -4,8 +4,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.google.gson.Gson;
+
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
+import net.douglashiura.us.Transaction;
 
 public class ScenarioFromText {
 
@@ -16,15 +22,15 @@ public class ScenarioFromText {
 	private HashMap<String, Interaction> interactions;
 	private List<Map<String, ?>> elements;
 	private Interaction first;
-	private String origem;
+	private String origin;
 
 	@SuppressWarnings("unchecked")
 	public ScenarioFromText(String text,String scenarioName) {
-		this.origem = scenarioName;
+		this.origin = scenarioName;
 		Gson gson = new Gson();
 		this.elements = gson.fromJson(text, List.class);
 		this.interactions = new HashMap<String, Interaction>();
-		extractInteractons();
+		extractInteractions();
 		extractInputs();
 		extractOutputs();
 		extractTransaction();
@@ -70,8 +76,7 @@ public class ScenarioFromText {
 				Object target = ((Map<String, ?>) object.get("target")).get("node");
 				Interaction aSource = interactions.get(source);
 				Interaction aTarget = interactions.get(target);
-				Transaction transaction = new Transaction(extractId(object), aSource, aTarget);
-				aSource.setTransaction(transaction);
+				aSource.setTransaction(new Transaction(extractId(object), aSource, aTarget) );
 			}
 		}
 	}
@@ -90,7 +95,7 @@ public class ScenarioFromText {
 		return object.get("text").toString();
 	}
 
-	private void extractInteractons() {
+	private void extractInteractions() {
 		try {
 			for (Map<String, ?> object : elements) {
 				if (INTERACTION.equals(object.get("type"))) {
@@ -98,7 +103,7 @@ public class ScenarioFromText {
 				}
 			}
 		} catch (NullPointerException e) {
-			throw new RuntimeException("Erro:"+origem);
+			throw new RuntimeException("Erro:"+origin);
 		}
 	}
 
@@ -106,8 +111,8 @@ public class ScenarioFromText {
 		return new Interaction(extractId(object), extractModel(object));
 	}
 
-	private static String extractId(Map<String, ?> object) {
-		return object.get("id").toString();
+	private static UUID extractId(Map<String, ?> object) {
+		return UUID.fromString(object.get("id").toString());
 	}
 
 	private static String extractModel(Map<String, ?> object) {

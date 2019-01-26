@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import net.douglashiura.leb.uid.scenario.Interaction;
+import net.douglashiura.us.Interaction;
 
 public class GlueCodeGenerate {
 

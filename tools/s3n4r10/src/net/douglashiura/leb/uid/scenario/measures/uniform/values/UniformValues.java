@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
-import net.douglashiura.leb.uid.scenario.Input;
-import net.douglashiura.leb.uid.scenario.Interaction;
-import net.douglashiura.leb.uid.scenario.Output;
 import net.douglashiura.leb.uid.scenario.ScenarioFromText;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
+import net.douglashiura.us.Input;
+import net.douglashiura.us.Interaction;
+import net.douglashiura.us.Output;
 
 public class UniformValues {
 

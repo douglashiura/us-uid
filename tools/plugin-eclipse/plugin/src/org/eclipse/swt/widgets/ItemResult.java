@@ -4,9 +4,9 @@ import org.eclipse.swt.SWT;
 
 import net.douglashiura.us.project.util.FileScenario;
 import net.douglashiura.us.serial.Result;
-import net.douglashiura.usuid.plugin.type.Interaction;
+import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
-import net.douglashiura.usuid.plugin.type.Transaction;
+import net.douglashiura.usuid.plugin.type.TransactionGeometry;
 
 public class ItemResult extends TreeItem {
 
@@ -20,7 +20,7 @@ public class ItemResult extends TreeItem {
 		this.element = element;
 		this.result = result;
 		String identification = "";
-		if (Interaction.class.equals(element.getType()) || Transaction.class.equals(element.getType()))
+		if (InteractionGeometry.class.equals(element.getType()) || TransactionGeometry.class.equals(element.getType()))
 			identification = element.getFixture();
 		else
 			identification = element.getValue();

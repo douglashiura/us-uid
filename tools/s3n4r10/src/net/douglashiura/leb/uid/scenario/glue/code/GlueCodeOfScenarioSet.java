@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.douglashiura.leb.uid.scenario.Interaction;
+import net.douglashiura.us.Interaction;
 
 public class GlueCodeOfScenarioSet {
 
@@ -16,10 +16,10 @@ public class GlueCodeOfScenarioSet {
 		this._package = _package;
 		map = new HashMap<>();
 		for (Interaction interaction : interactions) {
-			map.put(interaction.getFixture(), new ArrayList<>());
+			map.put(interaction.getFixtureName(), new ArrayList<>());
 		}
 		for (Interaction interaction : interactions) {
-			map.get(interaction.getFixture()).add(interaction);
+			map.get(interaction.getFixtureName()).add(interaction);
 		}
 	}
 	public List<ClassTemplate> getClasses() {

@@ -3,7 +3,17 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/us+plugin"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/us"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/us+plugin"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/s3n4r10"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/gson-2.0.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/guava-19.0.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/reflections.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/SimMetrics.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/weka.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/xmlunit-core-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/xmlunit-legacy-2.5.0.jar"/>
+	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/xmlunit-matchers-2.5.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -1,0 +1,132 @@
+[
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "fb3c3058-9cd4-c5a9-a4fa-7029c0c1ddfd",
+    "x": 630,
+    "y": 139,
+    "width": 71,
+    "height": 66,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "target1"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "input0",
+        "port": "draw2d.InputPort",
+        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "80a90fdb-af47-454f-cc80-1f13995fe857",
+    "x": 481,
+    "y": 134,
+    "width": 65,
+    "height": 61,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "target2"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "input0",
+        "port": "draw2d.InputPort",
+        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Interacao",
+    "id": "11646ea2-5843-86d6-7fae-6800a7d7da2f",
+    "x": 540,
+    "y": 252,
+    "width": 84,
+    "height": 70,
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": "origin"
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
+    "ports": [
+      {
+        "name": "output0",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
+      },
+      {
+        "name": "output1",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
+      }
+    ],
+    "bgColor": "#F0F0F0",
+    "color": "#333333",
+    "stroke": 1,
+    "radius": 500
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Transaction",
+    "id": "1b10c7af-aa3e-04b7-89e2-e9350c6c938b",
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
+    "stroke": 1,
+    "color": "#1B1B1B",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+    "router": "draw2d.layout.connection.DirectRouter",
+    "radius": 2,
+    "source": {
+      "node": "11646ea2-5843-86d6-7fae-6800a7d7da2f",
+      "port": "output0"
+    },
+    "target": {
+      "node": "80a90fdb-af47-454f-cc80-1f13995fe857",
+      "port": "input0"
+    }
+  },
+  {
+    "type": "br.ufsc.leb.uid.scenario.Transaction",
+    "id": "ad42c891-ebbe-1edc-484c-de9c2aa657e7",
+    "alpha": 1,
+    "userData": {
+      "result": "",
+      "model": ""
+    },
+    "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
+    "stroke": 1,
+    "color": "#1B1B1B",
+    "outlineStroke": 0,
+    "outlineColor": "none",
+    "policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
+    "router": "draw2d.layout.connection.DirectRouter",
+    "radius": 2,
+    "source": {
+      "node": "11646ea2-5843-86d6-7fae-6800a7d7da2f",
+      "port": "output0"
+    },
+    "target": {
+      "node": "fb3c3058-9cd4-c5a9-a4fa-7029c0c1ddfd",
+      "port": "input0"
+    }
+  }
+]

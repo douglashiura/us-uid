@@ -54,7 +54,7 @@ public class ExtractDataValue {
 		for (Data data : instances) {
 			Instance instance = new DenseInstance(12);
 			instance.setValue(scenario, data.getScenario());
-			instance.setValue(id, data.getId());
+			instance.setValue(id, data.getUuid().toString());
 			instance.setValue(parent, data.getParent());
 			instance.setValue(type, data.getType().toString());
 			instance.setValue(value, data.getValue());
@@ -87,7 +87,7 @@ public class ExtractDataValue {
 
 		@Override
 		public String extact(Data data) {
-			return data.getId();
+			return data.getUuid().toString();
 		}
 
 	}

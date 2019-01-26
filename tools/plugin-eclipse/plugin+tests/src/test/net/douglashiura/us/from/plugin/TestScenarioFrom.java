@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import net.douglashiura.usuid.plugin.type.Input;
-import net.douglashiura.usuid.plugin.type.Interaction;
-import net.douglashiura.usuid.plugin.type.Output;
+import net.douglashiura.usuid.plugin.type.InputGeometry;
+import net.douglashiura.usuid.plugin.type.InteractionGeometry;
+import net.douglashiura.usuid.plugin.type.OutputGeometry;
 import net.douglashiura.usuid.plugin.type.Scenario;
 
 public class TestScenarioFrom {
@@ -52,9 +52,9 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoComSaidaSistema() throws Exception {
-		Interaction interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, saida)).firstState();
-		List<Output> outputs = interacao.getOutputs();
-		Output output = outputs.get(0);
+		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, saida)).firstState();
+		List<OutputGeometry> outputs = interacao.getOutputs();
+		OutputGeometry output = outputs.get(0);
 		assertEquals(626, interacao.getGeometry().getX().intValue());
 		assertEquals(156, interacao.getGeometry().getY().intValue());
 		assertEquals(113, interacao.getGeometry().getWidth().intValue());
@@ -75,7 +75,7 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoAlvo() throws Exception {
-		Interaction interacao = new Scenario(String.format("[%s]", interacaoInicial)).firstState();
+		InteractionGeometry interacao = new Scenario(String.format("[%s]", interacaoInicial)).firstState();
 		assertEquals(638, interacao.getGeometry().getX().intValue());
 		assertEquals(291, interacao.getGeometry().getY().intValue());
 		assertEquals(93, interacao.getGeometry().getWidth().intValue());
@@ -86,9 +86,9 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoComEntradaDeUsuario() throws Exception {
-		Interaction interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, entrada)).firstState();
-		List<Input> inputs = interacao.getInputs();
-		Input input = inputs.get(0);
+		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, entrada)).firstState();
+		List<InputGeometry> inputs = interacao.getInputs();
+		InputGeometry input = inputs.get(0);
 		assertEquals(626, interacao.getGeometry().getX().intValue());
 		assertEquals(156, interacao.getGeometry().getY().intValue());
 		assertEquals(113, interacao.getGeometry().getWidth().intValue());
@@ -106,9 +106,9 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoSaidaEEntrada() throws Exception {
-		Interaction interacao = new Scenario(String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo))
+		InteractionGeometry interacao = new Scenario(String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo))
 				.firstState();
-		Interaction target = interacao.getTransaction().getTarget();
+		InteractionGeometry target = interacao.getTransaction().getTarget();
 		assertNull(target.getTransaction());
 		assertEquals("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85", interacao.getTransaction().getId());
 		assertEquals(638, interacao.getGeometry().getX().intValue());
