@@ -103,7 +103,7 @@ public class Executor {
 					.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
 			ILaunchConfigurationWorkingCopy wc = type.newInstance(null, "User Scenario");
 			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName());
-			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "net.douglashiura.us.Executor");
+			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "net.douglashiura.us.run.Executor");
 			ILaunchConfiguration config = wc.doSave();
 			config.launch(ILaunchManager.RUN_MODE, null);
 		}

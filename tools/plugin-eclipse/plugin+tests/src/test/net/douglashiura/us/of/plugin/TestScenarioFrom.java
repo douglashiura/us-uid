@@ -1,4 +1,4 @@
-package test.net.douglashiura.us.from.plugin;
+package test.net.douglashiura.us.of.plugin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -52,7 +52,7 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoComSaidaSistema() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, saida)).firstState();
+		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, saida)).starts().get(0);
 		List<OutputGeometry> outputs = interacao.getOutputs();
 		OutputGeometry output = outputs.get(0);
 		assertEquals(626, interacao.getGeometry().getX().intValue());
@@ -75,7 +75,7 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoAlvo() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s]", interacaoInicial)).firstState();
+		InteractionGeometry interacao = new Scenario(String.format("[%s]", interacaoInicial)).starts().get(0);
 		assertEquals(638, interacao.getGeometry().getX().intValue());
 		assertEquals(291, interacao.getGeometry().getY().intValue());
 		assertEquals(93, interacao.getGeometry().getWidth().intValue());
@@ -86,7 +86,7 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoComEntradaDeUsuario() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, entrada)).firstState();
+		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, entrada)).starts().get(0);
 		List<InputGeometry> inputs = interacao.getInputs();
 		InputGeometry input = inputs.get(0);
 		assertEquals(626, interacao.getGeometry().getX().intValue());
@@ -106,8 +106,8 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoSaidaEEntrada() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo))
-				.firstState();
+		InteractionGeometry interacao = new Scenario(
+				String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo)).starts().get(0);
 		InteractionGeometry target = interacao.getTransaction().getTargets().get(0);
 		assertNull(target.getTransaction());
 		assertEquals("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85", interacao.getTransaction().getId());

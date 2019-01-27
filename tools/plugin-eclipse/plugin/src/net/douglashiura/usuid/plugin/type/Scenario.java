@@ -1,5 +1,6 @@
 package net.douglashiura.usuid.plugin.type;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -15,8 +16,10 @@ public class Scenario {
 	private static final Object TRANSACTION = "br.ufsc.leb.uid.scenario.Transaction";
 	private HashMap<String, InteractionGeometry> interactions;
 
-	private InteractionGeometry first;
+	private  List<InteractionGeometry>  firsts;
 	private List<LinkedTreeMap<String, ?>> elements;
+	
+	
 
 	@SuppressWarnings("unchecked")
 	public Scenario(String jsonText) {
@@ -28,27 +31,39 @@ public class Scenario {
 		extractInputs();
 		extractOutputs();
 		extractTransaction();
-		first = extractFirstState();
+		firsts = extractFirstState();
 	}
-
-	private InteractionGeometry extractFirstState() {
-		Collection<InteractionGeometry> states = interactions.values();
-		for (InteractionGeometry aState : states) {
+	public  List<InteractionGeometry>  starts() {
+		return firsts;
+	}
+	private List<InteractionGeometry> extractFirstState() {
+		List<InteractionGeometry> firsts= new ArrayList<InteractionGeometry>();
+		for (InteractionGeometry aState : interactions.values()) {
 			if (nonArrival(aState)) {
-				return aState;
+				 firsts.add(aState);
 			}
 		}
-		return null;
+		return firsts;
 	}
 
 	private boolean nonArrival(InteractionGeometry nonTarget) {
 		for (InteractionGeometry aState : interactions.values()) {
 			TransactionGeometry transaction = aState.getTransaction();
-			if (transaction != null && transaction.getTargets().contains(nonTarget)) {
+			if (transaction != null && contains(nonTarget, transaction)) {
 				return false;
 			}
 		}
 		return true;
+	}
+
+	private Boolean contains(InteractionGeometry nonTarget, TransactionGeometry transaction) {
+		for (InteractionGeometry aTransaction : transaction.getTargets()) {
+			if (nonTarget.equals(aTransaction)) {
+				return true;
+			}
+		}
+		return false;
+
 	}
 
 	private void extractOutputs() {
@@ -83,7 +98,7 @@ public class Scenario {
 				InteractionGeometry aSource = interactions.get(source);
 				InteractionGeometry aTarget = interactions.get(target);
 				TransactionGeometry transaction = null;
-				if (transactions.containsKey(source)) {
+				if (transactions.containsKey(aSource)) {
 					transaction = transactions.get(aSource);
 				} else {
 					transaction = new TransactionGeometry(extractId(object), aSource);
@@ -141,9 +156,4 @@ public class Scenario {
 		Geometry geometria = new Geometry(x, y, width, hieght);
 		return geometria;
 	}
-
-	public InteractionGeometry firstState() {
-		return first;
-	}
-
 }

@@ -1,4 +1,4 @@
-package test.net.douglashiura.us.from.plugin;
+package test.net.douglashiura.us.of.plugin;
 
 import static org.junit.Assert.assertEquals;
 

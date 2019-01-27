@@ -25,9 +25,9 @@ public abstract class DrawInteraction implements Rateable {
 		gc.setForeground(saida);
 		Geometry geometry = getGeometry();
 		gc.drawOval(geometry.getX(), geometry.getY(), geometry.getWidth(), geometry.getHeight());
-		drawTransaction(gc);
-		drawInputs(gc);
-		drawOutputs(gc);
+//		drawTransaction(gc);
+//		drawInputs(gc);
+//		drawOutputs(gc);
 	}
 
 	private void drawTransaction(GC gc) {

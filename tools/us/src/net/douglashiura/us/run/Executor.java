@@ -57,7 +57,7 @@ public class Executor {
 				Executor executor = new Executor(inputStream);
 				executor.execute(new ScenarioFromText(message.getContent()).firstState());
 			}
-		} catch (EOFException terminouAntes) {
+		} catch (EOFException error) {
 
 		} finally {
 			client.close();

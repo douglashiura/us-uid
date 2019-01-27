@@ -1,40 +1,15 @@
 [
   {
     "type": "br.ufsc.leb.uid.scenario.Interacao",
-    "id": "2d4931f2-9d2f-ae2c-aa04-19ba58b2133f",
-    "x": 543,
-    "y": 68,
-    "width": 50,
-    "height": 50,
+    "id": "ebc84a78-1159-06fb-9a70-aed9bbd8044c",
+    "x": 610,
+    "y": 237,
+    "width": 54,
+    "height": 52,
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": ""
-    },
-    "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
-    "ports": [
-      {
-        "name": "input0",
-        "port": "draw2d.InputPort",
-        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
-      }
-    ],
-    "bgColor": "#F0F0F0",
-    "color": "#333333",
-    "stroke": 1,
-    "radius": 500
-  },
-  {
-    "type": "br.ufsc.leb.uid.scenario.Interacao",
-    "id": "a7e5b120-bc1c-6929-3c50-bc746dd60ec9",
-    "x": 543,
-    "y": 168,
-    "width": 50,
-    "height": 50,
-    "alpha": 1,
-    "userData": {
-      "result": "",
-      "model": "Origin"
+      "model": "Origin2"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
     "ports": [
@@ -51,20 +26,25 @@
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Interacao",
-    "id": "3b143aa7-b696-0173-4835-90c78e7facf1",
-    "x": 615,
-    "y": 73,
+    "id": "29608b74-1ede-6c15-5a8b-74c09a366914",
+    "x": 575,
+    "y": 119,
     "width": 50,
     "height": 50,
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": "Target2"
+      "model": "Target"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
     "ports": [
       {
         "name": "input0",
+        "port": "draw2d.InputPort",
+        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      },
+      {
+        "name": "input1",
         "port": "draw2d.InputPort",
         "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
       }
@@ -76,22 +56,22 @@
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Interacao",
-    "id": "58436da1-cdfc-b8e9-fdea-ac417b0e57fd",
-    "x": 488,
-    "y": 76,
+    "id": "896c81aa-ce75-4a54-90ac-463426908cbe",
+    "x": 526,
+    "y": 238,
     "width": 50,
     "height": 50,
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": "Target1"
+      "model": "Source1"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
     "ports": [
       {
-        "name": "input0",
-        "port": "draw2d.InputPort",
-        "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+        "name": "output0",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
       }
     ],
     "bgColor": "#F0F0F0",
@@ -101,7 +81,7 @@
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Transaction",
-    "id": "37da3c25-b212-9be4-a630-747c79bf3d79",
+    "id": "6f0e34da-9936-6b92-aadb-7c0237796e13",
     "alpha": 1,
     "userData": {
       "result": "",
@@ -116,17 +96,17 @@
     "router": "draw2d.layout.connection.DirectRouter",
     "radius": 2,
     "source": {
-      "node": "a7e5b120-bc1c-6929-3c50-bc746dd60ec9",
+      "node": "896c81aa-ce75-4a54-90ac-463426908cbe",
       "port": "output0"
     },
     "target": {
-      "node": "3b143aa7-b696-0173-4835-90c78e7facf1",
+      "node": "29608b74-1ede-6c15-5a8b-74c09a366914",
       "port": "input0"
     }
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Transaction",
-    "id": "75200fcc-f96b-d792-8e6e-71a6e557c4d1",
+    "id": "c15ea808-7f01-fc33-84b2-8cca2fcff7c2",
     "alpha": 1,
     "userData": {
       "result": "",
@@ -141,36 +121,11 @@
     "router": "draw2d.layout.connection.DirectRouter",
     "radius": 2,
     "source": {
-      "node": "a7e5b120-bc1c-6929-3c50-bc746dd60ec9",
+      "node": "ebc84a78-1159-06fb-9a70-aed9bbd8044c",
       "port": "output0"
     },
     "target": {
-      "node": "58436da1-cdfc-b8e9-fdea-ac417b0e57fd",
-      "port": "input0"
-    }
-  },
-  {
-    "type": "br.ufsc.leb.uid.scenario.Transaction",
-    "id": "3695869b-e851-1be9-8bfa-20c9f486cda7",
-    "alpha": 1,
-    "userData": {
-      "result": "",
-      "model": ""
-    },
-    "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
-    "stroke": 1,
-    "color": "#1B1B1B",
-    "outlineStroke": 0,
-    "outlineColor": "none",
-    "policy": "draw2d.policy.line.LineSelectionFeedbackPolicy",
-    "router": "draw2d.layout.connection.DirectRouter",
-    "radius": 2,
-    "source": {
-      "node": "a7e5b120-bc1c-6929-3c50-bc746dd60ec9",
-      "port": "output0"
-    },
-    "target": {
-      "node": "2d4931f2-9d2f-ae2c-aa04-19ba58b2133f",
+      "node": "29608b74-1ede-6c15-5a8b-74c09a366914",
       "port": "input0"
     }
   }

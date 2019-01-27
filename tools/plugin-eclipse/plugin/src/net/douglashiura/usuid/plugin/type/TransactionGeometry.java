@@ -1,5 +1,6 @@
 package net.douglashiura.usuid.plugin.type;
 
+
 import java.util.ArrayList;
 import java.util.List;
 

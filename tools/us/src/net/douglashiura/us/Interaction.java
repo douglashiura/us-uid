@@ -51,4 +51,9 @@ public class Interaction {
 	public void setTransaction(Transaction transaction) {
 		this.transaction = transaction;
 	}
+
+	@Deprecated
+	public void to(Interaction destination, UUID uuid2) {
+
+	}
 }

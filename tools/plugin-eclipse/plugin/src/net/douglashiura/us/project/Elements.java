@@ -12,9 +12,11 @@ import net.douglashiura.usuid.plugin.type.TransactionGeometry;
 
 public class Elements {
 
-	public static Map<String, Rateable> from(InteractionGeometry firstState) {
+	public static Map<String, Rateable> from(List<InteractionGeometry> firstStates) {
 		HashMap<String, Rateable> map = new HashMap<String, Rateable>();
-		ofInteraction(firstState, map);
+		for (InteractionGeometry firstState : firstStates) {
+			ofInteraction(firstState, map);
+		}
 		return map;
 	}
 

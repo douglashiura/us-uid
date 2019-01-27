@@ -57,7 +57,7 @@ public class Runner {
 			viewTests.setExecutionAmounts(executor);
 			executor.execute(project);
 		} catch (Exception e) {
-			MessageDialog.openInformation(null, "Fault", "It is necessary to open the scenario view and test view!");
+			MessageDialog.openInformation(null, "Fault", "It is necessary to open before the scenario view and test view! (Window->Show View->Other->Scenario)");
 		}
 	}
 
@@ -88,8 +88,8 @@ public class Runner {
 	public void setCurrent(FileScenario scenario) {
 		this.current = scenario;
 		try {
-			addPaintScenario(new PaintScenario(current.getScenario()));
-		} catch (IOException | CoreException | NullPointerException e) {
+			addPaintScenario(new PaintScenario(current.getElements()));
+		} catch (NullPointerException | IOException | CoreException e) {
 			MessageDialog.openInformation(null, "Fault", "Could not open file");
 		}
 	}
