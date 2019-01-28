@@ -16,7 +16,7 @@ public class InputGeometry extends AbstractType implements Rateable {
 		Color saida = new Color(gc.getDevice(), cor.getRed(), cor.getGreen(), cor.getBlue());
 		gc.setForeground(saida);
 		Geometry geometry = getGeometry();
-		gc.drawRectangle(geometry.getX(), geometry.getY(), geometry.getWidth(), geometry.getHeight());
+		gc.drawRectangle(geometry.getX(), geometry.getY(), geometry.getWidth()+10, geometry.getHeight());
 		gc.drawText(getValue(), geometry.getX() + 3, geometry.getY() + 3);
 	}
 
