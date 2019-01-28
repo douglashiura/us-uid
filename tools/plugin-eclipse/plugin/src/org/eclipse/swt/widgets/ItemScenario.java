@@ -5,7 +5,7 @@ import org.eclipse.swt.SWT;
 import net.douglashiura.us.project.util.FileScenario;
 import net.douglashiura.us.project.util.Notificable;
 import net.douglashiura.us.serial.Result;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.type.Rateable;
 
 public class ItemScenario extends TreeItem implements Notificable {

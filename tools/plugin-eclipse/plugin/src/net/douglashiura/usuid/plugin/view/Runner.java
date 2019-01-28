@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.Display;
 
 import net.douglashiura.us.project.util.FileScenario;
 import net.douglashiura.us.project.util.Nodes;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.editor.Executor;
 import net.douglashiura.usuid.plugin.editor.PaintScenario;
 
@@ -57,7 +57,8 @@ public class Runner {
 			viewTests.setExecutionAmounts(executor);
 			executor.execute(project);
 		} catch (Exception e) {
-			MessageDialog.openInformation(null, "Fault", "It is necessary to open before the scenario view and test view! (Window->Show View->Other->Scenario)");
+			MessageDialog.openInformation(null, "Fault",
+					"It is necessary to open before the scenario view and test view! (Window->Show View->Other->Scenario)");
 		}
 	}
 

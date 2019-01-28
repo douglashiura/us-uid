@@ -1,12 +1,14 @@
 package net.douglashiura.usuid.plugin.type;
 
+import java.util.UUID;
+
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
 public class InputGeometry extends AbstractType implements Rateable {
 	private java.awt.Color cor = java.awt.Color.BLACK;
 
-	public InputGeometry(String id, Geometry geometry, String model, String value) {
+	public InputGeometry(UUID id, Geometry geometry, String model, String value) {
 		super(id, geometry, model, value);
 	}
 

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -13,7 +14,7 @@ import org.eclipse.core.runtime.CoreException;
 
 import net.douglashiura.us.project.Elements;
 import net.douglashiura.us.serial.Result;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.plugin.type.Scenario;
 import net.douglashiura.usuid.plugin.view.Runner;
@@ -22,7 +23,7 @@ public class FileScenario {
 
 	private IFile member;
 	private List<Result> results;
-	private Map<String, Rateable> elements = null;
+	private Map<UUID, Rateable> elements = null;
 	private String text;
 	private Notificable notificable;
 
@@ -64,17 +65,18 @@ public class FileScenario {
 	}
 
 	public void addResult(Result result) {
-		if (!Result.Results.END.equals(result.getResult())) {
+		if (!Results.END.equals(result.getResult())) {
 			results.add(result);
-			Rateable element = elements.get(result.getId());
+			Rateable element = elements.get(result.getUuid());
 			if (element != null) {
 				element.rate(result.getResult().getColor());
 				notificationToView();
+				if (notificable != null) {
+					notificable.addResult(result, element);
+				}
 			}
-			if (notificable != null)
-				notificable.addResult(result, element);
 		}
-		if (Result.Results.isExecutionFinishy(result.getResult())) {
+		if (Results.isExecutionFinishy(result.getResult())) {
 			Results status = generalResult();
 			notificable.finishyATestExecution(status);
 			Runner.getRunner().updateStatusExecution(status);
@@ -83,26 +85,27 @@ public class FileScenario {
 
 	private Results generalResult() {
 		for (Result result : results) {
-			if (Result.Results.FAIL.equals(result.getResult()))
-				return Result.Results.FAIL;
+			if (Results.FAIL.equals(result.getResult()))
+				return Results.FAIL;
 		}
 		for (Result result : results) {
-			if (Result.Results.ERRO.equals(result.getResult()))
-				return Result.Results.ERRO;
+			if (Results.ERROR.equals(result.getResult()))
+				return Results.ERROR;
 		}
-		return Result.Results.OK;
+		return Results.OK;
 	}
 
 	private void notificationToView() {
-		if (Runner.getRunner().getCurrent() == this)
+		if (Runner.getRunner().getCurrent() == this) {
 			Runner.getRunner().redraw();
+		}
 	}
 
 	public void prepareToExecute() {
 		if (elements != null) {
 			Collection<Rateable> collection = elements.values();
 			for (Rateable rateable : collection) {
-				rateable.rate(Result.Results.UN_EXECUTED.getColor());
+				rateable.rate(Results.UN_EXECUTED.getColor());
 			}
 			results.clear();
 			notificationToView();

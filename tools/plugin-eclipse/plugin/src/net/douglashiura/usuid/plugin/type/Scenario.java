@@ -1,9 +1,9 @@
 package net.douglashiura.usuid.plugin.type;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
@@ -16,10 +16,8 @@ public class Scenario {
 	private static final Object TRANSACTION = "br.ufsc.leb.uid.scenario.Transaction";
 	private HashMap<String, InteractionGeometry> interactions;
 
-	private  List<InteractionGeometry>  firsts;
+	private List<InteractionGeometry> firsts;
 	private List<LinkedTreeMap<String, ?>> elements;
-	
-	
 
 	@SuppressWarnings("unchecked")
 	public Scenario(String jsonText) {
@@ -33,14 +31,16 @@ public class Scenario {
 		extractTransaction();
 		firsts = extractFirstState();
 	}
-	public  List<InteractionGeometry>  starts() {
+
+	public List<InteractionGeometry> starts() {
 		return firsts;
 	}
+
 	private List<InteractionGeometry> extractFirstState() {
-		List<InteractionGeometry> firsts= new ArrayList<InteractionGeometry>();
+		List<InteractionGeometry> firsts = new ArrayList<InteractionGeometry>();
 		for (InteractionGeometry aState : interactions.values()) {
 			if (nonArrival(aState)) {
-				 firsts.add(aState);
+				firsts.add(aState);
 			}
 		}
 		return firsts;
@@ -77,16 +77,6 @@ public class Scenario {
 		}
 	}
 
-	class InteractionGeometryId {
-		private String id;
-		private InteractionGeometry target;
-
-		public InteractionGeometryId(String id, InteractionGeometry target) {
-			this.id = id;
-			this.target = target;
-
-		}
-	}
 
 	@SuppressWarnings("unchecked")
 	private void extractTransaction() {
@@ -138,8 +128,8 @@ public class Scenario {
 		return new InteractionGeometry(extractId(object), extractGeometry(object), extractFixture(object));
 	}
 
-	private static String extractId(LinkedTreeMap<String, ?> object) {
-		return object.get("id").toString();
+	private static UUID extractId(LinkedTreeMap<String, ?> object) {
+		return UUID.fromString(object.get("id").toString());
 	}
 
 	private static String extractFixture(LinkedTreeMap<String, ?> object) {

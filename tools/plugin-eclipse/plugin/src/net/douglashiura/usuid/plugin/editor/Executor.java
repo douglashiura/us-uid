@@ -20,9 +20,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import net.douglashiura.us.project.util.FileScenario;
-import net.douglashiura.us.serial.Input;
+import net.douglashiura.us.serial.InputFile;
 import net.douglashiura.us.serial.Result;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.serial.Results;
 
 public class Executor {
 
@@ -34,11 +34,7 @@ public class Executor {
 	private Integer faults;
 	private Integer errors;
 
-	private void prepareExeution() {
-		complete = 0;
-		faults = 0;
-		errors = 0;
-	}
+
 
 	public Executor(Shell shell, List<FileScenario> scenarios) throws IOException {
 		this.scenarios = scenarios;
@@ -51,6 +47,12 @@ public class Executor {
 			MessageDialog.openInformation(shell, "Fault", "There are another execution!");
 			hasAnotherExecution = true;
 		}
+	}
+	
+	private void prepareExeution() {
+		complete = 0;
+		faults = 0;
+		errors = 0;
 	}
 
 	class Work implements Runnable {
@@ -75,12 +77,12 @@ public class Executor {
 
 		private void executeAScenario(FileScenario scenario, ObjectOutputStream writer, ObjectInputStream input)
 				throws IOException, ClassNotFoundException {
-			writer.writeObject(new Input(scenario.getName(), scenario.toString()));
+			writer.writeObject(new InputFile(scenario.getName(), scenario.toString()));
 			scenario.prepareToExecute();
 			Result result = null;
 			while ((result = (Result) input.readObject()) != null) {
 				scenario.addResult(result);
-				if (Result.Results.isExecutionFinishy(result.getResult())) {
+				if (Results.isExecutionFinishy(result.getResult())) {
 					return;
 				}
 			}
@@ -131,7 +133,7 @@ public class Executor {
 
 	public void updateStatusExecution(Results status) {
 		complete++;
-		if (Results.ERRO.equals(status))
+		if (Results.ERROR.equals(status))
 			errors++;
 		else if (Results.FAIL.equals(status))
 			faults++;

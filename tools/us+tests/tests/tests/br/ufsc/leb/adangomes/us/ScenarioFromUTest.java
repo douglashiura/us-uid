@@ -1,6 +1,7 @@
 package tests.br.ufsc.leb.adangomes.us;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -8,9 +9,9 @@ import java.util.UUID;
 import org.junit.Test;
 
 import net.douglashiura.us.ScenarioFromText;
-import net.douglashiura.us.run.UInput;
-import net.douglashiura.us.run.UInteraction;
-import net.douglashiura.us.run.UOutput;
+import net.douglashiura.us.run.InputRunner;
+import net.douglashiura.us.run.InteractionRunner;
+import net.douglashiura.us.run.OutputRunner;
 
 public class ScenarioFromUTest {
 
@@ -53,9 +54,10 @@ public class ScenarioFromUTest {
 
 	@Test
 	public void systemOutputInteraction() throws Exception {
-		UInteraction interacao = new ScenarioFromText(String.format("[%s,%s]", targetInteraction, output)).firstState();
-		List<UOutput> outputs = interacao.getOutputs();
-		UOutput output = outputs.get(0);
+		InteractionRunner interacao = new ScenarioFromText(String.format("[%s,%s]", targetInteraction, output))
+				.firstState();
+		List<OutputRunner> outputs = interacao.getOutputs();
+		OutputRunner output = outputs.get(0);
 		assertEquals("Alvo", interacao.getFixtureName());
 		assertEquals(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), interacao.getUuid());
 		assertNull(interacao.getTransaction());
@@ -68,16 +70,17 @@ public class ScenarioFromUTest {
 
 	@Test
 	public void targetInteraction() throws Exception {
-		UInteraction interacao = new ScenarioFromText(String.format("[%s]", initialInteraction)).firstState();
+		InteractionRunner interacao = new ScenarioFromText(String.format("[%s]", initialInteraction)).firstState();
 		assertEquals("Fixture8Puzzle", interacao.getFixtureName());
 		assertNull(interacao.getTransaction());
 	}
 
 	@Test
 	public void userInputInteraction() throws Exception {
-		UInteraction interacao = new ScenarioFromText(String.format("[%s,%s]", targetInteraction, input)).firstState();
-		List<UInput> inputs = interacao.getInputs();
-		UInput input = inputs.get(0);
+		InteractionRunner interacao = new ScenarioFromText(String.format("[%s,%s]", targetInteraction, input))
+				.firstState();
+		List<InputRunner> inputs = interacao.getInputs();
+		InputRunner input = inputs.get(0);
 
 		assertEquals("Alvo", interacao.getFixtureName());
 		assertNull(interacao.getTransaction());
@@ -89,9 +92,9 @@ public class ScenarioFromUTest {
 
 	@Test
 	public void inputOutputInteraction() throws Exception {
-		UInteraction interacao = new ScenarioFromText(
+		InteractionRunner interacao = new ScenarioFromText(
 				String.format("[%s,%s,%s]", transaction, initialInteraction, targetInteraction)).firstState();
-		UInteraction target = interacao.getTransaction().getTarget();
+		InteractionRunner target = interacao.getTransaction().getTarget();
 		assertNull(target.getTransaction());
 		assertEquals(UUID.fromString("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85"), interacao.getTransaction().getUuid());
 		assertEquals("Fixture8Puzzle", interacao.getFixtureName());
@@ -102,17 +105,17 @@ public class ScenarioFromUTest {
 //	public void createScenarioFromText_EmptyStringArgument_ShouldThrowException() throws Exception {
 //		new ScenarioFromText("");
 //	}
-	
+
 //	@Test(expected = Exception.class)
 //	public void createScenarioFromText_EmptyGson_ShouldThrowException() throws Exception {
 //		new ScenarioFromText("{}");
 //	}
-	
+
 //	@Test(expected = Exception.class)
 //	public void createScenarioFromText_EmptyArgument_ShouldThrowException() throws Exception {
 //		new ScenarioFromText(String.format("[%s,%s,%s]", "", initialInteraction, targetInteraction));
 //	}
-	
+
 //	@Test(expected = Exception.class)
 //	public void createScenarioFromText_EmptyArgument_ShouldThrowException() throws Exception {
 //		new ScenarioFromText(String.format("[%s,%s,%s]", transaction, initialInteraction, ""));

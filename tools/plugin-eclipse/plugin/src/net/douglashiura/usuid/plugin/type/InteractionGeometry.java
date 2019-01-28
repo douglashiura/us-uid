@@ -2,6 +2,7 @@ package net.douglashiura.usuid.plugin.type;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class InteractionGeometry extends DrawInteraction implements Rateable {
 	private String model;
@@ -9,9 +10,9 @@ public class InteractionGeometry extends DrawInteraction implements Rateable {
 	private TransactionGeometry transaction;
 	private List<InputGeometry> inputs;
 	private List<OutputGeometry> outputs;
-	private String id;
+	private UUID id;
 
-	public InteractionGeometry(String id, Geometry geometry, String model) {
+	public InteractionGeometry(UUID id, Geometry geometry, String model) {
 		this.id = id;
 		this.geometry = geometry;
 		this.model = model;
@@ -52,7 +53,7 @@ public class InteractionGeometry extends DrawInteraction implements Rateable {
 		outputs.add(output);
 	}
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 	
