@@ -37,8 +37,10 @@ public class FileScenario {
 	}
 
 	public void getScenario() throws IOException, CoreException {
-		text = read();
-		elements = Elements.from(new Scenario(text).starts());
+		if (text == null) {
+			text = read();
+			elements = Elements.from(new Scenario(text).starts());
+		}
 	}
 
 	private String read() throws IOException, CoreException {

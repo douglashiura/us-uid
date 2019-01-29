@@ -21,7 +21,6 @@ public abstract class DrawInteraction implements Rateable {
 	abstract TransactionGeometry getTransaction();
 
 	public void draw(GC gc) {
-		System.out.println(color);
 		Color aColor = new Color(gc.getDevice(), color.getRed(), color.getGreen(), color.getBlue());
 		gc.setForeground(aColor);
 		Geometry geometry = getGeometry();

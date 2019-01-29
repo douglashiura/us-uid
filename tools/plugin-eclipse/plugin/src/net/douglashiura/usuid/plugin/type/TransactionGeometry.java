@@ -8,7 +8,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
 public class TransactionGeometry implements Rateable {
-	private java.awt.Color cor = java.awt.Color.BLACK;
+	private java.awt.Color color;
 	private List<InteractionGeometry> targets;
 	private InteractionGeometry source;
 	private UUID id;
@@ -17,6 +17,7 @@ public class TransactionGeometry implements Rateable {
 		this.id = id;
 		this.source = source;
 		this.targets = new ArrayList<>();
+		color = java.awt.Color.BLACK;
 	}
 
 	public void addTarget(InteractionGeometry target) {
@@ -28,8 +29,8 @@ public class TransactionGeometry implements Rateable {
 	}
 
 	public void draw(GC gc) {
-		Color saida = new Color(gc.getDevice(), cor.getRed(), cor.getGreen(), cor.getBlue());
-		gc.setForeground(saida);
+		Color aColor = new Color(gc.getDevice(), color.getRed(), color.getGreen(), color.getBlue());
+		gc.setForeground(aColor);
 		for (InteractionGeometry targetState : targets) {
 			drawArrow(gc, targetState);
 		}
@@ -54,7 +55,7 @@ public class TransactionGeometry implements Rateable {
 
 	@Override
 	public void rate(java.awt.Color cor) {
-		this.cor = cor;
+		this.color = cor;
 	}
 
 	@Override
