@@ -1,9 +1,9 @@
 package net.douglashiura.us.run;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,12 +34,12 @@ public class InteractionRunner {
 		Object instance = null;
 		try {
 			Class<?> klass = Annotations.getFixture(fixtureName);
-			instance = klass.newInstance();
+			instance = klass.getConstructors()[0].newInstance();
 			executor.message(uuid, Results.OK, null);
 			executor.getPicon().settings(instance);
 		} catch (InstantiationException | IllegalAccessException | NullPointerException | IOException
-				| ClassNotFoundException | IllegalArgumentException | URISyntaxException
-				| ProblemaDeCompilacaoException e) {
+				| ClassNotFoundException | IllegalArgumentException | URISyntaxException | ProblemaDeCompilacaoException
+				| InvocationTargetException | SecurityException e) {
 			String msg = e.getMessage();
 			if (msg == null || "".equals(msg))
 				msg = UtilsLog.toString(e);

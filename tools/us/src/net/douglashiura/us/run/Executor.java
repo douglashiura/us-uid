@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import net.douglashiura.picon.ProblemaDeCompilacaoException;
 import net.douglashiura.us.ExceptionInExecution;
-import net.douglashiura.us.ScenarioFromText;
 import net.douglashiura.us.picon.PiconWithUsuid;
 import net.douglashiura.us.serial.InputFile;
 import net.douglashiura.us.serial.Result;
@@ -55,7 +54,7 @@ public class Executor {
 		try {
 			while ((message = (InputFile) entrada.readObject()) != null) {
 				Executor executor = new Executor(inputStream);
-				executor.execute(new ScenarioFromText(message.getContent()).firstState());
+				executor.execute(new Scenarios(message.getContent()).firstState());
 			}
 		} catch (EOFException error) {
 
