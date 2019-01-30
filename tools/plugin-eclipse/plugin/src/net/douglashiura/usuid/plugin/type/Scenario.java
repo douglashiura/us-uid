@@ -77,7 +77,6 @@ public class Scenario {
 		}
 	}
 
-
 	@SuppressWarnings("unchecked")
 	private void extractTransaction() {
 		HashMap<InteractionGeometry, TransactionGeometry> transactions = new HashMap<>();
@@ -146,4 +145,5 @@ public class Scenario {
 		Geometry geometria = new Geometry(x, y, width, hieght);
 		return geometria;
 	}
+
 }

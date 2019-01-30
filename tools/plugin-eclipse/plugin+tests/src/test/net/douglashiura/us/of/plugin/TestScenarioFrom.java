@@ -110,7 +110,7 @@ public class TestScenarioFrom {
 				String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo)).starts().get(0);
 		InteractionGeometry target = interacao.getTransaction().getTargets().get(0);
 		assertNull(target.getTransaction());
-		assertEquals("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85", interacao.getTransaction().getId());
+		assertEquals("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85", interacao.getTransaction().getUuid());
 		assertEquals(638, interacao.getGeometry().getX().intValue());
 		assertEquals(291, interacao.getGeometry().getY().intValue());
 		assertEquals(93, interacao.getGeometry().getWidth().intValue());

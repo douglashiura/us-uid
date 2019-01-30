@@ -11,16 +11,16 @@ import org.junit.Test;
 
 import net.douglashiura.leb.uid.scenario.glue.code.ExtractInteractions;
 import net.douglashiura.us.Interaction;
-import net.douglashiura.us.Transaction;
 
 public class TestExtractInteractionsOfScenarios {
 	private Interaction scenario;
 	private Interaction scenario2;
+
 	@Before
 	public void setUp() {
 		scenario = new Interaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), "EightPuzzle");
 		scenario2 = new Interaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), "EightPuzzle");
-		scenario2.setTransaction(new Transaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), scenario2, scenario));
+		scenario2.to(scenario, UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"));
 	}
 
 	@Test
@@ -29,6 +29,7 @@ public class TestExtractInteractionsOfScenarios {
 		assertEquals(1, interactions.size());
 		assertEquals(scenario, interactions.get(0));
 	}
+
 	@Test
 	public void threeInteraction() throws Exception {
 		List<Interaction> interactions = ExtractInteractions.from(Arrays.asList(scenario));

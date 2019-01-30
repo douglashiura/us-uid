@@ -12,9 +12,12 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
+import net.douglashiura.us.Interaction;
 import net.douglashiura.us.project.Elements;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;
+import net.douglashiura.usuid.plugin.type.ExtractPahts;
+import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.plugin.type.Scenario;
 import net.douglashiura.usuid.plugin.view.Runner;
@@ -26,21 +29,24 @@ public class FileScenario {
 	private Map<UUID, Rateable> elements = null;
 	private String text;
 	private Notificable notificable;
+	private List<Interaction> paths;
 
-	public FileScenario(IFile member) {
+	public FileScenario(IFile member) throws IOException, CoreException {
 		this.member = member;
 		this.results = new ArrayList<>();
+		prepareScenario();
 	}
 
 	public String getName() {
 		return member.getProjectRelativePath().toString();
 	}
 
-	public void getScenario() throws IOException, CoreException {
-		if (text == null) {
-			text = read();
-			elements = Elements.from(new Scenario(text).starts());
-		}
+	private void prepareScenario() throws IOException, CoreException {
+		text = read();
+		Scenario scenario = new Scenario(text);
+		List<InteractionGeometry> starts = scenario.starts();
+		paths = new ExtractPahts(starts).pathsOfExecution();
+		elements = Elements.from(starts);
 	}
 
 	private String read() throws IOException, CoreException {
@@ -58,7 +64,7 @@ public class FileScenario {
 	@Override
 	public String toString() {
 		try {
-			getScenario();
+			prepareScenario();
 			return text;
 		} catch (IOException | CoreException e) {
 			e.printStackTrace();
@@ -119,7 +125,11 @@ public class FileScenario {
 	}
 
 	public Collection<Rateable> getElements() throws IOException, CoreException {
-		getScenario();
 		return elements.values();
 	}
+
+	public List<Interaction> getPaths() {
+		return paths;
+	}
+
 }

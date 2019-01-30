@@ -41,11 +41,15 @@ public class Runner {
 	}
 
 	public void run() {
+		current.prepareToExecute();
 		execute(Arrays.asList(current), current.getProject());
 	}
 
-	public void runAll() throws CoreException {
+	public void runAll() throws CoreException, IOException {
 		List<FileScenario> nodes = Nodes.from(container);
+		for (FileScenario fileScenario : nodes) {
+			fileScenario.prepareToExecute();
+		}
 		execute(nodes, container.getProject());
 
 	}
@@ -89,6 +93,7 @@ public class Runner {
 	public void setCurrent(FileScenario scenario) {
 		this.current = scenario;
 		try {
+			removePaintScenario();
 			addPaintScenario(new PaintScenario(current.getElements()));
 		} catch (NullPointerException | IOException | CoreException e) {
 			MessageDialog.openInformation(null, "Fault", "Could not open file");

@@ -8,10 +8,10 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import net.douglashiura.us.ScenarioFromText;
 import net.douglashiura.us.run.InputRunner;
 import net.douglashiura.us.run.InteractionRunner;
 import net.douglashiura.us.run.OutputRunner;
+import net.douglashiura.us.run.Scenarios;
 
 public class ScenarioFromUTest {
 
@@ -54,7 +54,7 @@ public class ScenarioFromUTest {
 
 	@Test
 	public void systemOutputInteraction() throws Exception {
-		InteractionRunner interacao = new ScenarioFromText(String.format("[%s,%s]", targetInteraction, output))
+		InteractionRunner interacao = new Scenarios(String.format("[%s,%s]", targetInteraction, output))
 				.firstState();
 		List<OutputRunner> outputs = interacao.getOutputs();
 		OutputRunner output = outputs.get(0);
@@ -70,14 +70,14 @@ public class ScenarioFromUTest {
 
 	@Test
 	public void targetInteraction() throws Exception {
-		InteractionRunner interacao = new ScenarioFromText(String.format("[%s]", initialInteraction)).firstState();
+		InteractionRunner interacao = new Scenarios(String.format("[%s]", initialInteraction)).firstState();
 		assertEquals("Fixture8Puzzle", interacao.getFixtureName());
 		assertNull(interacao.getTransaction());
 	}
 
 	@Test
 	public void userInputInteraction() throws Exception {
-		InteractionRunner interacao = new ScenarioFromText(String.format("[%s,%s]", targetInteraction, input))
+		InteractionRunner interacao = new Scenarios(String.format("[%s,%s]", targetInteraction, input))
 				.firstState();
 		List<InputRunner> inputs = interacao.getInputs();
 		InputRunner input = inputs.get(0);
@@ -92,7 +92,7 @@ public class ScenarioFromUTest {
 
 	@Test
 	public void inputOutputInteraction() throws Exception {
-		InteractionRunner interacao = new ScenarioFromText(
+		InteractionRunner interacao = new Scenarios(
 				String.format("[%s,%s,%s]", transaction, initialInteraction, targetInteraction)).firstState();
 		InteractionRunner target = interacao.getTransaction().getTarget();
 		assertNull(target.getTransaction());

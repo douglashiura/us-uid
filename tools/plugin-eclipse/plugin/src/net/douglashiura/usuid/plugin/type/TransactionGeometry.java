@@ -49,7 +49,7 @@ public class TransactionGeometry implements Rateable {
 		return aGeometry.getX() + aGeometry.getWidth() / 2;
 	}
 
-	public UUID getId() {
+	public UUID getUuid() {
 		return id;
 	}
 

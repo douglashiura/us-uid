@@ -25,7 +25,7 @@ public class ScenarioFromText {
 	private String origin;
 
 	@SuppressWarnings("unchecked")
-	public ScenarioFromText(String text,String scenarioName) {
+	public ScenarioFromText(String text, String scenarioName) {
 		this.origin = scenarioName;
 		Gson gson = new Gson();
 		this.elements = gson.fromJson(text, List.class);
@@ -76,7 +76,7 @@ public class ScenarioFromText {
 				Object target = ((Map<String, ?>) object.get("target")).get("node");
 				Interaction aSource = interactions.get(source);
 				Interaction aTarget = interactions.get(target);
-				aSource.setTransaction(new Transaction(extractId(object), aSource, aTarget) );
+				aSource.to(aTarget, extractId(object));
 			}
 		}
 	}
@@ -103,7 +103,7 @@ public class ScenarioFromText {
 				}
 			}
 		} catch (NullPointerException e) {
-			throw new RuntimeException("Erro:"+origin);
+			throw new RuntimeException("Erro:" + origin);
 		}
 	}
 

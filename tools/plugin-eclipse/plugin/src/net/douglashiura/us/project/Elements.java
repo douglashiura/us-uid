@@ -29,7 +29,7 @@ public class Elements {
 			map.put(aOutput.getId(), aOutput);
 		if (firstState.getTransaction() != null) {
 			TransactionGeometry transaction = firstState.getTransaction();
-			map.put(transaction.getId(), transaction);
+			map.put(transaction.getUuid(), transaction);
 			List<InteractionGeometry> transactions = transaction.getTargets();
 			for (InteractionGeometry interactionGeometry : transactions) {
 				ofInteraction(interactionGeometry, map);
