@@ -1,4 +1,4 @@
-package net.douglashiura.us.project.util;
+package net.douglashiura.usuid.project.util;
 
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;

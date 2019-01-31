@@ -1,4 +1,4 @@
-package net.douglashiura.us.project.util;
+package net.douglashiura.usuid.project.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,7 +13,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
 import net.douglashiura.us.Interaction;
-import net.douglashiura.us.project.Elements;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.type.ExtractPahts;
@@ -21,6 +20,7 @@ import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.plugin.type.Scenario;
 import net.douglashiura.usuid.plugin.view.Runner;
+import net.douglashiura.usuid.project.Elements;
 
 public class FileScenario {
 

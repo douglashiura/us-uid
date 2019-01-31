@@ -1,4 +1,4 @@
-package net.douglashiura.us.project;
+package net.douglashiura.usuid.project;
 
 import java.util.HashMap;
 import java.util.List;

@@ -10,8 +10,8 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
 
-import net.douglashiura.us.project.util.FileScenario;
 import net.douglashiura.usuid.plugin.view.Runner;
+import net.douglashiura.usuid.project.util.FileScenario;
 
 public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 

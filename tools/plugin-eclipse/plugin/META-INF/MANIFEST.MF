@@ -3,7 +3,7 @@ Automatic-Module-Name: us_uid
 Bundle-ManifestVersion: 2
 Bundle-Name: us_uid
 Bundle-SymbolicName: us_uid;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.3
 Bundle-Activator: net.douglashiura.usuid.plugin.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
@@ -14,7 +14,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.debug.ui;bundle-version="3.11.101",
  org.eclipse.jdt.core;bundle-version="3.11.2",
  com.google.gson;bundle-version="2.8.2"
-Bundle-RequiredExecutionEnvironment: JavaSE-10
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Import-Package: 
  org.eclipse.core.filesystem,

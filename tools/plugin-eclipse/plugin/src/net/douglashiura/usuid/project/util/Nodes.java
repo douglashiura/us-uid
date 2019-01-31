@@ -1,4 +1,4 @@
-package net.douglashiura.us.project.util;
+package net.douglashiura.usuid.project.util;
 
 import java.io.IOException;
 import java.util.ArrayList;

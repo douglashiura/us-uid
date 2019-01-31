@@ -19,10 +19,10 @@ import org.eclipse.jdt.launching.IJavaLaunchConfigurationConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import net.douglashiura.us.project.util.FileScenario;
 import net.douglashiura.us.serial.InputFile;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;
+import net.douglashiura.usuid.project.util.FileScenario;
 
 public class Executor {
 
