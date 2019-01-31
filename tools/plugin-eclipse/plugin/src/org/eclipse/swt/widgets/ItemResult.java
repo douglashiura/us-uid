@@ -12,20 +12,18 @@ public class ItemResult extends TreeItem {
 
 	private Rateable element;
 	private Result result;
-	private ItemPath item;
+	private ItemScenario item;
 
-	public ItemResult(ItemPath item, Rateable element, Result result) {
+	public ItemResult(ItemScenario item, Rateable element, Result result) {
 		super(item, SWT.NONE);
 		this.item = item;
 		this.element = element;
 		this.result = result;
 		String identification = "";
-		if (InteractionGeometry.class.equals(element.getType())
-				|| TransactionGeometry.class.equals(element.getType())) {
+		if (InteractionGeometry.class.equals(element.getType()) || TransactionGeometry.class.equals(element.getType()))
 			identification = element.getFixtureName();
-		} else {
+		else
 			identification = element.getValue();
-		}
 		setText(String.format("(%s) %s", result.getResult(), identification));
 	}
 

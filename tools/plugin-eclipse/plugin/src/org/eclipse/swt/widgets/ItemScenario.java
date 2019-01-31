@@ -27,8 +27,7 @@ public class ItemScenario extends TreeItem implements Notificable {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				ItemPath item = new ItemPath(ItemScenario.this);
-				item.addResult(result, element);
+				new ItemResult(ItemScenario.this, element, result);
 			}
 		});
 	}
