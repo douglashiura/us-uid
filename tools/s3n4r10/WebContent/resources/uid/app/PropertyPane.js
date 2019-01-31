@@ -38,7 +38,8 @@ example.PropertyPane = Class.extend({
 				model : figure
 			});
 		}
-		this.html.append(this.templateView.render().$el);
+		if (this.templateView != null)
+			this.html.append(this.templateView.render().$el);
 
 	}
 });

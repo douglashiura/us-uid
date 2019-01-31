@@ -54,8 +54,8 @@
 		if (this.app.view.getFigures().asArray().length < 1) {
 			this.app.view.addFigure(new br.ufsc.leb.uid.scenario.Interacao());
 		}
-
 	});
+	
 </script>
 
 </head>

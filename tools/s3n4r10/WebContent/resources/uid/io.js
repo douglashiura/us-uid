@@ -25,7 +25,8 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.send = function() {
 			dataType : "json"
 		});
 	});
-}, br.ufsc.leb.uid.scenario.io.Store.prototype.load = function() {
+};
+br.ufsc.leb.uid.scenario.io.Store.prototype.load = function() {
 	var request = $.ajax({
 		url :  app.scenarioFile,
 		method : "GET",
@@ -37,5 +38,19 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.send = function() {
 		this.view.clear();
 		var reader = new draw2d.io.json.Reader();
 		reader.unmarshal(this.view, data);
+	}, this));
+};
+
+br.ufsc.leb.uid.scenario.io.Store.prototype.getUniformity = function() {
+	var request = $.ajax({
+		url :  'uniformity',
+		method : "GET",
+		data : '',
+		dataType : "json"
+			
+	});
+	request.done($.proxy(function(data) {
+		var span=document.getElementById('uniformity');
+		span.innerHTML=data.average;
 	}, this));
 }

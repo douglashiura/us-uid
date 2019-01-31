@@ -30,26 +30,29 @@ example.Toolbar = Class
 				this.newInteractionState.click($.proxy(function() {
 					this.view.getCurrentSelection().newInteractionState();
 				}, this));
-				
+
 				this.html.append($(delimiter));
 
 				this.newInteractionState = $("<button class='gray'>New progressive state</button>");
 				this.html.append(this.newInteractionState);
 				this.newInteractionState.click($.proxy(function() {
-					this.view.getCurrentSelection().newInteractionStateProgressive();
+					this.view.getCurrentSelection()
+							.newInteractionStateProgressive();
 				}, this));
-				
+
 				this.html.append($(delimiter));
 				this.html.append($(delimiter));
 				this.html.append($(delimiter));
 				this.html.append($(delimiter));
 				this.html.append($(delimiter));
 				this.html.append($(delimiter));
-				
+
 				this.saveButton = $("<button class='gray'>Save</button>");
 				this.html.append(this.saveButton);
 				this.saveButton.click($.proxy(function() {
-					new br.ufsc.leb.uid.scenario.io.Store(this.view).send();
+					var io = new br.ufsc.leb.uid.scenario.io.Store(this.view);
+					io.send();
+					io.getUniformity();
 				}, this));
 
 				this.html.append($(delimiter));
@@ -65,6 +68,12 @@ example.Toolbar = Class
 					for (var i = 0; i < figures.length; i++)
 						figures[i].resetColor();
 				}, this));
+				this.html.append($(delimiter));
+				this.html.append($(delimiter));
+				this.uniformity = $("<span style='color: white;'>Unifomity:<span id='uniformity'>0</span></span>");
+				this.html.append(this.uniformity);
+				var io = new br.ufsc.leb.uid.scenario.io.Store(this.view);
+				io.getUniformity();
 
 			},
 
