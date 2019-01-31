@@ -3,6 +3,7 @@
 	<name>s3n4r10</name>
 	<comment></comment>
 	<projects>
+		<project>us</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
