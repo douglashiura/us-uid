@@ -9,7 +9,7 @@ import org.junit.Test;
 import net.douglashiura.us.Input;
 import net.douglashiura.us.Interaction;
 import net.douglashiura.us.Output;
-import net.douglashiura.us.SmartJson;
+import net.douglashiura.us.run.SmartJson;
 
 public class TestJsonSmartFromScenario {
 

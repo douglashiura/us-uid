@@ -1,5 +1,6 @@
 package net.douglashiura.us;
 
+
 import java.util.UUID;
 
 public class Input extends AbstractType {
