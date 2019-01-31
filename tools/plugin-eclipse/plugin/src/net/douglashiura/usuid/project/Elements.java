@@ -1,7 +1,9 @@
- package net.douglashiura.us.project;
+package net.douglashiura.usuid.project;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import net.douglashiura.usuid.plugin.type.InputGeometry;
 import net.douglashiura.usuid.plugin.type.InteractionGeometry;
@@ -11,13 +13,15 @@ import net.douglashiura.usuid.plugin.type.TransactionGeometry;
 
 public class Elements {
 
-	 public static Map<String, Rateable> from(InteractionGeometry firstState) {
-		HashMap<String, Rateable> map = new HashMap<String, Rateable>();
-		ofInteraction(firstState, map);
+	public static Map<UUID, Rateable> from(List<InteractionGeometry> firstStates) {
+		HashMap<UUID, Rateable> map = new HashMap<UUID, Rateable>();
+		for (InteractionGeometry firstState : firstStates) {
+			ofInteraction(firstState, map);
+		}
 		return map;
 	}
 
-	private static void ofInteraction(InteractionGeometry firstState, HashMap<String, Rateable> map) {
+	private static void ofInteraction(InteractionGeometry firstState, HashMap<UUID, Rateable> map) {
 		map.put(firstState.getId(), firstState);
 		for (InputGeometry aInput : firstState.getInputs())
 			map.put(aInput.getId(), aInput);
@@ -25,8 +29,11 @@ public class Elements {
 			map.put(aOutput.getId(), aOutput);
 		if (firstState.getTransaction() != null) {
 			TransactionGeometry transaction = firstState.getTransaction();
-			map.put(transaction.getId(), transaction);
-			ofInteraction(transaction.getTarget(), map);
+			map.put(transaction.getUuid(), transaction);
+			List<InteractionGeometry> transactions = transaction.getTargets();
+			for (InteractionGeometry interactionGeometry : transactions) {
+				ofInteraction(interactionGeometry, map);
+			}
 		}
 
 	}

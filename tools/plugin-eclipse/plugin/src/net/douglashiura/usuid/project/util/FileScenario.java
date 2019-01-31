@@ -1,4 +1,4 @@
-package net.douglashiura.us.project.util;
+package net.douglashiura.usuid.project.util;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,50 +6,54 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
-import net.douglashiura.us.project.Elements;
+import net.douglashiura.us.Interaction;
 import net.douglashiura.us.serial.Result;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.serial.Results;
+import net.douglashiura.usuid.plugin.type.ExtractPahts;
 import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.plugin.type.Scenario;
 import net.douglashiura.usuid.plugin.view.Runner;
+import net.douglashiura.usuid.project.Elements;
 
 public class FileScenario {
 
 	private IFile member;
 	private List<Result> results;
-	private Map<String, Rateable> elements = null;
-	private InteractionGeometry scenario;
+	private Map<UUID, Rateable> elements = null;
 	private String text;
 	private Notificable notificable;
+	private List<Interaction> paths;
 
-	public FileScenario(IFile member) {
+	public FileScenario(IFile member) throws IOException, CoreException {
 		this.member = member;
 		this.results = new ArrayList<>();
+		prepareScenario();
 	}
 
 	public String getName() {
 		return member.getProjectRelativePath().toString();
 	}
 
-	public InteractionGeometry getScenario() throws IOException, CoreException {
-		if (text == null) {
-			text = read();
-			scenario = new Scenario(text).firstState();
-			elements = Elements.from(scenario);
-		}
-		return scenario;
+	private void prepareScenario() throws IOException, CoreException {
+		text = read();
+		Scenario scenario = new Scenario(text);
+		List<InteractionGeometry> starts = scenario.starts();
+		paths = new ExtractPahts(starts).pathsOfExecution();
+		elements = Elements.from(starts);
 	}
 
 	private String read() throws IOException, CoreException {
 		InputStream input = member.getContents();
 		byte[] bytes = new byte[input.available()];
 		input.read(bytes);
+		input.close();
 		return new String(bytes);
 	}
 
@@ -60,7 +64,7 @@ public class FileScenario {
 	@Override
 	public String toString() {
 		try {
-			getScenario();
+			prepareScenario();
 			return text;
 		} catch (IOException | CoreException e) {
 			e.printStackTrace();
@@ -69,17 +73,18 @@ public class FileScenario {
 	}
 
 	public void addResult(Result result) {
-		if (!Result.Results.END.equals(result.getResult())) {
+		if (!Results.END.equals(result.getResult())) {
 			results.add(result);
-			Rateable element = elements.get(result.getId());
+			Rateable element = elements.get(result.getUuid());
 			if (element != null) {
 				element.rate(result.getResult().getColor());
 				notificationToView();
+				if (notificable != null) {
+					notificable.addResult(result, element);
+				}
 			}
-			if (notificable != null)
-				notificable.addResult(result, element);
 		}
-		if (Result.Results.isExecutionFinishy(result.getResult())) {
+		if (Results.isExecutionFinishy(result.getResult())) {
 			Results status = generalResult();
 			notificable.finishyATestExecution(status);
 			Runner.getRunner().updateStatusExecution(status);
@@ -88,26 +93,27 @@ public class FileScenario {
 
 	private Results generalResult() {
 		for (Result result : results) {
-			if (Result.Results.FAIL.equals(result.getResult()))
-				return Result.Results.FAIL;
+			if (Results.FAIL.equals(result.getResult()))
+				return Results.FAIL;
 		}
 		for (Result result : results) {
-			if (Result.Results.ERRO.equals(result.getResult()))
-				return Result.Results.ERRO;
+			if (Results.ERROR.equals(result.getResult()))
+				return Results.ERROR;
 		}
-		return Result.Results.OK;
+		return Results.OK;
 	}
 
 	private void notificationToView() {
-		if (Runner.getRunner().getCurrent() == this)
+		if (Runner.getRunner().getCurrent() == this) {
 			Runner.getRunner().redraw();
+		}
 	}
 
 	public void prepareToExecute() {
 		if (elements != null) {
 			Collection<Rateable> collection = elements.values();
 			for (Rateable rateable : collection) {
-				rateable.rate(Result.Results.UN_EXECUTED.getColor());
+				rateable.rate(Results.UN_EXECUTED.getColor());
 			}
 			results.clear();
 			notificationToView();
@@ -117,4 +123,13 @@ public class FileScenario {
 	public void setNotificable(Notificable itemScenario) {
 		this.notificable = itemScenario;
 	}
+
+	public Collection<Rateable> getElements() throws IOException, CoreException {
+		return elements.values();
+	}
+
+	public List<Interaction> getPaths() {
+		return paths;
+	}
+
 }

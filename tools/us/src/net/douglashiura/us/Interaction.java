@@ -48,7 +48,7 @@ public class Interaction {
 		outputs.add(output);
 	}
 
-	public void setTransaction(Transaction transaction) {
-		this.transaction = transaction;
+	public void to(Interaction destination, UUID uuid2) {
+		transaction = new Transaction(uuid2, this, destination);
 	}
 }

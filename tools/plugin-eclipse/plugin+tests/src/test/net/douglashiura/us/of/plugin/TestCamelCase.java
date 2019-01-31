@@ -1,4 +1,4 @@
-package test.net.douglashiura.us.from.plugin;
+package test.net.douglashiura.us.of.plugin;
 
 import static org.junit.Assert.assertEquals;
 
@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import net.douglashiura.us.CamelCase;
 
-public class TesteCamelCase {
+public class TestCamelCase {
 
 	@Test
 	public void camel() throws Exception {

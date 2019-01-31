@@ -1,28 +1,42 @@
 package net.douglashiura.usuid.plugin.type;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
 public class TransactionGeometry implements Rateable {
-	private java.awt.Color cor = java.awt.Color.BLACK;
-	private InteractionGeometry target;
+	private java.awt.Color color;
+	private List<InteractionGeometry> targets;
 	private InteractionGeometry source;
-	private String id;
+	private UUID id;
 
-	public TransactionGeometry(String id, InteractionGeometry source, InteractionGeometry target) {
+	public TransactionGeometry(UUID id, InteractionGeometry source) {
 		this.id = id;
 		this.source = source;
-		this.target = target;
+		this.targets = new ArrayList<>();
+		color = java.awt.Color.BLACK;
 	}
 
-	public InteractionGeometry getTarget() {
-		return target;
+	public void addTarget(InteractionGeometry target) {
+		targets.add(target);
+	}
+
+	public List<InteractionGeometry> getTargets() {
+		return targets;
 	}
 
 	public void draw(GC gc) {
-		Color saida = new Color(gc.getDevice(), cor.getRed(), cor.getGreen(), cor.getBlue());
-		gc.setForeground(saida);
-		InteractionGeometry anotherState = target;
+		Color aColor = new Color(gc.getDevice(), color.getRed(), color.getGreen(), color.getBlue());
+		gc.setForeground(aColor);
+		for (InteractionGeometry targetState : targets) {
+			drawArrow(gc, targetState);
+		}
+	}
+
+	private void drawArrow(GC gc, InteractionGeometry anotherState) {
 		Geometry aGeometry = source.getGeometry();
 		Geometry anotherGeometry = anotherState.getGeometry();
 		int anotherY = anotherGeometry.getY() + anotherGeometry.getHeight();
@@ -35,24 +49,25 @@ public class TransactionGeometry implements Rateable {
 		return aGeometry.getX() + aGeometry.getWidth() / 2;
 	}
 
-	public String getId() {
+	public UUID getUuid() {
 		return id;
 	}
 
 	@Override
 	public void rate(java.awt.Color cor) {
-		this.cor = cor;
+		this.color = cor;
 	}
 
 	@Override
-	public String getFixture() {
-		return String.format("to%s", target.getFixture());
+	public String getFixtureName() {
+		return String.format("to%s", "");
 	}
 
 	@Override
 	public String getValue() {
 		return "";
 	}
+
 	@Override
 	public Class<?> getType() {
 		return TransactionGeometry.class;

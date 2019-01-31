@@ -1,20 +1,22 @@
 package net.douglashiura.usuid.plugin.type;
 
+import java.util.UUID;
+
 public abstract class AbstractType {
 
 	private Geometry geometry;
 	private String model;
 	private String value;
-	private String id;
+	private UUID id;
 
-	public AbstractType(String id, Geometry geometry, String model, String value) {
+	public AbstractType(UUID id, Geometry geometry, String model, String value) {
 		this.id = id;
 		this.geometry = geometry;
 		this.model = model;
 		this.value = value;
 	}
 
-	public String getId() {
+	public UUID getId() {
 		return id;
 	}
 
@@ -22,7 +24,7 @@ public abstract class AbstractType {
 		return geometry;
 	}
 
-	public String getFixture() {
+	public String getFixtureName() {
 		return model;
 	}
 

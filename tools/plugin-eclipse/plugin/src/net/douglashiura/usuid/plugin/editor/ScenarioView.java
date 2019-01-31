@@ -18,6 +18,7 @@ public class ScenarioView extends ViewPart {
 		uid.pack();
 		Runner.getRunner().setCanvas(canvas);
 	}
+
 	public void setFocus() {
 		// set focus to my widget. For a label, this doesn't
 		// make much sense, but for more complex sets of widgets

@@ -12,7 +12,6 @@ import net.douglashiura.leb.uid.scenario.glue.code.ClassTemplate;
 import net.douglashiura.us.Input;
 import net.douglashiura.us.Interaction;
 import net.douglashiura.us.Output;
-import net.douglashiura.us.Transaction;
 
 public class TestGlueCodeOfAnInterection {
 
@@ -57,20 +56,20 @@ public class TestGlueCodeOfAnInterection {
 	public void inputInTwoMethods() throws Exception {
 		String inputMethod = "	public void setHome1(String value){\n	}";
 		String inputMethod2 = "\n	public void setHome2(String value){\n	}";
-		String klasse = _package + _import + body.replace("}", inputMethod+inputMethod2 + "\n}");
+		String klasse = _package + _import + body.replace("}", inputMethod + inputMethod2 + "\n}");
 		interaction.addInput(input);
 		interaction2.addInput(new Input(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), "home2", ""));
-		ClassTemplate template = new ClassTemplate("com.net.douglashiura.example", Arrays.asList(interaction,interaction2));
+		ClassTemplate template = new ClassTemplate("com.net.douglashiura.example",
+				Arrays.asList(interaction, interaction2));
 		assertEquals(klasse, template.toString());
 	}
-	
+
 	@Test
 	public void transition() throws Exception {
 		String inputMethod = "	public void toAnother(){\n	}";
 		String klasse = _package + _import + body.replace("}", inputMethod + "\n}");
 		Interaction aTarget = new Interaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), "Another");
-		Transaction transaction = new Transaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), interaction, aTarget);
-		interaction.setTransaction(transaction);
+		interaction.to(aTarget, UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"));
 		ClassTemplate template = new ClassTemplate("com.net.douglashiura.example", Arrays.asList(interaction));
 		assertEquals(klasse, template.toString());
 	}

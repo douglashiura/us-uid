@@ -2,11 +2,11 @@ package org.eclipse.swt.widgets;
 
 import org.eclipse.swt.SWT;
 
-import net.douglashiura.us.project.util.FileScenario;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.plugin.type.TransactionGeometry;
+import net.douglashiura.usuid.project.util.FileScenario;
 
 public class ItemResult extends TreeItem {
 
@@ -21,7 +21,7 @@ public class ItemResult extends TreeItem {
 		this.result = result;
 		String identification = "";
 		if (InteractionGeometry.class.equals(element.getType()) || TransactionGeometry.class.equals(element.getType()))
-			identification = element.getFixture();
+			identification = element.getFixtureName();
 		else
 			identification = element.getValue();
 		setText(String.format("(%s) %s", result.getResult(), identification));

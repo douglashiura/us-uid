@@ -15,10 +15,10 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
 
-import net.douglashiura.us.project.util.FileScenario;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.usuid.plugin.editor.Executor;
 import net.douglashiura.usuid.plugin.type.Rateable;
+import net.douglashiura.usuid.project.util.FileScenario;
 
 public class ViewTests extends ViewPart {
 
@@ -180,7 +180,7 @@ public class ViewTests extends ViewPart {
 			@Override
 			public void run() {
 				saidaValor.setText(rateable.getValue());
-				saidaFixture.setText(rateable.getFixture());
+				saidaFixture.setText(rateable.getFixtureName());
 				saidaResultado.setText(result.getActual() == null ? "" : result.getActual());
 				resultado.layout();
 				saidaValor.getParent().layout();

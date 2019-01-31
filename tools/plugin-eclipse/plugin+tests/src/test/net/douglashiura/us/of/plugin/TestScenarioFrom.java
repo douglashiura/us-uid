@@ -1,4 +1,4 @@
-package test.net.douglashiura.us.from.plugin;
+package test.net.douglashiura.us.of.plugin;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -52,14 +52,14 @@ public class TestScenarioFrom {
 
 	@Test
 	public void interacaoComSaidaSistema() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, saida)).firstState();
+		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, saida)).starts().get(0);
 		List<OutputGeometry> outputs = interacao.getOutputs();
 		OutputGeometry output = outputs.get(0);
 		assertEquals(626, interacao.getGeometry().getX().intValue());
 		assertEquals(156, interacao.getGeometry().getY().intValue());
 		assertEquals(113, interacao.getGeometry().getWidth().intValue());
 		assertEquals(83, interacao.getGeometry().getHeight().intValue());
-		assertEquals("Alvo", interacao.getFixture());
+		assertEquals("Alvo", interacao.getFixtureName());
 		assertEquals("6063b665-b963-62dd-de91-195d0d6791ad", interacao.getId());
 		assertNull(interacao.getTransaction());
 
@@ -68,59 +68,59 @@ public class TestScenarioFrom {
 		assertEquals(43, output.getGeometry().getWidth().intValue());
 		assertEquals(23, output.getGeometry().getHeight().intValue());
 		assertEquals("a2df2c45-be51-27cc-ae8d-f2772ceaa6f4", output.getId());
-		assertEquals("saida", output.getFixture());
+		assertEquals("saida", output.getFixtureName());
 		assertEquals("Valor", output.getValue());
 
 	}
 
 	@Test
 	public void interacaoAlvo() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s]", interacaoInicial)).firstState();
+		InteractionGeometry interacao = new Scenario(String.format("[%s]", interacaoInicial)).starts().get(0);
 		assertEquals(638, interacao.getGeometry().getX().intValue());
 		assertEquals(291, interacao.getGeometry().getY().intValue());
 		assertEquals(93, interacao.getGeometry().getWidth().intValue());
 		assertEquals(80, interacao.getGeometry().getHeight().intValue());
-		assertEquals("Fixture8Puzzle", interacao.getFixture());
+		assertEquals("Fixture8Puzzle", interacao.getFixtureName());
 		assertNull(interacao.getTransaction());
 	}
 
 	@Test
 	public void interacaoComEntradaDeUsuario() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, entrada)).firstState();
+		InteractionGeometry interacao = new Scenario(String.format("[%s,%s]", interacaoAlvo, entrada)).starts().get(0);
 		List<InputGeometry> inputs = interacao.getInputs();
 		InputGeometry input = inputs.get(0);
 		assertEquals(626, interacao.getGeometry().getX().intValue());
 		assertEquals(156, interacao.getGeometry().getY().intValue());
 		assertEquals(113, interacao.getGeometry().getWidth().intValue());
 		assertEquals(83, interacao.getGeometry().getHeight().intValue());
-		assertEquals("Alvo", interacao.getFixture());
+		assertEquals("Alvo", interacao.getFixtureName());
 		assertNull(interacao.getTransaction());
 		assertEquals(654, input.getGeometry().getX().intValue());
 		assertEquals(205, input.getGeometry().getY().intValue());
 		assertEquals(43, input.getGeometry().getWidth().intValue());
 		assertEquals(23, input.getGeometry().getHeight().intValue());
-		assertEquals("entrada", input.getFixture());
+		assertEquals("entrada", input.getFixtureName());
 		assertEquals("deb51e97-bd3f-82c3-74d2-ef1815a42265", input.getId());
 		assertEquals("Valor", input.getValue());
 	}
 
 	@Test
 	public void interacaoSaidaEEntrada() throws Exception {
-		InteractionGeometry interacao = new Scenario(String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo))
-				.firstState();
-		InteractionGeometry target = interacao.getTransaction().getTarget();
+		InteractionGeometry interacao = new Scenario(
+				String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo)).starts().get(0);
+		InteractionGeometry target = interacao.getTransaction().getTargets().get(0);
 		assertNull(target.getTransaction());
-		assertEquals("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85", interacao.getTransaction().getId());
+		assertEquals("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85", interacao.getTransaction().getUuid());
 		assertEquals(638, interacao.getGeometry().getX().intValue());
 		assertEquals(291, interacao.getGeometry().getY().intValue());
 		assertEquals(93, interacao.getGeometry().getWidth().intValue());
 		assertEquals(80, interacao.getGeometry().getHeight().intValue());
-		assertEquals("Fixture8Puzzle", interacao.getFixture());
+		assertEquals("Fixture8Puzzle", interacao.getFixtureName());
 		assertEquals(626, target.getGeometry().getX().intValue());
 		assertEquals(156, target.getGeometry().getY().intValue());
 		assertEquals(113, target.getGeometry().getWidth().intValue());
 		assertEquals(83, target.getGeometry().getHeight().intValue());
-		assertEquals("Alvo", target.getFixture());
+		assertEquals("Alvo", target.getFixtureName());
 	}
 
 }

@@ -11,11 +11,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 
-import net.douglashiura.us.project.util.FileScenario;
-import net.douglashiura.us.project.util.Nodes;
-import net.douglashiura.us.serial.Result.Results;
+import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.editor.Executor;
 import net.douglashiura.usuid.plugin.editor.PaintScenario;
+import net.douglashiura.usuid.project.util.FileScenario;
+import net.douglashiura.usuid.project.util.Nodes;
 
 public class Runner {
 
@@ -41,11 +41,15 @@ public class Runner {
 	}
 
 	public void run() {
+		current.prepareToExecute();
 		execute(Arrays.asList(current), current.getProject());
 	}
 
-	public void runAll() throws CoreException {
+	public void runAll() throws CoreException, IOException {
 		List<FileScenario> nodes = Nodes.from(container);
+		for (FileScenario fileScenario : nodes) {
+			fileScenario.prepareToExecute();
+		}
 		execute(nodes, container.getProject());
 
 	}
@@ -57,7 +61,8 @@ public class Runner {
 			viewTests.setExecutionAmounts(executor);
 			executor.execute(project);
 		} catch (Exception e) {
-			MessageDialog.openInformation(null, "Fault", "It is necessary to open the scenario view and test view!");
+			MessageDialog.openInformation(null, "Fault",
+					"It is necessary to open before the scenario view and test view! (Window->Show View->Other->Scenario)");
 		}
 	}
 
@@ -88,8 +93,9 @@ public class Runner {
 	public void setCurrent(FileScenario scenario) {
 		this.current = scenario;
 		try {
-			addPaintScenario(new PaintScenario(current.getScenario()));
-		} catch (IOException | CoreException | NullPointerException e) {
+			removePaintScenario();
+			addPaintScenario(new PaintScenario(current.getElements()));
+		} catch (NullPointerException | IOException | CoreException e) {
 			MessageDialog.openInformation(null, "Fault", "Could not open file");
 		}
 	}

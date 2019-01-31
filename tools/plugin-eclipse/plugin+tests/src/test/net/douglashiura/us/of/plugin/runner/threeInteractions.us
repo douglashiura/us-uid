@@ -1,15 +1,15 @@
 [
   {
     "type": "br.ufsc.leb.uid.scenario.Interacao",
-    "id": "fb3c3058-9cd4-c5a9-a4fa-7029c0c1ddfd",
-    "x": 630,
-    "y": 139,
-    "width": 71,
-    "height": 66,
+    "id": "5a6ea063-205d-0db7-7edc-eb54ff3e8636",
+    "x": 532,
+    "y": 14,
+    "width": 50,
+    "height": 50,
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": "target1"
+      "model": "Target2"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
     "ports": [
@@ -26,15 +26,15 @@
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Interacao",
-    "id": "80a90fdb-af47-454f-cc80-1f13995fe857",
-    "x": 481,
-    "y": 134,
-    "width": 65,
-    "height": 61,
+    "id": "dd3b51d5-5533-29a1-f5e3-1ef1be36ab7e",
+    "x": 532,
+    "y": 114,
+    "width": 50,
+    "height": 50,
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": "target2"
+      "model": "Target1"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
     "ports": [
@@ -42,6 +42,11 @@
         "name": "input0",
         "port": "draw2d.InputPort",
         "locator": "br.ufsc.leb.uid.scenario.TargetLocator"
+      },
+      {
+        "name": "output0",
+        "port": "draw2d.OutputPort",
+        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
       }
     ],
     "bgColor": "#F0F0F0",
@@ -51,15 +56,15 @@
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Interacao",
-    "id": "11646ea2-5843-86d6-7fae-6800a7d7da2f",
-    "x": 540,
-    "y": 252,
-    "width": 84,
-    "height": 70,
+    "id": "f6a21fd1-9ed6-97e1-2a61-5a58f03f08fe",
+    "x": 532,
+    "y": 214,
+    "width": 50,
+    "height": 50,
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": "origin"
+      "model": "Origin"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Interacao",
     "ports": [
@@ -67,11 +72,6 @@
         "name": "output0",
         "port": "draw2d.OutputPort",
         "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
-      },
-      {
-        "name": "output1",
-        "port": "draw2d.OutputPort",
-        "locator": "br.ufsc.leb.uid.scenario.ResourceLocator"
       }
     ],
     "bgColor": "#F0F0F0",
@@ -81,7 +81,7 @@
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Transaction",
-    "id": "1b10c7af-aa3e-04b7-89e2-e9350c6c938b",
+    "id": "809fc8fb-31cd-4fb6-2d1f-2208ff9a4bda",
     "alpha": 1,
     "userData": {
       "result": "",
@@ -96,17 +96,17 @@
     "router": "draw2d.layout.connection.DirectRouter",
     "radius": 2,
     "source": {
-      "node": "11646ea2-5843-86d6-7fae-6800a7d7da2f",
+      "node": "f6a21fd1-9ed6-97e1-2a61-5a58f03f08fe",
       "port": "output0"
     },
     "target": {
-      "node": "80a90fdb-af47-454f-cc80-1f13995fe857",
+      "node": "dd3b51d5-5533-29a1-f5e3-1ef1be36ab7e",
       "port": "input0"
     }
   },
   {
     "type": "br.ufsc.leb.uid.scenario.Transaction",
-    "id": "ad42c891-ebbe-1edc-484c-de9c2aa657e7",
+    "id": "1f5f8c79-09af-839e-4a79-5e9db1c81cdd",
     "alpha": 1,
     "userData": {
       "result": "",
@@ -121,11 +121,11 @@
     "router": "draw2d.layout.connection.DirectRouter",
     "radius": 2,
     "source": {
-      "node": "11646ea2-5843-86d6-7fae-6800a7d7da2f",
+      "node": "dd3b51d5-5533-29a1-f5e3-1ef1be36ab7e",
       "port": "output0"
     },
     "target": {
-      "node": "fb3c3058-9cd4-c5a9-a4fa-7029c0c1ddfd",
+      "node": "5a6ea063-205d-0db7-7edc-eb54ff3e8636",
       "port": "input0"
     }
   }

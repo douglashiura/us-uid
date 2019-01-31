@@ -1,4 +1,4 @@
-package net.douglashiura.us;
+package net.douglashiura.us.run;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,25 +8,20 @@ import java.util.UUID;
 
 import com.google.gson.Gson;
 
-import net.douglashiura.us.run.InputRunner;
-import net.douglashiura.us.run.InteractionRunner;
-import net.douglashiura.us.run.OutputRunner;
-import net.douglashiura.us.run.TransactionRunner;
+public class Scenarios {
 
-public class ScenarioFromText {
-
-	private static final Object INTERACTION = "br.ufsc.leb.uid.scenario.Interacao";
-	private static final Object OUTPUT = "br.ufsc.leb.uid.scenario.SystemOutput";
-	private static final Object INPUT = "br.ufsc.leb.uid.scenario.UserInput";
-	private static final Object TRANSACTION = "br.ufsc.leb.uid.scenario.Transaction";
+	public static final Object INTERACTION = "br.ufsc.leb.uid.scenario.Interacao";
+	public static final Object OUTPUT = "br.ufsc.leb.uid.scenario.SystemOutput";
+	public static final Object INPUT = "br.ufsc.leb.uid.scenario.UserInput";
+	public static final Object TRANSACTION = "br.ufsc.leb.uid.scenario.Transaction";
 	private HashMap<String, InteractionRunner> interactions;
 	private List<Map<String, ?>> elements;
 	private InteractionRunner first;
 
 	@SuppressWarnings("unchecked")
-	public ScenarioFromText(String text) {
+	public Scenarios(String smartJson) {
 		Gson gson = new Gson();
-		this.elements = gson.fromJson(text, List.class);
+		this.elements = gson.fromJson(smartJson, List.class);
 		this.interactions = new HashMap<String, InteractionRunner>();
 		extractInteractions();
 		extractInputs();
