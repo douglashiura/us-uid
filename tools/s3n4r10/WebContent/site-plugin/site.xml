@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/feature_1.0.5.jar" id="feature" version="1.0.5">
-      <category name="Test"/>
+   <feature url="features/br.ufsc.leb.usuid.Scenario_1.0.6.jar" id="br.ufsc.leb.usuid.Scenario" version="1.0.6">
+      <category name="test"/>
    </feature>
-   <category-def name="Test" label="Test"/>
+   <category-def name="test" label="Test"/>
 </site>
