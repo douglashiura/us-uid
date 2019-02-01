@@ -42,11 +42,13 @@ public class FileScenario {
 	}
 
 	private void prepareScenario() throws IOException, CoreException {
-		text = read();
-		Scenario scenario = new Scenario(text);
-		List<InteractionGeometry> starts = scenario.starts();
-		paths = new ExtractPahts(starts).pathsOfExecution();
-		elements = Elements.from(starts);
+		if (text == null) {
+			text = read();
+			Scenario scenario = new Scenario(text);
+			List<InteractionGeometry> starts = scenario.starts();
+			paths = new ExtractPahts(starts).pathsOfExecution();
+			elements = Elements.from(starts);
+		}
 	}
 
 	private String read() throws IOException, CoreException {
@@ -63,13 +65,7 @@ public class FileScenario {
 
 	@Override
 	public String toString() {
-		try {
-			prepareScenario();
 			return text;
-		} catch (IOException | CoreException e) {
-			e.printStackTrace();
-			return "";
-		}
 	}
 
 	public void addResult(Result result) {

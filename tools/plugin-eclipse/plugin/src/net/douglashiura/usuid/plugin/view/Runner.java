@@ -41,7 +41,7 @@ public class Runner {
 	}
 
 	public void run() {
-		current.prepareToExecute();
+		
 		execute(Arrays.asList(current), current.getProject());
 	}
 
@@ -56,6 +56,7 @@ public class Runner {
 
 	private void execute(List<FileScenario> scenarios, IProject project) {
 		try {
+			current.prepareToExecute();
 			viewTests.popularArvore(scenarios);
 			executor = new Executor(viewTests.getViewSite().getShell(), scenarios);
 			viewTests.setExecutionAmounts(executor);

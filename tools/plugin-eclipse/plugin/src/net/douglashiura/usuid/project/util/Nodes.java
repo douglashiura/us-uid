@@ -27,12 +27,14 @@ public class Nodes {
 	}
 
 	private void processContainer(IContainer container) throws CoreException, IOException {
-		IResource[] members = container.members();
-		for (IResource member : members) {
-			if (member instanceof IContainer) {
-				processContainer((IContainer) member);
-			} else if (member instanceof IFile) {
-				processFile((IFile) member);
+		if (container != null) {
+			IResource[] members = container.members();
+			for (IResource member : members) {
+				if (member instanceof IContainer) {
+					processContainer((IContainer) member);
+				} else if (member instanceof IFile) {
+					processFile((IFile) member);
+				}
 			}
 		}
 	}
