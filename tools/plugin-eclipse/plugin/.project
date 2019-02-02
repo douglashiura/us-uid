@@ -3,6 +3,7 @@
 	<name>us+plugin</name>
 	<comment></comment>
 	<projects>
+		<project>us</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

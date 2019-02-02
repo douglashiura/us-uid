@@ -41,6 +41,19 @@
 			id="view.HelloWorldView">
 		</view>
 	</extension>
+	
+	<extension point="org.eclipse.ui.views">
+		<category
+			name="Scenario"
+			id="view.Scenario">
+		</category>
+		<view
+			category="view.Scenario"
+			class="net.douglashiura.usuid.plugin.fixture.names.FixtureNamesView"
+			name="Fixture names"
+			id="view.FixturesNames">
+		</view>
+	</extension>
    
     <extension
           point="org.eclipse.ui.views">
