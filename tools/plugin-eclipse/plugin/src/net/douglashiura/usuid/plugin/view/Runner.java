@@ -15,7 +15,7 @@ import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.editor.Executor;
 import net.douglashiura.usuid.plugin.editor.PaintScenario;
 import net.douglashiura.usuid.project.util.FileScenario;
-import net.douglashiura.usuid.project.util.Nodes;
+import net.douglashiura.usuid.project.util.Files;
 
 public class Runner {
 
@@ -41,12 +41,11 @@ public class Runner {
 	}
 
 	public void run() {
-
 		execute(Arrays.asList(current), current.getProject());
 	}
 
 	public void runAll() throws CoreException, IOException {
-		List<FileScenario> nodes = Nodes.from(container);
+		List<FileScenario> nodes = Files.from(container);
 		for (FileScenario fileScenario : nodes) {
 			fileScenario.prepareToExecute();
 		}
@@ -98,7 +97,7 @@ public class Runner {
 		try {
 			removePaintScenario();
 			addPaintScenario(new PaintScenario(current.getElements()));
-		} catch (NullPointerException | IOException | CoreException e) {
+		} catch (NullPointerException error) {
 			MessageDialog.openInformation(null, "Fault", "Could not open file");
 		}
 	}

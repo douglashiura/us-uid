@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 public class InteractionGeometry extends DrawInteraction implements Rateable {
 	private String model;
 	private Geometry geometry;
@@ -11,8 +13,10 @@ public class InteractionGeometry extends DrawInteraction implements Rateable {
 	private List<InputGeometry> inputs;
 	private List<OutputGeometry> outputs;
 	private UUID id;
+	private LinkedTreeMap<String, ?> objectJson;
 
-	public InteractionGeometry(UUID id, Geometry geometry, String model) {
+	public InteractionGeometry(LinkedTreeMap<String, ?> objectJson, UUID id, Geometry geometry, String model) {
+		this.objectJson = objectJson;
 		this.id = id;
 		this.geometry = geometry;
 		this.model = model;
@@ -56,14 +60,19 @@ public class InteractionGeometry extends DrawInteraction implements Rateable {
 	public UUID getId() {
 		return id;
 	}
-	
+
 	@Override
 	public String getValue() {
 		return "";
 	}
+
 	@Override
 	public Class<?> getType() {
 		return InteractionGeometry.class;
+	}
+
+	public void setFixtureName(String name) {
+		Scenario.setFixtureName(name, objectJson);
 	}
 
 }

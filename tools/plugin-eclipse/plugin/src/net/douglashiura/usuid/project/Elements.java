@@ -1,15 +1,22 @@
 package net.douglashiura.usuid.project;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jdt.core.IJavaProject;
 
 import net.douglashiura.usuid.plugin.type.InputGeometry;
 import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.OutputGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.plugin.type.TransactionGeometry;
+import net.douglashiura.usuid.project.util.FileScenario;
+import net.douglashiura.usuid.project.util.Files;
 
 public class Elements {
 
@@ -38,4 +45,36 @@ public class Elements {
 
 	}
 
+	public static List<Element> ofInputsAndOutputsFrom(List<IJavaProject> projects) throws CoreException, IOException {
+		List<Element> list = new ArrayList<>();
+		for (IJavaProject iJavaProject : projects) {
+			List<FileScenario> files = Files.from(iJavaProject.getProject());
+			for (FileScenario fileScenario : files) {
+				for (InteractionGeometry aInteraction : fileScenario.getAllInteractions()) {
+					for (InputGeometry aInput : aInteraction.getInputs()) {
+						list.add(new Element(fileScenario, aInteraction, aInput));
+					}
+					for (OutputGeometry aOutput : aInteraction.getOutputs()) {
+						list.add(new Element(fileScenario, aInteraction, aOutput));
+					}
+				}
+			}
+
+		}
+		return list;
+	}
+
+	public static List<FileInteraction> ofInteractionsFrom(List<IJavaProject> projects) throws CoreException, IOException {
+		List<FileInteraction> list = new ArrayList<>();
+		for (IJavaProject iJavaProject : projects) {
+			List<FileScenario> files = Files.from(iJavaProject.getProject());
+			for (FileScenario fileScenario : files) {
+				for (InteractionGeometry aInteraction : fileScenario.getAllInteractions()) {
+					list.add(new FileInteraction(fileScenario, aInteraction));
+				}
+			}
+
+		}
+		return list;
+	}
 }

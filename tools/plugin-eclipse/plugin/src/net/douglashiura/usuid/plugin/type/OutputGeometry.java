@@ -5,12 +5,14 @@ import java.util.UUID;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 public class OutputGeometry extends AbstractType implements Rateable {
 	private java.awt.Color color;
 
-	public OutputGeometry(UUID id, Geometry geometry, String model, String value) {
-		super(id, geometry, model, value);
-		 color = java.awt.Color.BLACK;
+	public OutputGeometry(LinkedTreeMap<String, ?> objectJson, UUID id, Geometry geometry, String model, String value) {
+		super(objectJson, id, geometry, model, value);
+		color = java.awt.Color.BLACK;
 	}
 
 	public void draw(GC gc) {
@@ -29,4 +31,10 @@ public class OutputGeometry extends AbstractType implements Rateable {
 	public Class<?> getType() {
 		return OutputGeometry.class;
 	}
+
+	@Override
+	public String getSimpleType() {
+		return "Output";
+	}
+
 }

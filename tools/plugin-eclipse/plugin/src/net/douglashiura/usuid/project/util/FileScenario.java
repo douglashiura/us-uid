@@ -1,5 +1,6 @@
 package net.douglashiura.usuid.project.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -30,6 +31,8 @@ public class FileScenario {
 	private String text;
 	private Notificable notificable;
 	private List<Interaction> paths;
+	private List<InteractionGeometry> interactions;
+	private Scenario scenario;
 
 	public FileScenario(IFile member) throws IOException, CoreException {
 		this.member = member;
@@ -44,10 +47,11 @@ public class FileScenario {
 	private void prepareScenario() throws IOException, CoreException {
 		if (text == null) {
 			text = read();
-			Scenario scenario = new Scenario(text);
+			scenario = new Scenario(text);
 			List<InteractionGeometry> starts = scenario.starts();
 			paths = new ExtractPahts(starts).pathsOfExecution();
 			elements = Elements.from(starts);
+			interactions = scenario.getAllInteractions();
 		}
 	}
 
@@ -65,7 +69,7 @@ public class FileScenario {
 
 	@Override
 	public String toString() {
-			return text;
+		return text;
 	}
 
 	public void addResult(Result result) {
@@ -120,12 +124,21 @@ public class FileScenario {
 		this.notificable = itemScenario;
 	}
 
-	public Collection<Rateable> getElements() throws IOException, CoreException {
+	public Collection<Rateable> getElements() {
 		return elements.values();
 	}
 
 	public List<Interaction> getPaths() {
 		return paths;
+	}
+
+	public List<InteractionGeometry> getAllInteractions() {
+		return interactions;
+	}
+
+	public void save() throws CoreException {
+		InputStream content = new ByteArrayInputStream(scenario.getJson());
+		member.setContents(content, 0, null);
 	}
 
 }

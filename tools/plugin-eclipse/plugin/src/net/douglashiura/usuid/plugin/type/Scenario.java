@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -70,7 +71,7 @@ public class Scenario {
 		for (LinkedTreeMap<String, ?> object : elements) {
 			if (OUTPUT.equals(object.get("type"))) {
 				InteractionGeometry composite = interactions.get(object.get("composite").toString());
-				OutputGeometry output = new OutputGeometry(extractId(object), extractGeometry(object),
+				OutputGeometry output = new OutputGeometry(object, extractId(object), extractGeometry(object),
 						extractFixture(object), extractValue(object));
 				composite.addOutput(output);
 			}
@@ -104,7 +105,7 @@ public class Scenario {
 		for (LinkedTreeMap<String, ?> object : elements) {
 			if (INPUT.equals(object.get("type"))) {
 				InteractionGeometry composite = interactions.get(object.get("composite").toString());
-				InputGeometry input = new InputGeometry(extractId(object), extractGeometry(object),
+				InputGeometry input = new InputGeometry(object, extractId(object), extractGeometry(object),
 						extractFixture(object), extractValue(object));
 				composite.addInput(input);
 			}
@@ -124,7 +125,7 @@ public class Scenario {
 	}
 
 	private static InteractionGeometry build(LinkedTreeMap<String, ?> object) {
-		return new InteractionGeometry(extractId(object), extractGeometry(object), extractFixture(object));
+		return new InteractionGeometry(object, extractId(object), extractGeometry(object), extractFixture(object));
 	}
 
 	private static UUID extractId(LinkedTreeMap<String, ?> object) {
@@ -137,6 +138,12 @@ public class Scenario {
 		return userData.get("model").toString();
 	}
 
+	public static void setFixtureName(String name, LinkedTreeMap<String, ?> objectJson) {
+		@SuppressWarnings("unchecked")
+		LinkedTreeMap<String, Object> userData = (LinkedTreeMap<String, Object>) objectJson.get("userData");
+		userData.put("model", name);
+	}
+
 	private static Geometry extractGeometry(LinkedTreeMap<String, ?> object) {
 		Integer x = Float.valueOf(object.get("x").toString()).intValue();
 		Integer y = Float.valueOf(object.get("y").toString()).intValue();
@@ -144,6 +151,16 @@ public class Scenario {
 		Integer hieght = Float.valueOf(object.get("height").toString()).intValue();
 		Geometry geometria = new Geometry(x, y, width, hieght);
 		return geometria;
+	}
+
+	public List<InteractionGeometry> getAllInteractions() {
+		return new ArrayList<>(interactions.values());
+	}
+
+	public byte[] getJson() {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(elements);
+		return json.getBytes();
 	}
 
 }

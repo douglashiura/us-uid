@@ -9,17 +9,17 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 
-public class Nodes {
+public class Files {
 	private static final String EXTENSION = "us";
 	private List<FileScenario> scenarios;
 
-	private Nodes(IContainer root) throws CoreException, IOException {
+	private Files(IContainer root) throws CoreException, IOException {
 		scenarios = new ArrayList<>();
 		processContainer(root);
 	}
 
 	static public List<FileScenario> from(IContainer root) throws CoreException, IOException {
-		return new Nodes(root).getScenarios();
+		return new Files(root).getScenarios();
 	}
 
 	public List<FileScenario> getScenarios() {
