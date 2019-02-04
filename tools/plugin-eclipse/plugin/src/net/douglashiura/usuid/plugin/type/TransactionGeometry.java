@@ -72,4 +72,9 @@ public class TransactionGeometry implements Rateable {
 	public Class<?> getType() {
 		return TransactionGeometry.class;
 	}
+
+	@Override
+	public Geometry getGeometry() {
+		return source.getGeometry();
+	}
 }

@@ -12,8 +12,10 @@ public interface Rateable {
 
 	String getValue();
 
-	public void draw(GC gc);
+	void draw(GC gc);
 
 	Class<?> getType();
+
+	Geometry getGeometry();
 
 }

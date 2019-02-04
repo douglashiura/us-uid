@@ -14,7 +14,7 @@ public abstract class DrawInteraction implements Rateable {
 
 	abstract List<InputGeometry> getInputs();
 
-	abstract Geometry getGeometry();
+	public abstract Geometry getGeometry();
 
 	abstract List<OutputGeometry> getOutputs();
 

@@ -5,7 +5,7 @@ import java.awt.Color;
 public enum Results {
 
 	OK(Color.GREEN), ERROR(Color.RED), FAIL(Color.BLUE), NOT_EXECUTED(Color.BLACK), END(Color.BLACK),
-	UN_EXECUTED(Color.BLACK);
+	UN_EXECUTED(Color.BLACK), HIGHLIGHT(Color.BLUE);
 
 	private Color color;
 

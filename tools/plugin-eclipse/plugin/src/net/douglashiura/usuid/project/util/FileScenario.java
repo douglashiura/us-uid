@@ -28,7 +28,7 @@ public class FileScenario {
 	private IFile member;
 	private List<Result> results;
 	private Map<UUID, Rateable> elements = null;
-	private String text;
+	private byte[] text;
 	private Notificable notificable;
 	private List<Interaction> paths;
 	private List<InteractionGeometry> interactions;
@@ -45,22 +45,20 @@ public class FileScenario {
 	}
 
 	private void prepareScenario() throws IOException, CoreException {
-		if (text == null) {
-			text = read();
-			scenario = new Scenario(text);
-			List<InteractionGeometry> starts = scenario.starts();
-			paths = new ExtractPahts(starts).pathsOfExecution();
-			elements = Elements.from(starts);
-			interactions = scenario.getAllInteractions();
-		}
+		text = read();
+		scenario = new Scenario(new String(text));
+		List<InteractionGeometry> starts = scenario.starts();
+		paths = new ExtractPahts(starts).pathsOfExecution();
+		elements = Elements.from(starts);
+		interactions = scenario.getAllInteractions();
 	}
 
-	private String read() throws IOException, CoreException {
+	private byte[] read() throws IOException, CoreException {
 		InputStream input = member.getContents();
 		byte[] bytes = new byte[input.available()];
 		input.read(bytes);
 		input.close();
-		return new String(bytes);
+		return bytes;
 	}
 
 	public IProject getProject() {
@@ -69,7 +67,7 @@ public class FileScenario {
 
 	@Override
 	public String toString() {
-		return text;
+		return new String(text);
 	}
 
 	public void addResult(Result result) {
@@ -78,7 +76,7 @@ public class FileScenario {
 			Rateable element = elements.get(result.getUuid());
 			if (element != null) {
 				element.rate(result.getResult().getColor());
-				notificationToView();
+				notificationToView(element);
 				if (notificable != null) {
 					notificable.addResult(result, element);
 				}
@@ -103,10 +101,11 @@ public class FileScenario {
 		return Results.OK;
 	}
 
-	private void notificationToView() {
+	private void notificationToView(Rateable rateable) {
 		if (Runner.getRunner().getCurrent() == this) {
-			Runner.getRunner().redraw();
+			Runner.getRunner().redraw(rateable);
 		}
+
 	}
 
 	public void prepareToExecute() {
@@ -116,7 +115,7 @@ public class FileScenario {
 				rateable.rate(Results.UN_EXECUTED.getColor());
 			}
 			results.clear();
-			notificationToView();
+			notificationToView(null);
 		}
 	}
 
@@ -136,9 +135,9 @@ public class FileScenario {
 		return interactions;
 	}
 
-	public void save() throws CoreException {
-		InputStream content = new ByteArrayInputStream(scenario.getJson());
+	public void save() throws CoreException, IOException {
+		text = scenario.getJson();
+		InputStream content = new ByteArrayInputStream(text);
 		member.setContents(content, 0, null);
 	}
-
 }

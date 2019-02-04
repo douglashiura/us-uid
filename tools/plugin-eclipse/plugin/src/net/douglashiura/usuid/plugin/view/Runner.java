@@ -8,24 +8,25 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Display;
 
 import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.editor.Executor;
 import net.douglashiura.usuid.plugin.editor.PaintScenario;
+import net.douglashiura.usuid.plugin.editor.ScenarioView;
+import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.project.util.FileScenario;
 import net.douglashiura.usuid.project.util.Files;
 
 public class Runner {
 
 	private static Runner action;
-	private Canvas canvas;
 	private Executor executor;
 	private PaintScenario paintScenario;
 	private FileScenario current;
 	protected ViewTests viewTests;
 	private IContainer container;
+	private ScenarioView scenario;
 
 	private Runner() {
 	}
@@ -75,21 +76,22 @@ public class Runner {
 	public void addPaintScenario(PaintScenario paintScenario) {
 		removePaintScenario();
 		this.paintScenario = paintScenario;
-		if (canvas != null && !canvas.isDisposed()) {
-			canvas.addPaintListener(paintScenario);
-			canvas.redraw();
+		if (scenario != null && !scenario.getCanvas().isDisposed()) {
+			scenario.getCanvas().addPaintListener(paintScenario);
+			scenario.getCanvas().redraw();
 		} else {
 			MessageDialog.openInformation(null, "Fault", "It is necessary to open the scenario view!");
 		}
 	}
 
 	private void removePaintScenario() {
-		if (canvas != null && paintScenario != null)
-			canvas.removePaintListener(paintScenario);
+		if (scenario != null && paintScenario != null) {
+			scenario.getCanvas().removePaintListener(paintScenario);
+		}
 	}
 
-	public void setCanvas(Canvas canvas) {
-		this.canvas = canvas;
+	public void setCanvas(ScenarioView canvas) {
+		this.scenario = canvas;
 	}
 
 	public void setCurrent(FileScenario scenario) {
@@ -106,11 +108,13 @@ public class Runner {
 		return this.current;
 	}
 
-	public void redraw() {
+	public void redraw(Rateable rateable) {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				canvas.redraw();
+				scenario.getCanvas().redraw();
+				if (rateable != null)
+					setOrigin(rateable.getGeometry().getX(), rateable.getGeometry().getY());
 			}
 		});
 	}
@@ -122,6 +126,12 @@ public class Runner {
 
 	public void setViewTests(ViewTests viewTests) {
 		this.viewTests = viewTests;
+	}
+
+	public void setOrigin(Integer x, Integer y) {
+		if (scenario != null) {
+			scenario.setOrigin(x, y);
+		}
 	}
 
 }

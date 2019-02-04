@@ -15,61 +15,80 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
+import net.douglashiura.us.serial.Results;
+import net.douglashiura.usuid.plugin.type.Geometry;
+import net.douglashiura.usuid.plugin.view.Runner;
 import net.douglashiura.usuid.project.Element;
+import net.douglashiura.usuid.project.Elementable;
 import net.douglashiura.usuid.project.Elements;
 import net.douglashiura.usuid.project.FileInteraction;
-import net.douglashiura.usuid.project.SetFixtureName;
 
 public class FixtureNamesView extends ViewPart {
 	private List<IJavaProject> projects;
+	private Table tableInputsOutputs;
+	private Table tableInteractions;
 
 	@Override
 	public void createPartControl(Composite parent) {
-		projects = Projects.getJavaProjects();
+		loadProjects();
 		FillLayout fillLayout = new FillLayout();
 		fillLayout.type = SWT.VERTICAL;
 		parent.setLayout(fillLayout);
-		Composite composite = new Composite(parent, SWT.NONE);
-		Composite composite2 = new Composite(parent, SWT.NONE);
-		createTableInteractions(composite);
-		createTableInputsOutputs(composite2);
+		createTableInteractions(new Composite(parent, SWT.NONE));
+		createTableInputsOutputs(new Composite(parent, SWT.NONE));
+
+	}
+
+	private void loadProjects() {
+		projects = Projects.getJavaProjects();
 	}
 
 	private void createTableInputsOutputs(Composite composite) {
 		composite.setLayout(new GridLayout(1, false));
 		Label label = new Label(composite, SWT.BORDER);
 		label.setText("Inputs and outputs");
-		Table table = new Table(composite, SWT.BORDER | SWT.RESIZE | SWT.SCROLL_PAGE | SWT.V_SCROLL | SWT.H_SCROLL);
-		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		TableColumn file = new TableColumn(table, SWT.NONE);
+		tableInputsOutputs = new Table(composite,
+				SWT.BORDER | SWT.RESIZE | SWT.SCROLL_PAGE | SWT.V_SCROLL | SWT.H_SCROLL);
+		tableInputsOutputs.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		tableInputsOutputs.setHeaderVisible(true);
+		tableInputsOutputs.setLinesVisible(true);
+		TableColumn file = new TableColumn(tableInputsOutputs, SWT.NONE);
 		file.setWidth(219);
 		file.setText("File");
-		TableColumn interaction = new TableColumn(table, SWT.NONE);
+		TableColumn interaction = new TableColumn(tableInputsOutputs, SWT.NONE);
 		interaction.setWidth(246);
 		interaction.setText("Interaction fixture name");
-		TableColumn type = new TableColumn(table, SWT.NONE);
+		TableColumn type = new TableColumn(tableInputsOutputs, SWT.NONE);
 		type.setWidth(100);
 		type.setText("Type");
-		TableColumn fixtureName = new TableColumn(table, SWT.NONE);
+		TableColumn fixtureName = new TableColumn(tableInputsOutputs, SWT.NONE);
 		fixtureName.setWidth(246);
 		fixtureName.setText("Fixture name");
-		TableColumn value = new TableColumn(table, SWT.NONE);
+		TableColumn value = new TableColumn(tableInputsOutputs, SWT.NONE);
 		value.setWidth(246);
 		value.setText("Value");
+		createInputsOutputsItens();
+		createControl(tableInputsOutputs, 3);
+
+	}
+
+	private void createInputsOutputsItens() {
+		tableInputsOutputs.removeAll();
 		try {
-			List<Element> elements = net.douglashiura.usuid.project.Elements.ofInputsAndOutputsFrom(projects);
+			List<Element> elements = Elements.ofInputsAndOutputsFrom(projects);
 			for (Element element : elements) {
-				TableItem item = new TableItem(table, SWT.NONE);
+				TableItem item = new TableItem(tableInputsOutputs, SWT.NONE);
 				item.setText(0, element.getFile());
 				item.setText(1, element.getInteractionFixtureName());
 				item.setText(2, element.getType());
@@ -80,7 +99,6 @@ public class FixtureNamesView extends ViewPart {
 		} catch (CoreException | IOException e1) {
 			e1.printStackTrace();
 		}
-		createControl(table, 3);
 	}
 
 	private void createControl(Table table, Integer columnEditable) {
@@ -92,6 +110,14 @@ public class FixtureNamesView extends ViewPart {
 
 		cursor.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
+				table.setSelection(new TableItem[] { cursor.getRow() });
+				TableItem item = cursor.getRow();
+				Elementable element = (Elementable) item.getData();
+				element.getFileScenario().prepareToExecute();
+				element.getElement().rate(Results.HIGHLIGHT.getColor());
+				Runner.getRunner().setCurrent(element.getFileScenario());
+				Geometry geometry = element.getElement().getGeometry();
+				Runner.getRunner().setOrigin(geometry.getX(), geometry.getY());
 			}
 
 			public void widgetDefaultSelected(SelectionEvent e) {
@@ -103,8 +129,8 @@ public class FixtureNamesView extends ViewPart {
 					text.addKeyListener(new KeyAdapter() {
 						public void keyPressed(KeyEvent e) {
 							try {
-								((SetFixtureName) row.getData()).setFixtureName(text.getText());
-							} catch (CoreException error) {
+								((Elementable) row.getData()).setFixtureName(text.getText());
+							} catch (CoreException | IOException error) {
 								error.printStackTrace();
 							}
 							int column = cursor.getColumn();
@@ -128,28 +154,38 @@ public class FixtureNamesView extends ViewPart {
 
 	private void createTableInteractions(Composite composite) {
 		composite.setLayout(new GridLayout(1, false));
-		Label label = new Label(composite, SWT.BORDER);
-		label.setText("Interactions");
-		Table table = new Table(composite, SWT.BORDER | SWT.RESIZE | SWT.SCROLL_PAGE | SWT.V_SCROLL | SWT.H_SCROLL);
-		table.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		table.setHeaderVisible(true);
-		table.setLinesVisible(true);
-		TableColumn file = new TableColumn(table, SWT.NONE);
+		Composite bar = new Composite(composite, SWT.NONE);
+		bar.setLayout(new GridLayout(2, false));
+
+		createMenuInteractions(bar);
+
+		tableInteractions = new Table(composite,
+				SWT.BORDER | SWT.RESIZE | SWT.SCROLL_PAGE | SWT.V_SCROLL | SWT.H_SCROLL);
+		tableInteractions.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		tableInteractions.setHeaderVisible(true);
+		tableInteractions.setLinesVisible(true);
+		TableColumn file = new TableColumn(tableInteractions, SWT.NONE);
 		file.setWidth(219);
 		file.setText("File");
-		TableColumn fixtureName = new TableColumn(table, SWT.NONE);
+		TableColumn fixtureName = new TableColumn(tableInteractions, SWT.NONE);
 		fixtureName.setWidth(246);
 		fixtureName.setText("Fixture name");
-		TableColumn inputs = new TableColumn(table, SWT.NONE);
+		TableColumn inputs = new TableColumn(tableInteractions, SWT.NONE);
 		inputs.setWidth(246);
 		inputs.setText("Inputs");
-		TableColumn outputs = new TableColumn(table, SWT.NONE);
+		TableColumn outputs = new TableColumn(tableInteractions, SWT.NONE);
 		outputs.setWidth(246);
 		outputs.setText("Ouputs");
+		createInteracionsItens();
+		createControl(tableInteractions, 1);
+	}
+
+	private void createInteracionsItens() {
+		tableInteractions.removeAll();
 		try {
 			List<FileInteraction> elements = Elements.ofInteractionsFrom(projects);
 			for (FileInteraction element : elements) {
-				TableItem item = new TableItem(table, SWT.NONE);
+				TableItem item = new TableItem(tableInteractions, SWT.NONE);
 				item.setText(0, element.getFile());
 				item.setText(1, element.getFixtureName());
 				item.setText(2, element.getInputs());
@@ -159,7 +195,22 @@ public class FixtureNamesView extends ViewPart {
 		} catch (CoreException | IOException e1) {
 			e1.printStackTrace();
 		}
-		createControl(table, 1);
+	}
+
+	private void createMenuInteractions(Composite bar) {
+		Label label = new Label(bar, SWT.BORDER);
+		label.setText("Interactions");
+		Button reload = new Button(bar, SWT.PUSH);
+		reload.setText("Reload");
+		reload.addListener(SWT.Selection, new Listener() {
+			public void handleEvent(Event e) {
+				if (e.type == SWT.Selection) {
+					loadProjects();
+					createInputsOutputsItens();
+					createInteracionsItens();
+				}
+			}
+		});
 	}
 
 	@Override

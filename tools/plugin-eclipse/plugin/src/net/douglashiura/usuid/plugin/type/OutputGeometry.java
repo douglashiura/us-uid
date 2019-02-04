@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.GC;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-public class OutputGeometry extends AbstractType implements Rateable {
+public class OutputGeometry extends AbstractType {
 	private java.awt.Color color;
 
 	public OutputGeometry(LinkedTreeMap<String, ?> objectJson, UUID id, Geometry geometry, String model, String value) {

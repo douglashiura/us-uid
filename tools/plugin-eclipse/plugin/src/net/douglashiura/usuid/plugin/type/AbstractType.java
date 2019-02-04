@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-public abstract class AbstractType {
+public abstract class AbstractType implements Rateable {
 
 	private Geometry geometry;
 	private String model;

@@ -1,12 +1,14 @@
 package net.douglashiura.usuid.project;
 
+import java.io.IOException;
+
 import org.eclipse.core.runtime.CoreException;
 
 import net.douglashiura.usuid.plugin.type.AbstractType;
 import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.project.util.FileScenario;
 
-public class Element implements SetFixtureName {
+public class Element implements Elementable {
 
 	private FileScenario fileScenario;
 	private InteractionGeometry interaction;
@@ -39,9 +41,17 @@ public class Element implements SetFixtureName {
 	}
 
 	@Override
-	public void setFixtureName(String text) throws CoreException {
+	public void setFixtureName(String text) throws CoreException, IOException {
 		element.setFixtureName(text);
 		fileScenario.save();
+	}
+
+	public FileScenario getFileScenario() {
+		return fileScenario;
+	}
+
+	public AbstractType getElement() {
+		return element;
 	}
 
 }
