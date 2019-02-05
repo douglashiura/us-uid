@@ -2,9 +2,8 @@
 <?eclipse version="3.4"?>
 <plugin>
   
- 
- 
-  <extension
+
+	<extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
             label="Scenario"
@@ -68,4 +67,5 @@
              name="Tests">
        </view>
     </extension>
+       
 </plugin>

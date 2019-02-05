@@ -49,10 +49,10 @@ public class ExtractPahts {
 
 	private Interaction cloneInteraction(Interaction interaction) {
 		Interaction aInteraction = new Interaction(interaction.getUuid(), interaction.getFixtureName());
-		for (Input input : aInteraction.getInputs()) {
+		for (Input input : interaction.getInputs()) {
 			aInteraction.addInput(new Input(input.getUuid(), input.getFixtureName(), input.getValue()));
 		}
-		List<Output> outputs = aInteraction.getOutputs();
+		List<Output> outputs = interaction.getOutputs();
 		for (Output output : outputs) {
 			aInteraction.addOutput(new Output(output.getUuid(), output.getFixtureName(), output.getValue()));
 		}
