@@ -11,6 +11,5 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/us+plugin"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/s3n4r10"/>
 	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/SimMetrics.jar"/>
-	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/weka.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
