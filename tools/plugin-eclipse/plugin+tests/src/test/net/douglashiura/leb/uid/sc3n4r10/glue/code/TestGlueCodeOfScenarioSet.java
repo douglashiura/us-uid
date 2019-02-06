@@ -22,7 +22,7 @@ public class TestGlueCodeOfScenarioSet {
 
 	@Before
 	public void setUp() {
-		_package = "package test.com.net.douglashiura.example;\n";
+		_package = "package com.net.douglashiura.example;\n";
 		_import = "import net.douglashiura.us.Fixture;\n";
 		methods = "";
 		body = "@Fixture(\"EightPuzzle\")\npublic class FixtureEightPuzzle {" + methods + "\n}";
