@@ -1,8 +1,8 @@
 package net.douglashiura.us.run;
 
-import net.douglashiura.us.Input;
-import net.douglashiura.us.Interaction;
-import net.douglashiura.us.Output;
+import net.douglashiura.us.serial.Input;
+import net.douglashiura.us.serial.Interaction;
+import net.douglashiura.us.serial.Output;
 
 public class SmartJson {
 	public static final Object INTERACTION = "br.ufsc.leb.uid.scenario.Interacao";

@@ -17,6 +17,7 @@ public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 
 	@Override
 	public void launch(ISelection item, String modo) {
+		System.out.println("Run.launch()");
 		TreeSelection type = (TreeSelection) item;
 		Object selection = type.getFirstElement();
 		if (org.eclipse.jdt.internal.core.JavaProject.class.equals(selection.getClass())) {
@@ -37,6 +38,7 @@ public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 			}
 		} else if (org.eclipse.core.internal.resources.File.class.equals(selection.getClass())) {
 			File file = (File) selection;
+
 			try {
 				Runner.getRunner().setCurrent(new FileScenario(file));
 				Runner.getRunner().run();
@@ -48,6 +50,7 @@ public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 
 	@Override
 	public void launch(IEditorPart arg0, String arg1) {
+		System.out.println("Run.launch(2)");
 
 	}
 

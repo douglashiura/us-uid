@@ -7,7 +7,7 @@ import java.util.List;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.runtime.CoreException;
 
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 import net.douglashiura.usuid.project.util.FileScenario;
 import net.douglashiura.usuid.project.util.Files;
 

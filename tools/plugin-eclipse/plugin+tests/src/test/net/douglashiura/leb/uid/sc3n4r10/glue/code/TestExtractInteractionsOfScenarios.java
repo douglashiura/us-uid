@@ -10,7 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import net.douglashiura.leb.uid.scenario.glue.code.ExtractInteractions;
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 
 public class TestExtractInteractionsOfScenarios {
 	private Interaction scenario;

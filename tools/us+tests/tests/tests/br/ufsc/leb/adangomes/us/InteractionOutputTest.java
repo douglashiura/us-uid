@@ -7,8 +7,8 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.douglashiura.us.Interaction;
-import net.douglashiura.us.Output;
+import net.douglashiura.us.serial.Interaction;
+import net.douglashiura.us.serial.Output;
 
 public class InteractionOutputTest {
 

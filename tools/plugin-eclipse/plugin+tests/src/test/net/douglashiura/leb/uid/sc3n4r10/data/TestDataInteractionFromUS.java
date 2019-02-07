@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import net.douglashiura.leb.uid.scenario.ml.data.DataInteraction;
 import net.douglashiura.leb.uid.scenario.ml.data.DataInteractionFromUS;
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 
 public class TestDataInteractionFromUS {
 

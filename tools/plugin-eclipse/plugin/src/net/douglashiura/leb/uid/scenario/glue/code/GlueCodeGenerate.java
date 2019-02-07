@@ -14,7 +14,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 
 public class GlueCodeGenerate {
 

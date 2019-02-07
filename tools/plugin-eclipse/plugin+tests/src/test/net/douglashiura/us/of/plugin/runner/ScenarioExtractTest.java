@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 import net.douglashiura.usuid.plugin.type.ExtractPahts;
 import net.douglashiura.usuid.plugin.type.InteractionGeometry;
 import net.douglashiura.usuid.plugin.type.Scenario;

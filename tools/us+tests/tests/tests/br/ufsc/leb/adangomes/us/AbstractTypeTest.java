@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import net.douglashiura.us.AbstractType;
+import net.douglashiura.us.serial.AbstractType;
 
 public class AbstractTypeTest {
 

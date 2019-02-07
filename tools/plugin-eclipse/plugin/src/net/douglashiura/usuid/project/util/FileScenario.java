@@ -13,7 +13,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.plugin.type.ExtractPahts;

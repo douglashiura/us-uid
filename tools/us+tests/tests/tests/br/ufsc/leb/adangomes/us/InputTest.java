@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import net.douglashiura.us.Input;
+import net.douglashiura.us.serial.Input;
 
 public class InputTest {
 

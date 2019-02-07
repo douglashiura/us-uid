@@ -9,7 +9,7 @@ import java.util.List;
 
 import net.douglashiura.leb.uid.scenario.ScenarioFromText;
 import net.douglashiura.leb.uid.scenario.data.FilterScenario;
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 
 public class GetAllScenariosOfAPath {
 	private List<Interaction> scenarios;

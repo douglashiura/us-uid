@@ -1,4 +1,4 @@
-package net.douglashiura.us;
+package net.douglashiura.us.serial;
 
 import java.util.UUID;
 

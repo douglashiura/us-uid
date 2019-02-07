@@ -6,7 +6,7 @@ import org.xml.sax.SAXException;
 
 import net.douglashiura.leb.uid.scenario.ScenarioFromText;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 
 public class Pair {
 

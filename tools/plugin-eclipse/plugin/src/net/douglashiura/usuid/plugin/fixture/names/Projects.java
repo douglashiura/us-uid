@@ -11,19 +11,15 @@ import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
 
 public class Projects {
-	public static List<IJavaProject> getJavaProjects() {
+	public static List<IJavaProject> getJavaProjects() throws CoreException {
 		List<IJavaProject> projectList = new LinkedList<IJavaProject>();
-		try {
-			IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-			IProject[] projects = workspaceRoot.getProjects();
-			for (int i = 0; i < projects.length; i++) {
-				IProject project = projects[i];
-				if (project.isOpen() && project.hasNature(JavaCore.NATURE_ID)) {
-					projectList.add(JavaCore.create(project));
-				}
+		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IProject[] projects = workspaceRoot.getProjects();
+		for (int i = 0; i < projects.length; i++) {
+			IProject project = projects[i];
+			if (project.isOpen() && project.hasNature(JavaCore.NATURE_ID)) {
+				projectList.add(JavaCore.create(project));
 			}
-		} catch (CoreException ce) {
-			ce.printStackTrace();
 		}
 		return projectList;
 	}

@@ -3,10 +3,10 @@ package net.douglashiura.usuid.plugin.type;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.douglashiura.us.Input;
-import net.douglashiura.us.Interaction;
-import net.douglashiura.us.Output;
-import net.douglashiura.us.Transaction;
+import net.douglashiura.us.serial.Input;
+import net.douglashiura.us.serial.Interaction;
+import net.douglashiura.us.serial.Output;
+import net.douglashiura.us.serial.Transaction;
 
 public class ExtractPahts {
 	private ArrayList<Interaction> paths;

@@ -51,7 +51,6 @@ public class Runner {
 			fileScenario.prepareToExecute();
 		}
 		execute(nodes, container.getProject());
-
 	}
 
 	private void execute(List<FileScenario> scenarios, IProject project) {

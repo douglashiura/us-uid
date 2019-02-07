@@ -3,7 +3,7 @@ package net.douglashiura.leb.uid.scenario.glue.code;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 
 public class ExtractInteractions {
 

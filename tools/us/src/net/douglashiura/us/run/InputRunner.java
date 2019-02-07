@@ -4,10 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
-import net.douglashiura.us.AbstractType;
 import net.douglashiura.us.CamelCase;
 import net.douglashiura.us.ExceptionInExecution;
 import net.douglashiura.us.UtilsLog;
+import net.douglashiura.us.serial.AbstractType;
 import net.douglashiura.us.serial.Results;
 
 public class InputRunner extends AbstractType {

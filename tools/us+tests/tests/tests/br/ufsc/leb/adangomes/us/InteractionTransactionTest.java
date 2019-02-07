@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-import net.douglashiura.us.Interaction;
+import net.douglashiura.us.serial.Interaction;
 
 public class InteractionTransactionTest {
 

@@ -7,6 +7,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
@@ -28,21 +29,29 @@ public class FixtureNamesView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 		parent.setLayout(new GridLayout(1, false));
-		loadProjects();
+		Composite composite = new Composite(parent, SWT.NONE);
+		try {
+			loadProjects();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 		FillLayout fillLayout = new FillLayout();
 		fillLayout.type = SWT.VERTICAL;
-		parent.setLayout(fillLayout);
-		Group group = new Group(parent, SWT.NONE);
+		composite.setLayout(fillLayout);
+		Group group = new Group(composite, SWT.NONE);
 		group.setLayout(new GridLayout(1, false));
+		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		createMenuInteractions(group);
 		inputOutputView = new InputOutputView(group);
-		interactionView = new InteractionView(new Group(parent, SWT.NONE));
+		interactionView = new InteractionView(new Group(composite, SWT.NONE));
 		inputOutputView.createTableInputsOutputs(projects);
 		interactionView.createTableInteractions(projects);
+		parent.pack();
 	}
 
-	private void loadProjects() {
+	private void loadProjects() throws CoreException {
 		projects = Projects.getJavaProjects();
+
 	}
 
 	private void createMenuInteractions(Composite bar) {
@@ -96,10 +105,14 @@ public class FixtureNamesView extends ViewPart {
 	}
 
 	public void reload() {
-		loadProjects();
-		inputOutputView.createInputsOutputsItens(projects);
-		interactionView.createInteracionsItens(projects);
-		addItensToComboProjets();
+		try {
+			loadProjects();
+			inputOutputView.createInputsOutputsItens(projects);
+			interactionView.createInteracionsItens(projects);
+			addItensToComboProjets();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

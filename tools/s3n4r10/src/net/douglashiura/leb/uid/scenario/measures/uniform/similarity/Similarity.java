@@ -6,9 +6,9 @@ import java.util.List;
 import org.simmetrics.StringMetric;
 import org.simmetrics.metrics.StringMetrics;
 
-import net.douglashiura.us.Input;
-import net.douglashiura.us.Interaction;
-import net.douglashiura.us.Output;
+import net.douglashiura.us.serial.Input;
+import net.douglashiura.us.serial.Interaction;
+import net.douglashiura.us.serial.Output;
 
 public class Similarity {
 	private List<String> valuesA;
