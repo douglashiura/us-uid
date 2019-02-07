@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/home/douglas/git/us-uid/tools/plugin-eclipse/plugin/files/us.jar"/>
+	<classpathentry kind="lib" path="us.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
