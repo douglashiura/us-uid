@@ -35,8 +35,8 @@ public class FixtureNamesView extends ViewPart {
 		Group group = new Group(parent, SWT.NONE);
 		group.setLayout(new GridLayout(1, false));
 		createMenuInteractions(group);
-		inputOutputView = new InputOutputView(group, this);
-		interactionView = new InteractionView(new Group(parent, SWT.NONE), this);
+		inputOutputView = new InputOutputView(group);
+		interactionView = new InteractionView(new Group(parent, SWT.NONE));
 		inputOutputView.createTableInputsOutputs(projects);
 		interactionView.createTableInteractions(projects);
 	}

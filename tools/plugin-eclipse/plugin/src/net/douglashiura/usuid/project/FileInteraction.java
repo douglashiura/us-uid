@@ -1,10 +1,13 @@
 package net.douglashiura.usuid.project;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 
+import net.douglashiura.usuid.plugin.type.InputGeometry;
 import net.douglashiura.usuid.plugin.type.InteractionGeometry;
+import net.douglashiura.usuid.plugin.type.OutputGeometry;
 import net.douglashiura.usuid.plugin.type.Rateable;
 import net.douglashiura.usuid.project.util.FileScenario;
 
@@ -26,12 +29,12 @@ public class FileInteraction implements Elementable {
 		return interaction.getFixtureName();
 	}
 
-	public String getInputs() {
-		return interaction.getInputs().toString();
+	public List<InputGeometry> getInputs() {
+		return interaction.getInputs();
 	}
 
-	public String getOutputs() {
-		return interaction.getOutputs().toString();
+	public List<OutputGeometry> getOutputs() {
+		return interaction.getOutputs();
 	}
 
 	@Override

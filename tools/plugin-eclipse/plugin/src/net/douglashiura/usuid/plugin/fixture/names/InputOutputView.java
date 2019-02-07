@@ -22,11 +22,9 @@ public class InputOutputView {
 	private Table tableInputsOutputs;
 	private List<Element> elements;
 	private Group group;
-	private FixtureNamesView tela;
 
-	public InputOutputView(Group group, FixtureNamesView tela) {
+	public InputOutputView(Group group) {
 		this.group = group;
-		this.tela = tela;
 		group.setText("Inputs and outputs");
 	}
 
@@ -53,7 +51,7 @@ public class InputOutputView {
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
 					autoNamingFixtures();
-					tela.reload();
+					createInputsOutputsItens(projects);
 				} catch (CoreException | IOException e) {
 					e.printStackTrace();
 				}

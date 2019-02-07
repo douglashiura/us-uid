@@ -22,11 +22,10 @@ public class InteractionView {
 
 	private Table tableInteractions;
 	private Group group;
-	private FixtureNamesView tela;
+	private List<FileInteraction> elements;
 
-	public InteractionView(Group group, FixtureNamesView tela) {
+	public InteractionView(Group group) {
 		this.group = group;
-		this.tela = tela;
 		group.setLayout(new GridLayout(1, false));
 		group.setText("Interactions");
 
@@ -48,7 +47,7 @@ public class InteractionView {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				autoNamingFixtures();
-				tela.reload();
+				createInteracionsItens(projects);
 
 			}
 
@@ -71,13 +70,13 @@ public class InteractionView {
 	void createInteracionsItens(List<IJavaProject> projects) {
 		tableInteractions.removeAll();
 		try {
-			List<FileInteraction> elements = Elements.ofInteractionsFrom(projects);
+			elements = Elements.ofInteractionsFrom(projects);
 			for (FileInteraction element : elements) {
 				TableItem item = new TableItem(tableInteractions, SWT.NONE);
 				item.setText(0, element.getFile());
 				item.setText(1, element.getFixtureName());
-				item.setText(2, element.getInputs());
-				item.setText(3, element.getOutputs());
+				item.setText(2, element.getInputs().toString());
+				item.setText(3, element.getOutputs().toString());
 				item.setData(element);
 			}
 		} catch (CoreException | IOException e1) {
@@ -86,7 +85,11 @@ public class InteractionView {
 	}
 
 	public void autoNamingFixtures() {
-		System.out.println("InteractionView.autoNamingFixtures()");
+		try {
+			new AutoNameByUniformity(elements).naming();
+		} catch (CoreException | IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
