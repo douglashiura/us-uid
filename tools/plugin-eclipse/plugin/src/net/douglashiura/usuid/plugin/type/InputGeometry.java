@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.GC;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-public class InputGeometry extends AbstractType  {
+public class InputGeometry extends AbstractTypeGeometry  {
 	private java.awt.Color color;
 
 	public InputGeometry(LinkedTreeMap<String, ?> objectJson, UUID id, Geometry geometry, String model, String value) {

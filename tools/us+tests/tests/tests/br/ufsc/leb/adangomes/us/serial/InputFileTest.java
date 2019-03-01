@@ -2,19 +2,22 @@ package tests.br.ufsc.leb.adangomes.us.serial;
 
 import static org.junit.Assert.*;
 
+import java.util.UUID;
+
 import org.junit.Test;
 
 import net.douglashiura.us.serial.InputFile;
+import net.douglashiura.us.serial.Interaction;
 
 public class InputFileTest {
 
 	@Test
 	public void createInput() throws Exception {
 		String file = "file_name";
-		String content = "content";
+		Interaction content = new Interaction(UUID.randomUUID(), "");
 		InputFile input = new InputFile(file, content);
 		assertEquals(file, input.getFile());
-		assertEquals(content, input.getContent());
+		assertEquals(content, input.getScenario());
 	}
 
 }

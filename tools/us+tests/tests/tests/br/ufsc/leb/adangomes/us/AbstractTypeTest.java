@@ -13,7 +13,9 @@ public class AbstractTypeTest {
 	@Test
 	public void createAbstractType() throws Exception {
 		UUID uuid = UUID.randomUUID();
-		AbstractType abstractType = new AbstractType(uuid, "fixtureName", "value") {};
+		AbstractType abstractType = new AbstractType(uuid, "fixtureName", "value") {
+			private static final long serialVersionUID = 1L;
+		};
 		assertEquals(uuid, abstractType.getUuid());
 		assertEquals("fixtureName", abstractType.getFixtureName());
 		assertEquals("value", abstractType.getValue());

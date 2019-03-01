@@ -7,19 +7,19 @@ public class InputFile implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String file;
-	private String content;
+	private Interaction scenario;
 
-	public InputFile(String file, String content) {
+	public InputFile(String file, Interaction scenario, Integer index) {
 		this.file = file;
-		this.content = content;
+		this.scenario = scenario;
 	}
 
 	public String getFile() {
 		return file;
 	}
 
-	public String getContent() {
-		return content;
+	public Interaction getScenario() {
+		return scenario;
 	}
 
 }

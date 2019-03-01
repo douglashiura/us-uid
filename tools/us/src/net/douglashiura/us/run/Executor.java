@@ -12,6 +12,7 @@ import net.douglashiura.picon.ProblemaDeCompilacaoException;
 import net.douglashiura.us.ExceptionInExecution;
 import net.douglashiura.us.picon.PiconWithUsuid;
 import net.douglashiura.us.serial.InputFile;
+import net.douglashiura.us.serial.Interaction;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;
 
@@ -28,9 +29,9 @@ public class Executor {
 		}
 	}
 
-	public void execute(InteractionRunner firstState) throws UnknownHostException, IOException {
+	public void execute(Interaction firstState) throws UnknownHostException, IOException {
 		try {
-			firstState.execute(this);
+			new RecursiveExecutor(this, firstState);
 			message(null, Results.END, null);
 		} catch (ExceptionInExecution e) {
 			message(e.getUuid(), e.getResult(), e.getMessage());
@@ -54,7 +55,7 @@ public class Executor {
 		try {
 			while ((message = (InputFile) entrada.readObject()) != null) {
 				Executor executor = new Executor(inputStream);
-				executor.execute(new Scenarios(message.getContent()).firstState());
+				executor.execute(message.getScenario());
 			}
 		} catch (EOFException error) {
 

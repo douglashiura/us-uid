@@ -13,10 +13,10 @@ public class OutputTest {
 	@Test
 	public void createOutput() throws Exception {
 		UUID uuid = UUID.randomUUID();
-		Output country = new Output(uuid, "title", "Travel's Guide") {};
+		Output country = new Output(uuid, "title", "Travel's Guide");
 		assertEquals(uuid, country.getUuid());
 		assertEquals("title", country.getFixtureName());
 		assertEquals("Travel's Guide", country.getValue());
 	}
-	
+
 }

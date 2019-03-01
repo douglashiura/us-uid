@@ -21,3 +21,4 @@ Import-Package:
  org.eclipse.core.launcher,
  org.eclipse.jdt.core,
  org.eclipse.jdt.internal.core
+Automatic-Module-Name: us_uid

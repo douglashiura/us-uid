@@ -1,9 +1,11 @@
 package net.douglashiura.us.serial;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public abstract class AbstractType {
+public abstract class AbstractType implements Serializable{
 
+	private static final long serialVersionUID = 1L;
 	private UUID uuid;
 	private String fixtureName;
 	private String value;

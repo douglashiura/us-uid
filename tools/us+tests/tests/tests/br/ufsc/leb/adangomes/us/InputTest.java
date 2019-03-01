@@ -13,7 +13,7 @@ public class InputTest {
 	@Test
 	public void createInput() throws Exception {
 		UUID uuid = UUID.randomUUID();
-		Input country = new Input(uuid, "country", "Brazil") {};
+		Input country = new Input(uuid, "country", "Brazil") ;
 		assertEquals(uuid, country.getUuid());
 		assertEquals("country", country.getFixtureName());
 		assertEquals("Brazil", country.getValue());

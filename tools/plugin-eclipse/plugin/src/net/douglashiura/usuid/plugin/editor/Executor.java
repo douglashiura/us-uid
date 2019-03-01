@@ -20,6 +20,7 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 
 import net.douglashiura.us.serial.InputFile;
+import net.douglashiura.us.serial.Interaction;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;
 import net.douglashiura.usuid.project.util.FileScenario;
@@ -34,8 +35,6 @@ public class Executor {
 	private Integer faults;
 	private Integer errors;
 
-
-
 	public Executor(Shell shell, List<FileScenario> scenarios) throws IOException {
 		this.scenarios = scenarios;
 		prepareExeution();
@@ -48,7 +47,7 @@ public class Executor {
 			hasAnotherExecution = true;
 		}
 	}
-	
+
 	private void prepareExeution() {
 		complete = 0;
 		faults = 0;
@@ -64,7 +63,11 @@ public class Executor {
 				ObjectOutputStream writer = new ObjectOutputStream(client.getOutputStream());
 				ObjectInputStream input = new ObjectInputStream(client.getInputStream());
 				for (FileScenario scenario : scenarios) {
-					executeAScenario(scenario, writer, input);
+					List<Interaction> paths = scenario.getPaths();
+					for (int i = 0; i < paths.size(); i++) {
+						InputFile composite = new InputFile(scenario.getName(), paths.get(i), i);
+						executeAScenario(scenario, composite, writer, input);
+					}
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -75,9 +78,9 @@ public class Executor {
 			closeSocket();
 		}
 
-		private void executeAScenario(FileScenario scenario, ObjectOutputStream writer, ObjectInputStream input)
-				throws IOException, ClassNotFoundException {
-			writer.writeObject(new InputFile(scenario.getName(), scenario.toString()));
+		private void executeAScenario(FileScenario scenario, InputFile composite, ObjectOutputStream writer,
+				ObjectInputStream input) throws IOException, ClassNotFoundException {
+			writer.writeObject(composite);
 			scenario.prepareToExecute();
 			Result result = null;
 			while ((result = (Result) input.readObject()) != null) {

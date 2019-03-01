@@ -1,11 +1,13 @@
 package net.douglashiura.us.serial;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Interaction {
+public class Interaction implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private UUID uuid;
 	private String fixtureName;
 	private Transaction transaction;
