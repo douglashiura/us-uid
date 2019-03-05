@@ -6,22 +6,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
+import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.jdt.core.IJavaProject;
 
 import net.douglashiura.us.serial.Interaction;
 
 public class GlueCodeGenerate {
 
 	private GlueCodeOfScenarioSet codeOfScenarioSet;
-	private IJavaProject project;
+	private Project project;
 
-	public GlueCodeGenerate(String _package, IJavaProject project) throws IOException, CoreException {
+	public GlueCodeGenerate(String _package, Project project) throws IOException, CoreException {
 		this(_package, project.getProject());
 		this.project = project;
 	}

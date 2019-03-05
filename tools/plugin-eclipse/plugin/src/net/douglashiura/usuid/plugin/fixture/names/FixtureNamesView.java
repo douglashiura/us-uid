@@ -1,28 +1,21 @@
 package net.douglashiura.usuid.plugin.fixture.names;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
-
-import net.douglashiura.leb.uid.scenario.glue.code.GlueCodeGenerate;
 
 public class FixtureNamesView extends ViewPart {
 	private List<IJavaProject> projects;
-	private Combo combo;
 	private InteractionView interactionView;
 	private InputOutputView inputOutputView;
 
@@ -41,67 +34,33 @@ public class FixtureNamesView extends ViewPart {
 		Group group = new Group(composite, SWT.NONE);
 		group.setLayout(new GridLayout(1, false));
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		createMenuInteractions(group);
 		inputOutputView = new InputOutputView(group);
 		interactionView = new InteractionView(new Group(composite, SWT.NONE));
 		inputOutputView.createTableInputsOutputs(projects);
 		interactionView.createTableInteractions(projects);
+
+		IActionBars bars = getViewSite().getActionBars();
+		Action reload = new Action() {
+			@Override
+			public void run() {
+				reload();
+			}
+		};
+		reload.setText("Reload");
+		reload.setToolTipText("Reload");
+
+		bars.getMenuManager().add(reload);
+		bars.getToolBarManager().add(reload);
 		parent.pack();
+
 	}
 
 	private void loadProjects() throws CoreException {
 		projects = Projects.getJavaProjects();
-
-	}
-
-	private void createMenuInteractions(Composite bar) {
-		Composite composite = new Composite(bar, SWT.NONE);
-		composite.setLayout(new GridLayout(2, false));
-		Group group = new Group(composite, SWT.BORDER);
-		group.setText("Glue code genarator");
-		group.setLayout(new GridLayout(3, false));
-		combo = new Combo(group, SWT.BORDER);
-		addItensToComboProjets();
-		Text _package = new Text(group, SWT.BORDER);
-		_package.setText("com.company.sample");
-		Button generate = new Button(group, SWT.PUSH);
-		generate.setText("Generate");
-		generate.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event e) {
-				if (e.type == SWT.Selection) {
-					IJavaProject project = projects.get(combo.getSelectionIndex());
-					try {
-						new GlueCodeGenerate(_package.getText(), project).write();
-					} catch (IOException | CoreException e1) {
-						e1.printStackTrace();
-					}
-				}
-			}
-		});
-		Group actions = new Group(composite, SWT.BORDER);
-		actions.setLayout(new GridLayout(2, false));
-		actions.setText("Actions");
-		Button reload = new Button(actions, SWT.PUSH);
-		reload.setText("Reload");
-		reload.addListener(SWT.Selection, new Listener() {
-			public void handleEvent(Event e) {
-				if (e.type == SWT.Selection) {
-					reload();
-				}
-			}
-		});
-	}
-
-	private void addItensToComboProjets() {
-		combo.removeAll();
-		for (IJavaProject iJavaProject : projects) {
-			combo.add(iJavaProject.getProject().getName());
-		}
 	}
 
 	@Override
 	public void setFocus() {
-
 	}
 
 	public void reload() {
@@ -109,7 +68,6 @@ public class FixtureNamesView extends ViewPart {
 			loadProjects();
 			inputOutputView.createInputsOutputsItens(projects);
 			interactionView.createInteracionsItens(projects);
-			addItensToComboProjets();
 		} catch (CoreException e) {
 			e.printStackTrace();
 		}
