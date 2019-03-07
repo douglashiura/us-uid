@@ -21,7 +21,7 @@ public class GlueCodeCommandHandler extends AbstractHandler {
 		if (aEvent.getFirstElement() instanceof Project) {
 			Project aProject = (org.eclipse.core.internal.resources.Project) aEvent.getFirstElement();
 			try {
-				MyTitleAreaDialog dialog = new MyTitleAreaDialog(null);
+				DialogPackage dialog = new DialogPackage(null);
 				dialog.create();
 				if (dialog.open() == Window.OK) {
 					new GlueCodeGenerate(dialog.getPackage(), aProject).write();				 

@@ -3,8 +3,7 @@ package net.douglashiura.us.serial;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class Transaction implements Serializable {
-
+public class Transaction implements Serializable, Elementable {
 
 	private static final long serialVersionUID = 1L;
 	private UUID uuid;
@@ -21,6 +20,7 @@ public class Transaction implements Serializable {
 		return target;
 	}
 
+	@Override
 	public UUID getUuid() {
 		return uuid;
 	}

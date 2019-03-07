@@ -11,13 +11,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class MyTitleAreaDialog extends TitleAreaDialog {
+public class DialogPackage extends TitleAreaDialog {
 
     private Text txtPackage;
 
     private String _package;
 
-    public MyTitleAreaDialog(Shell parentShell) {
+    public DialogPackage(Shell parentShell) {
         super(parentShell);
     }
 

@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.DebugPlugin;
+import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationType;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
@@ -34,6 +36,7 @@ public class Executor {
 	private Integer complete;
 	private Integer faults;
 	private Integer errors;
+	private ILaunch launch;
 
 	public Executor(Shell shell, List<FileScenario> scenarios) throws IOException {
 		this.scenarios = scenarios;
@@ -64,18 +67,18 @@ public class Executor {
 				ObjectInputStream input = new ObjectInputStream(client.getInputStream());
 				for (FileScenario scenario : scenarios) {
 					List<Interaction> paths = scenario.getPaths();
-					for (int i = 0; i < paths.size(); i++) {
-						InputFile composite = new InputFile(scenario.getName(), paths.get(i), i);
+					for (int index = 0; index < paths.size(); index++) {
+						InputFile composite = new InputFile(scenario.getName(), paths.get(index), index);
 						executeAScenario(scenario, composite, writer, input);
 					}
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
+			} finally {
+				execution = false;
+				closeSocket();
 			}
-			execution = false;
-			closeSocket();
 		}
 
 		private void executeAScenario(FileScenario scenario, InputFile composite, ObjectOutputStream writer,
@@ -95,7 +98,11 @@ public class Executor {
 			try {
 				socket.close();
 			} catch (IOException e1) {
-				e1.printStackTrace();
+			}
+			try {
+				launch.terminate();
+			} catch (DebugException e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -110,7 +117,9 @@ public class Executor {
 			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName());
 			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "net.douglashiura.us.run.Executor");
 			ILaunchConfiguration config = wc.doSave();
-			config.launch(ILaunchManager.RUN_MODE, null);
+			launch = config.launch(ILaunchManager.RUN_MODE, null);
+			wc.delete();
+			config.delete();
 		}
 	}
 

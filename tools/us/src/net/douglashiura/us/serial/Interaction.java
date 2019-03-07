@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class Interaction implements Serializable {
+public class Interaction implements Serializable, Elementable {
 
 	private static final long serialVersionUID = 1L;
 	private UUID uuid;
@@ -21,6 +21,7 @@ public class Interaction implements Serializable {
 		this.outputs = new ArrayList<>();
 	}
 
+	@Override
 	public UUID getUuid() {
 		return uuid;
 	}

@@ -20,10 +20,12 @@ public class ItemResult extends TreeItem {
 		this.element = element;
 		this.result = result;
 		String identification = "";
-		if (InteractionGeometry.class.equals(element.getType()) || TransactionGeometry.class.equals(element.getType()))
+		if (InteractionGeometry.class.equals(element.getType())
+				|| TransactionGeometry.class.equals(element.getType())) {
 			identification = element.getFixtureName();
-		else
+		} else {
 			identification = element.getValue();
+		}
 		setText(String.format("(%s) %s", result.getResult(), identification));
 	}
 

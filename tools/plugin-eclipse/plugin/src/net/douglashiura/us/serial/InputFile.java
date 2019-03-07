@@ -9,9 +9,12 @@ public class InputFile implements Serializable {
 	private String file;
 	private Interaction scenario;
 
+	private Integer index;
+
 	public InputFile(String file, Interaction scenario, Integer index) {
 		this.file = file;
 		this.scenario = scenario;
+		this.index = index;
 	}
 
 	public String getFile() {
@@ -20,6 +23,10 @@ public class InputFile implements Serializable {
 
 	public Interaction getScenario() {
 		return scenario;
+	}
+
+	public Integer getIndex() {
+		return index;
 	}
 
 }

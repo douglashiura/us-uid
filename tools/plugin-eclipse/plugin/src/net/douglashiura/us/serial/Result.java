@@ -10,9 +10,11 @@ public class Result implements Serializable {
 	private UUID uuid;
 	private Results result;
 	private String actual;
+	private Integer index;
 
-	public Result(UUID uuid, Results result, String actual) {
+	public Result(UUID uuid, Integer index, Results result, String actual) {
 		this.uuid = uuid;
+		this.index = index;
 		this.result = result;
 		this.actual = actual;
 	}
@@ -27,6 +29,10 @@ public class Result implements Serializable {
 
 	public String getActual() {
 		return actual;
+	}
+
+	public Integer getIndex() {
+		return index;
 	}
 
 }
