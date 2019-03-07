@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import net.douglashiura.usuid.plugin.type.InputGeometry;
-import net.douglashiura.usuid.plugin.type.InteractionGeometry;
-import net.douglashiura.usuid.plugin.type.OutputGeometry;
-import net.douglashiura.usuid.plugin.type.Scenario;
+import net.douglashiura.scenario.plugin.type.InputGeometry;
+import net.douglashiura.scenario.plugin.type.InteractionGeometry;
+import net.douglashiura.scenario.plugin.type.OutputGeometry;
+import net.douglashiura.scenario.plugin.type.Scenario;
 
 public class TestScenarioFrom {
 	private String interacaoInicial = "{\"type\": \"br.ufsc.leb.uid.scenario.Interacao\","

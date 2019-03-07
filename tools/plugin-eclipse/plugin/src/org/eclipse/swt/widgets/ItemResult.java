@@ -2,11 +2,11 @@ package org.eclipse.swt.widgets;
 
 import org.eclipse.swt.SWT;
 
+import net.douglashiura.scenario.plugin.type.InteractionGeometry;
+import net.douglashiura.scenario.plugin.type.Rateable;
+import net.douglashiura.scenario.plugin.type.TransactionGeometry;
+import net.douglashiura.scenario.project.util.FileScenario;
 import net.douglashiura.us.serial.Result;
-import net.douglashiura.usuid.plugin.type.InteractionGeometry;
-import net.douglashiura.usuid.plugin.type.Rateable;
-import net.douglashiura.usuid.plugin.type.TransactionGeometry;
-import net.douglashiura.usuid.project.util.FileScenario;
 
 public class ItemResult extends TreeItem {
 

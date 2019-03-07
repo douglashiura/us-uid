@@ -2,11 +2,11 @@ package org.eclipse.swt.widgets;
 
 import org.eclipse.swt.SWT;
 
+import net.douglashiura.scenario.plugin.type.Rateable;
+import net.douglashiura.scenario.project.util.FileScenario;
+import net.douglashiura.scenario.project.util.Notificable;
 import net.douglashiura.us.serial.Result;
 import net.douglashiura.us.serial.Results;
-import net.douglashiura.usuid.plugin.type.Rateable;
-import net.douglashiura.usuid.project.util.FileScenario;
-import net.douglashiura.usuid.project.util.Notificable;
 
 public class ItemScenario extends TreeItem implements Notificable {
 

@@ -8,7 +8,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.glue.code.ClassTemplate;
+import net.douglashiura.scenario.glue.code.ClassTemplate;
 import net.douglashiura.us.serial.Input;
 import net.douglashiura.us.serial.Interaction;
 import net.douglashiura.us.serial.Output;

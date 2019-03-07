@@ -9,7 +9,7 @@ import java.util.UUID;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.glue.code.ExtractInteractions;
+import net.douglashiura.scenario.glue.code.ExtractInteractions;
 import net.douglashiura.us.serial.Interaction;
 
 public class TestExtractInteractionsOfScenarios {
