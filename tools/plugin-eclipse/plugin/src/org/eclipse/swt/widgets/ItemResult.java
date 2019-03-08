@@ -12,13 +12,21 @@ public class ItemResult extends TreeItem {
 
 	private Rateable element;
 	private Result result;
-	private ItemScenario item;
+	private FileScenario fileScenario;
 
-	public ItemResult(ItemScenario item, Rateable element, Result result) {
+	public ItemResult(ItemScenario item, Rateable element, Result result, FileScenario scenario) {
+		this((TreeItem) item, element, result, scenario);
+	}
+
+	public ItemResult(ItemPath item, Rateable element, Result result, FileScenario scenario) {
+		this((TreeItem) item, element, result, scenario);
+	}
+
+	private ItemResult(TreeItem item, Rateable element, Result result,FileScenario fileScenario) {
 		super(item, SWT.NONE);
-		this.item = item;
 		this.element = element;
 		this.result = result;
+		this.fileScenario = fileScenario;
 		String identification = "";
 		if (InteractionGeometry.class.equals(element.getType())
 				|| TransactionGeometry.class.equals(element.getType())) {
@@ -38,6 +46,6 @@ public class ItemResult extends TreeItem {
 	}
 
 	public FileScenario getItemScenario() {
-		return item.getScenario();
+		return fileScenario;
 	}
 }

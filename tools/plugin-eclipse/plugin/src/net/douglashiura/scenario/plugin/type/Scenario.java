@@ -11,10 +11,10 @@ import com.google.gson.internal.LinkedTreeMap;
 
 public class Scenario {
 
-	private static final Object INTERACTION = "br.ufsc.leb.uid.scenario.Interacao";
-	private static final Object OUTPUT = "br.ufsc.leb.uid.scenario.SystemOutput";
-	private static final Object INPUT = "br.ufsc.leb.uid.scenario.UserInput";
-	private static final Object TRANSACTION = "br.ufsc.leb.uid.scenario.Transaction";
+	private static final String INTERACTION = "br.ufsc.leb.uid.scenario.Interacao";
+	private static final String OUTPUT = "br.ufsc.leb.uid.scenario.SystemOutput";
+	private static final String INPUT = "br.ufsc.leb.uid.scenario.UserInput";
+	private static final String TRANSACTION = "br.ufsc.leb.uid.scenario.Transaction";
 	private HashMap<String, InteractionGeometry> interactions;
 
 	private List<InteractionGeometry> firsts;

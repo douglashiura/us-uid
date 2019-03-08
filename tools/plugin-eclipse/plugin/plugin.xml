@@ -9,7 +9,7 @@
             label="Scenario"
             icon="icons/us.gif"
             modes="run, debug"
-            class="net.douglashiura.usuid.plugin.tiggres.Run"
+            class="net.douglashiura.scenario.plugin.tiggres.Run"
             id="net.douglashiura.usuid.shortCut">
          <contextualLaunch>
            <enablement>
@@ -36,7 +36,7 @@
 		<view
 			category="view.Scenario"
 			name="Scenario"
-			class="net.douglashiura.usuid.plugin.editor.ScenarioView"
+			class="net.douglashiura.scenario.plugin.editor.ScenarioView"
 			id="view.HelloWorldView">
 		</view>
 	</extension>
@@ -48,7 +48,7 @@
 		</category>
 		<view
 			category="view.Scenario"
-			class="net.douglashiura.usuid.plugin.fixture.names.FixtureNamesView"
+			class="net.douglashiura.scenario.plugin.fixture.names.FixtureNamesView"
 			name="Fixture names"
 			id="view.FixturesNames">
 		</view>
@@ -62,7 +62,7 @@
        </category>
        <view
              category="view.Scenario"
-             class="net.douglashiura.usuid.plugin.view.ViewTests"
+             class="net.douglashiura.scenario.plugin.view.ViewTests"
              id="view.ViewTests"
              name="Tests">
        </view>
@@ -70,7 +70,7 @@
     
     <extension point="org.eclipse.ui.menus">
       <menuContribution locationURI="popup:org.eclipse.ui.popup.any">
-         <command commandId="net.douglashiura.usuid.command.generate.glue.code"
+         <command commandId="net.douglashiura.scenario.command.generate.glue.code"
                id="GenerateGlueCode"
                label="Generate glue code from US-UIDs"
                 mnemonic="M1+P"
@@ -81,8 +81,8 @@
    </extension>
    
    <extension point="org.eclipse.ui.handlers"> 
-     <handler commandId="net.douglashiura.usuid.command.generate.glue.code"
-            class="net.douglashiura.usuid.plugin.fixture.names.GlueCodeCommandHandler">
+     <handler commandId="net.douglashiura.scenario.command.generate.glue.code"
+            class="net.douglashiura.scenario.plugin.fixture.names.GlueCodeCommandHandler">
      </handler>
    </extension>
        

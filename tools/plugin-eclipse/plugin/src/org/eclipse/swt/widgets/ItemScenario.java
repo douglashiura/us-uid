@@ -1,5 +1,8 @@
 package org.eclipse.swt.widgets;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.swt.SWT;
 
 import net.douglashiura.scenario.plugin.type.Rateable;
@@ -11,11 +14,15 @@ import net.douglashiura.us.serial.Results;
 public class ItemScenario extends TreeItem implements Notificable {
 
 	private FileScenario aScenario;
+	private Map<Integer, ItemPath> paths;
 
 	public ItemScenario(Tree arvoreDeElementos, FileScenario aScenario) {
 		super(arvoreDeElementos, SWT.NONE);
 		this.aScenario = aScenario;
 		setText(aScenario.getName());
+		if (aScenario.getPaths().size() > 1) {
+			paths = new HashMap<>();
+		}
 	}
 
 	public FileScenario getScenario() {
@@ -25,11 +32,30 @@ public class ItemScenario extends TreeItem implements Notificable {
 	@Override
 	public void addResult(Result result, Rateable element) {
 		Display.getDefault().asyncExec(new Runnable() {
+			@SuppressWarnings("unused")
 			@Override
 			public void run() {
-				if (ItemScenario.this != null) {
-					new ItemResult(ItemScenario.this, element, result);
+				while (null == ItemScenario.this) {
+					try {
+						wait(0, 10);
+					} catch (InterruptedException e) {
+					}
 				}
+				if (aScenario.getPaths().size() > 1) {
+					ItemPath item = getPath(result);
+					item.addResult(result, element);
+				} else {
+					new ItemResult(ItemScenario.this, element, result, aScenario);
+				}
+			}
+
+			private ItemPath getPath(Result result) {
+				ItemPath path = paths.get(result.getIndex());
+				if (path == null) {
+					path = new ItemPath(ItemScenario.this, result.getIndex(), aScenario);
+					paths.put(result.getIndex(), path);
+				}
+				return path;
 			}
 		});
 	}
@@ -52,8 +78,10 @@ public class ItemScenario extends TreeItem implements Notificable {
 			public void run() {
 				setText(String.format("%s (%s)", aScenario.getName(), generalResult));
 			}
-
 		});
-
+		for (ItemPath item : paths.values()) {
+			item.finishyATestExecution(generalResult);
+		}
 	}
+
 }
