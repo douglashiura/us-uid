@@ -1,5 +1,6 @@
 package net.douglashiura.scenario.plugin.type;
 
+import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.swt.graphics.Color;
@@ -7,7 +8,7 @@ import org.eclipse.swt.graphics.GC;
 
 import com.google.gson.internal.LinkedTreeMap;
 
-public class InputGeometry extends AbstractTypeGeometry  {
+public class InputGeometry extends AbstractTypeGeometry {
 	private java.awt.Color color;
 
 	public InputGeometry(LinkedTreeMap<String, ?> objectJson, UUID id, Geometry geometry, String model, String value) {
@@ -15,7 +16,7 @@ public class InputGeometry extends AbstractTypeGeometry  {
 		color = java.awt.Color.BLACK;
 	}
 
-	public void draw(GC gc) {
+	public void draw(GC gc, Map<UUID, Rateable> neighbors) {
 		Color aColor = new Color(gc.getDevice(), color.getRed(), color.getGreen(), color.getBlue());
 		gc.setForeground(aColor);
 		Geometry geometry = getGeometry();

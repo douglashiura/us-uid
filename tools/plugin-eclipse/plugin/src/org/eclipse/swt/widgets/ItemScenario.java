@@ -2,6 +2,7 @@ package org.eclipse.swt.widgets;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.swt.SWT;
 
@@ -77,11 +78,13 @@ public class ItemScenario extends TreeItem implements Notificable {
 			@Override
 			public void run() {
 				setText(String.format("%s (%s)", aScenario.getName(), generalResult));
+				if (paths != null) {
+					for (Entry<Integer, ItemPath> item : paths.entrySet()) {
+						item.getValue().finishyATestExecution(generalResult);
+					}
+				}
 			}
 		});
-		for (ItemPath item : paths.values()) {
-			item.finishyATestExecution(generalResult);
-		}
 	}
 
 }

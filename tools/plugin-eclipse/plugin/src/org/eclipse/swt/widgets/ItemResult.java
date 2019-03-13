@@ -45,7 +45,7 @@ public class ItemResult extends TreeItem {
 		return result;
 	}
 
-	public FileScenario getItemScenario() {
+	public FileScenario getScenario() {
 		return fileScenario;
 	}
 }

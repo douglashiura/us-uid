@@ -2,10 +2,13 @@ package net.douglashiura.scenario.plugin.type;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
+
+import net.douglashiura.us.serial.Results;
 
 public class TransactionGeometry implements Rateable {
 	private java.awt.Color color;
@@ -28,11 +31,19 @@ public class TransactionGeometry implements Rateable {
 		return targets;
 	}
 
-	public void draw(GC gc) {
+	@Override
+	public void draw(GC gc, Map<UUID, Rateable> only) {
 		Color aColor = new Color(gc.getDevice(), color.getRed(), color.getGreen(), color.getBlue());
-		gc.setForeground(aColor);
+		java.awt.Color unExecuted = Results.UN_EXECUTED.getColor();
+		Color unExecutedColor = new Color(gc.getDevice(), unExecuted.getRed(), unExecuted.getGreen(), unExecuted.getBlue());
 		for (InteractionGeometry targetState : targets) {
-			drawArrow(gc, targetState);
+			gc.setForeground(aColor);
+			if (only.get(targetState.getId()) != null) {
+				drawArrow(gc, targetState);
+			}else {
+				gc.setForeground(unExecutedColor);
+				drawArrow(gc, targetState);
+			}
 		}
 	}
 

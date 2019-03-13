@@ -40,7 +40,8 @@ public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 			File file = (File) selection;
 
 			try {
-				Runner.getRunner().setCurrent(new FileScenario(file));
+				FileScenario aFile=new FileScenario(file);
+				Runner.getRunner().setCurrent(aFile, aFile.getElements());
 				Runner.getRunner().run();
 			} catch (IOException | CoreException e) {
 				e.printStackTrace();

@@ -123,7 +123,7 @@ public class FileScenario {
 		this.notificable = itemScenario;
 	}
 
-	public Collection<Rateable> getElements() {
+	public Collection<Rateable> getElementsCollection() {
 		return elements.values();
 	}
 
@@ -140,4 +140,8 @@ public class FileScenario {
 		InputStream content = new ByteArrayInputStream(text);
 		member.setContents(content, 0, null);
 	}
+	public Map<UUID, Rateable> getElements() {
+		return elements;
+	}
+	
 }

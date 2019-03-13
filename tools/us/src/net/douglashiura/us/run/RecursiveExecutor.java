@@ -34,10 +34,13 @@ public class RecursiveExecutor {
 			instance = klass.getConstructors()[0].newInstance();
 			executor.message(interaction.getUuid(), index, Results.OK, null);
 			executor.getPicon().settings(instance);
-		} catch (InstantiationException | IllegalAccessException | NullPointerException | IOException
-				| ClassNotFoundException | IllegalArgumentException | URISyntaxException | ProblemaDeCompilacaoException
+		} catch (InstantiationException | IllegalAccessException | IOException | ClassNotFoundException
+				| IllegalArgumentException | URISyntaxException | ProblemaDeCompilacaoException
 				| InvocationTargetException | SecurityException e) {
 			messageError(interaction, e);
+		} catch (NullPointerException nil) {
+			messageError(interaction,
+					new Exception("There is no class to the fixture name [" + interaction.getFixtureName() + "]"));
 		}
 		for (Output aOutput : interaction.getOutputs()) {
 			execute(aOutput, instance);
@@ -76,14 +79,17 @@ public class RecursiveExecutor {
 	}
 
 	private void execute(Output output, Object object) throws ExceptionInExecution {
+		Method method = null;
 		try {
 			Class<?>[] cArg = new Class[0];
-			Method method = object.getClass().getMethod(CamelCase.get(output.getFixtureName()), cArg);
-			Object retorno = method.invoke(object);
-			if (retorno.equals(output.getValue()))
-				executor.message(output.getUuid(), index, Results.OK, retorno.toString());
-			else
-				throw new ExceptionInExecution(output.getUuid(), Results.FAIL, retorno.toString());
+			method = object.getClass().getMethod(CamelCase.get(output.getFixtureName()), cArg);
+			Object return_ = method.invoke(object);
+			if (return_ != null && return_.equals(output.getValue())) {
+				executor.message(output.getUuid(), index, Results.OK, return_.toString());
+			} else {
+				throw new ExceptionInExecution(output.getUuid(), Results.FAIL,
+						return_ == null ? "null" : return_.toString());
+			}
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NullPointerException e) {
 			messageError(output, e);
@@ -92,6 +98,7 @@ public class RecursiveExecutor {
 
 	private void messageError(Elementable elementable, Exception e) throws ExceptionInExecution {
 		String msg = e.getMessage();
+		e.printStackTrace();
 		if (msg == null || "".equals(msg))
 			msg = UtilsLog.toString(e);
 		throw new ExceptionInExecution(elementable.getUuid(), Results.ERROR, msg);

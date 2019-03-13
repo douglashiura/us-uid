@@ -21,7 +21,6 @@ import net.douglashiura.us.serial.Results;
 
 public class Control {
 
-
 	private TableCursor cursor;
 	private Table table;
 	private Integer columnEditable;
@@ -32,7 +31,7 @@ public class Control {
 		this.columnEditable = columnEditable;
 		cursor = new TableCursor(table, SWT.NONE);
 		cursor.addSelectionListener(new Selection());
-	    editor2 = new ControlEditor(cursor);
+		editor2 = new ControlEditor(cursor);
 		editor2.grabHorizontal = true;
 		editor2.grabVertical = true;
 	}
@@ -44,7 +43,7 @@ public class Control {
 			Elementable element = (Elementable) item.getData();
 			element.getFileScenario().prepareToExecute();
 			element.getElement().rate(Results.HIGHLIGHT.getColor());
-			Runner.getRunner().setCurrent(element.getFileScenario());
+			Runner.getRunner().setCurrent(element.getFileScenario(), element.getFileScenario().getElements());
 			Geometry geometry = element.getElement().getGeometry();
 			Runner.getRunner().setOrigin(geometry.getX(), geometry.getY());
 		}

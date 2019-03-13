@@ -3,6 +3,8 @@ package net.douglashiura.scenario.plugin.view;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
@@ -42,34 +44,39 @@ public class Runner {
 	}
 
 	public void run() {
-		execute(Arrays.asList(current), current.getProject());
+		if (current != null) {
+			execute(Arrays.asList(current), current.getProject());
+		} else {
+			MessageDialog.openInformation(null, "Fault", "It is necessary to open an scenario file!");
+		}
 	}
 
 	public void runAll() throws CoreException, IOException {
-		List<FileScenario> nodes = Files.from(container);
-		for (FileScenario fileScenario : nodes) {
-			fileScenario.prepareToExecute();
+		if (container != null) {
+			List<FileScenario> nodes = Files.from(container);
+			for (FileScenario fileScenario : nodes) {
+				fileScenario.prepareToExecute();
+			}
+			execute(nodes, container.getProject());
+		} else {
+			MessageDialog.openInformation(null, "Fault", "It is necessary to open an scenario folder!");
 		}
-		execute(nodes, container.getProject());
 	}
 
 	private void execute(List<FileScenario> scenarios, IProject project) {
 		if (current != null) {
 			current.prepareToExecute();
+			try {
+				viewTests.popularArvore(scenarios);
+				executor = new Executor(scenarios);
+				viewTests.setExecutionAmounts(executor);
+				executor.execute(project);
+			} catch (Exception e) {
+				e.printStackTrace();
+				MessageDialog.openInformation(null, "Fault",
+						"It is necessary to open before the scenario view and test view! (Window->Show View->Other->Scenario)");
+			}
 		}
-		try {
-			viewTests.popularArvore(scenarios);
-			executor = new Executor(viewTests.getViewSite().getShell(), scenarios);
-			viewTests.setExecutionAmounts(executor);
-			executor.execute(project);
-		} catch (Exception e) {
-			MessageDialog.openInformation(null, "Fault",
-					"It is necessary to open before the scenario view and test view! (Window->Show View->Other->Scenario)");
-		}
-	}
-
-	public boolean getExecution() {
-		return executor.getExecution();
 	}
 
 	public void addPaintScenario(PaintScenario paintScenario) {
@@ -93,11 +100,11 @@ public class Runner {
 		this.scenario = canvas;
 	}
 
-	public void setCurrent(FileScenario scenario) {
+	public void setCurrent(FileScenario scenario, Map<UUID, Rateable> neighbors) {
 		this.current = scenario;
 		try {
 			removePaintScenario();
-			addPaintScenario(new PaintScenario(current.getElements()));
+			addPaintScenario(new PaintScenario(current.getElementsCollection(), neighbors));
 		} catch (NullPointerException error) {
 			MessageDialog.openInformation(null, "Fault", "Could not open file");
 		}

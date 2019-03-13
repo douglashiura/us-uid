@@ -9,9 +9,8 @@ public class CalculatorFixture3 {
 
 	}
 
-	public String getDisplay() throws InterruptedException {
-		Thread.sleep(1000);
-		return "1";
+	public String getDisplay() throws Exception {
+		return null;
 	}
 
 	public void toCalculatorFixture4() {

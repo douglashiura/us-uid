@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Result implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	public static final String SPLIT = "<##SPLIT##>";
 	private UUID uuid;
 	private Results result;
 	private String actual;

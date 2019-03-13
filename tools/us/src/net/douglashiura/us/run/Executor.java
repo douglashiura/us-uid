@@ -1,6 +1,5 @@
 package net.douglashiura.us.run;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -21,7 +20,7 @@ public class Executor {
 	private ObjectOutputStream write;
 	private PiconWithUsuid picon;
 
-	public Executor(ObjectOutputStream write) {
+	private Executor(ObjectOutputStream write) {
 		this.write = write;
 		try {
 			picon = new PiconWithUsuid();
@@ -43,45 +42,25 @@ public class Executor {
 	public void message(UUID uuid, Integer index, Results result, String actual) {
 		try {
 			write.writeObject(new Result(uuid, index, result, actual));
+			write.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException {
-		Socket client = new Socket("localhost", 6969);
-		ObjectInputStream inputStream = new ObjectInputStream(client.getInputStream());
-		ObjectOutputStream outputStream = new ObjectOutputStream(client.getOutputStream());
-		InputFile message;
-		Integer code = 0;
+		Socket socket = new Socket("localhost", Integer.valueOf(args[0]));
 		try {
+			ObjectOutputStream write = new ObjectOutputStream(socket.getOutputStream());
+			ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+			Executor executor = new Executor(write);
+			InputFile message;
 			while ((message = (InputFile) inputStream.readObject()) != null) {
-				Executor executor = new Executor(outputStream);
 				executor.execute(message.getScenario(), message.getIndex());
 			}
-		} catch (EOFException error) {
-			error.printStackTrace();
-			code = 1;
 		} finally {
-			exit(client, inputStream, outputStream, code);
+			socket.close();
 		}
-	}
-
-	private static void exit(Socket client, ObjectInputStream inputStream, ObjectOutputStream outputStream, int code)
-			throws IOException {
-		try {
-			inputStream.close();
-		} catch (Exception e) {
-		}
-		try {
-			outputStream.close();
-		} catch (Exception e) {
-		}
-		try {
-			client.close();
-		} catch (Exception e) {
-		}
-		System.exit(code);
 	}
 
 	public PiconWithUsuid getPicon() {

@@ -1,6 +1,8 @@
 package net.douglashiura.scenario.plugin.type;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
@@ -20,7 +22,8 @@ public abstract class DrawInteraction implements Rateable {
 
 	abstract TransactionGeometry getTransaction();
 
-	public void draw(GC gc) {
+	@Override
+	public void draw(GC gc, Map<UUID, Rateable> neighbors) {
 		Color aColor = new Color(gc.getDevice(), color.getRed(), color.getGreen(), color.getBlue());
 		gc.setForeground(aColor);
 		Geometry geometry = getGeometry();
