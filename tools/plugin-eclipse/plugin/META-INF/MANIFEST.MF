@@ -1,8 +1,8 @@
-Manifest-Version: 1.0
+Manifest-Version: 1.0.3
 Bundle-ManifestVersion: 2
 Bundle-Name: us_uid
 Bundle-SymbolicName: us_uid;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 1.0.3
 Bundle-Activator: net.douglashiura.scenario.plugin.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

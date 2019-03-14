@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/br.ufsc.leb.us.Scenario_1.0.0.jar" id="br.ufsc.leb.us.Scenario" version="1.0.0">
+   <feature url="features/br.ufsc.leb.us.Scenario_1.0.3.jar" id="br.ufsc.leb.us.Scenario" version="1.0.3">
       <category name="test"/>
    </feature>
    <category-def name="test" label="Test"/>

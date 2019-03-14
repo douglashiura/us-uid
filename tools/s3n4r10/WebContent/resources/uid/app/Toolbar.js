@@ -56,18 +56,6 @@ example.Toolbar = Class
 				}, this));
 
 				this.html.append($(delimiter));
-
-				this.html.append($(delimiter));
-				this.resetButton = $("<button class='gray'>Reset</button>");
-				this.html.append(this.resetButton);
-				this.resetButton.click($.proxy(function() {
-					var figures = this.view.getLines().asArray();
-					for (var i = 0; i < figures.length; i++)
-						figures[i].resetColor();
-					figures = this.view.getFigures().asArray();
-					for (var i = 0; i < figures.length; i++)
-						figures[i].resetColor();
-				}, this));
 				this.html.append($(delimiter));
 				this.html.append($(delimiter));
 				this.uniformity = $("<span style='color: white;'>Unifomity:<span id='uniformity'>0</span></span>");

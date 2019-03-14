@@ -17,7 +17,7 @@ public class ScenarioView extends ViewPart {
 	public void createPartControl(Composite parent) {
 		uid = new ScrolledComposite(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
 		canvas = new Canvas(uid, SWT.NONE);
-		canvas.setSize(1800, 3000);
+		canvas.setSize(10000, 10000);
 		uid.setContent(canvas);
 		uid.pack();
 		Runner.getRunner().setCanvas(this);

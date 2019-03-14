@@ -103,7 +103,7 @@ public class ScenarioFromText {
 				}
 			}
 		} catch (NullPointerException e) {
-			throw new RuntimeException("Erro:" + origin);
+			throw new RuntimeException("Erro:" + origin,e);
 		}
 	}
 

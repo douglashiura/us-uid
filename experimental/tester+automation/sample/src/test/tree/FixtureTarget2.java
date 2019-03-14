@@ -4,4 +4,8 @@ import net.douglashiura.us.Fixture;
 public class FixtureTarget2 {
 	public FixtureTarget2() throws Exception {
 	}
+	
+	public String getDisplay() {
+		return "4";
+	}
 }

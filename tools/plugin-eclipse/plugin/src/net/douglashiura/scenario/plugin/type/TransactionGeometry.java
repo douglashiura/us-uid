@@ -35,12 +35,13 @@ public class TransactionGeometry implements Rateable {
 	public void draw(GC gc, Map<UUID, Rateable> only) {
 		Color aColor = new Color(gc.getDevice(), color.getRed(), color.getGreen(), color.getBlue());
 		java.awt.Color unExecuted = Results.UN_EXECUTED.getColor();
-		Color unExecutedColor = new Color(gc.getDevice(), unExecuted.getRed(), unExecuted.getGreen(), unExecuted.getBlue());
+		Color unExecutedColor = new Color(gc.getDevice(), unExecuted.getRed(), unExecuted.getGreen(),
+				unExecuted.getBlue());
 		for (InteractionGeometry targetState : targets) {
 			gc.setForeground(aColor);
 			if (only.get(targetState.getId()) != null) {
 				drawArrow(gc, targetState);
-			}else {
+			} else {
 				gc.setForeground(unExecutedColor);
 				drawArrow(gc, targetState);
 			}
@@ -50,14 +51,14 @@ public class TransactionGeometry implements Rateable {
 	private void drawArrow(GC gc, InteractionGeometry anotherState) {
 		Geometry aGeometry = source.getGeometry();
 		Geometry anotherGeometry = anotherState.getGeometry();
-		int anotherY = anotherGeometry.getY() + anotherGeometry.getHeight();
-		int anotherX = meioX(anotherGeometry);
-		gc.drawLine(meioX(aGeometry), aGeometry.getY(), anotherX, anotherY);
-		gc.drawPolygon(new int[] { anotherX, anotherY, anotherX + 10, anotherY + 15, anotherX - 10, anotherY + 15 });
+		int anotherY = meioY(anotherGeometry);
+		int anotherX = anotherGeometry.getX();
+		gc.drawLine(aGeometry.getX() + aGeometry.getWidth(), meioY(aGeometry), anotherX-10, anotherY);
+		gc.drawPolygon(new int[] { anotherX-10, anotherY-7, anotherX, anotherY, anotherX-10, anotherY+7 });
 	}
 
-	private int meioX(Geometry aGeometry) {
-		return aGeometry.getX() + aGeometry.getWidth() / 2;
+	private int meioY(Geometry aGeometry) {
+		return aGeometry.getY() + aGeometry.getHeight() / 2;
 	}
 
 	public UUID getUuid() {
