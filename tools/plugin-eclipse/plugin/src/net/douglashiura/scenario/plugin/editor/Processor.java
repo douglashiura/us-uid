@@ -5,10 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
@@ -31,26 +31,27 @@ public class Processor implements Runnable {
 	private ObjectInputStream input;
 	private Thread reader;
 
-	public Processor(IProject project, Executor executor) throws CoreException, IOException, InterruptedException {
+	public Processor(IProject project, Executor executor) throws CoreException, IOException {
 		this.executor = executor;
 		server = new ServerSocket(0);
 		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
 		ILaunchConfigurationType type = manager
 				.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
-		ILaunchConfigurationWorkingCopy wc = type.newInstance(null, "User Scenario");
+		ILaunchConfigurationWorkingCopy wc = type.newInstance(null,
+				String.format("User Scenario [%s]", server.getLocalPort()));
 		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName());
 		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "net.douglashiura.us.run.Executor");
 		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS,
 				Integer.toString(server.getLocalPort()));
 		ILaunchConfiguration configuration = wc.doSave();
-		launch = configuration.launch(ILaunchManager.RUN_MODE, new NullProgressMonitor());
+		launch = configuration.launch(ILaunchManager.RUN_MODE, null);
 		wc.delete();
 		configuration.delete();
+		client = server.accept();
+		output = new ObjectOutputStream(client.getOutputStream());
+		input = new ObjectInputStream(client.getInputStream());
 		reader = new Thread(this);
 		reader.start();
-		while (output == null) {
-			Thread.sleep(1);
-		}
 	}
 
 	public void write(InputFile scenario) throws IOException {
@@ -61,24 +62,18 @@ public class Processor implements Runnable {
 	@Override
 	public void run() {
 		try {
-			client = server.accept();
-			output = new ObjectOutputStream(client.getOutputStream());
-			input = new ObjectInputStream(client.getInputStream());
 			Result result;
 			while ((result = (Result) input.readObject()) != null) {
 				executor.delivery(result);
 			}
+		} catch (SocketException e) {
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void exit() {
-		try {
-			reader.join();
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
-		}
+
 		try {
 			launch.terminate();
 		} catch (DebugException e) {
@@ -102,6 +97,11 @@ public class Processor implements Runnable {
 		try {
 			server.close();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			reader.join();
+		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}

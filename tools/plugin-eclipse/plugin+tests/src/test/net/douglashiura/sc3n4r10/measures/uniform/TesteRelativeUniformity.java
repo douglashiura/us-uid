@@ -1,4 +1,4 @@
-package test.net.douglashiura.leb.uid.sc3n4r10.measures.uniform;
+package test.net.douglashiura.sc3n4r10.measures.uniform;
 
 import static org.junit.Assert.assertEquals;
 
@@ -26,40 +26,40 @@ public class TesteRelativeUniformity {
 
 	@Test
 	public void zeroPercent() throws Exception {
-		assertEquals(new Float(0), relative.getUniformity());
+		assertEquals(Float.valueOf(0), relative.getUniformity());
 	}
 
 	@Test
 	public void uniformInput() {
 		relative.setUniformInput(inputs);
-		assertEquals(new Float(1f), relative.getUniformity());
+		assertEquals(Float.valueOf(1f), relative.getUniformity());
 	}
 
 	@Test
 	public void uniformOutput() {
 		relative.setUniformOutput(outputs);
-		assertEquals(new Float(1f), relative.getUniformity());
+		assertEquals(Float.valueOf(1f), relative.getUniformity());
 	}
 
 	@Test
 	public void uniformOutputNonUniformInputs() {
 		relative.setUniformOutput(outputs);
 		relative.setNonUniformInput(nonUniformInputs);
-		assertEquals(new Float(0.5f), relative.getUniformity());
+		assertEquals(Float.valueOf(0.5f), relative.getUniformity());
 	}
 
 	@Test
 	public void uniformOutputNonUniformOutputs() {
 		relative.setUniformOutput(outputs);
 		relative.setNonUniformOutput(nonUniformOutputs);
-		assertEquals(new Float(0.3333333333334f), relative.getUniformity());
+		assertEquals(Float.valueOf(0.3333333333334f), relative.getUniformity());
 	}
 
 	@Test
 	public void uniformInputsNonUniformInputs() {
 		relative.setUniformInput(inputs);
 		relative.setNonUniformInput(nonUniformInputs);
-		assertEquals(new Float(0.6666667f), relative.getUniformity());
+		assertEquals(Float.valueOf(0.6666667f), relative.getUniformity());
 	}
 
 	@Test
@@ -68,32 +68,32 @@ public class TesteRelativeUniformity {
 		relative.setNonUniformInput(nonUniformInputs);
 		relative.setUniformOutput(outputs);
 		relative.setNonUniformOutput(nonUniformOutputs);
-		assertEquals(new Float(0.5f), relative.getUniformity());
+		assertEquals(Float.valueOf(0.5f), relative.getUniformity());
 	}
 
 	@Test
 	public void nonUniformOutput() {
 		relative.setNonUniformOutput(nonUniformOutputs);
-		assertEquals(new Float(0f), relative.getUniformity());
+		assertEquals(Float.valueOf(0f), relative.getUniformity());
 	}
 
 	@Test
 	public void nonUniformInputs() {
 		relative.setNonUniformInput(nonUniformInputs);
-		assertEquals(new Float(0f), relative.getUniformity());
+		assertEquals(Float.valueOf(0f), relative.getUniformity());
 	}
 
 	@Test
 	public void hundredPercent() throws Exception {
 		relative.setUniformInput(inputs);
 		relative.setUniformOutput(outputs);
-		assertEquals(new Float(1f), relative.getUniformity());
+		assertEquals(Float.valueOf(1f), relative.getUniformity());
 	}
 
 	@Test
 	public void zeroPercentOfNonUniform() throws Exception {
 		relative.setNonUniformInput(nonUniformInputs);
 		relative.setNonUniformOutput(nonUniformOutputs);
-		assertEquals(new Float(0f), relative.getUniformity());
+		assertEquals(Float.valueOf(0f), relative.getUniformity());
 	}
 }

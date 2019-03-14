@@ -75,7 +75,7 @@ public class FileScenario {
 			results.add(result);
 			Rateable element = elements.get(result.getUuid());
 			if (element != null) {
-				element.rate(result.getResult().getColor());
+				element.setColor(result.getResult().getColor());
 				notificationToView(element);
 				if (notificable != null) {
 					notificable.addResult(result, element);
@@ -112,7 +112,7 @@ public class FileScenario {
 		if (elements != null) {
 			Collection<Rateable> collection = elements.values();
 			for (Rateable rateable : collection) {
-				rateable.rate(Results.UN_EXECUTED.getColor());
+				rateable.setColor(Results.UN_EXECUTED.getColor());
 			}
 			results.clear();
 			notificationToView(null);
@@ -140,8 +140,17 @@ public class FileScenario {
 		InputStream content = new ByteArrayInputStream(text);
 		member.setContents(content, 0, null);
 	}
+
 	public Map<UUID, Rateable> getElements() {
 		return elements;
 	}
-	
+
+	public FileScenario selected() {
+		for (Result result : results) {
+			Rateable rateable = elements.get(result.getUuid());
+			rateable.setColor(result.getResult().getColor());
+		}
+		return this;
+	}
+
 }

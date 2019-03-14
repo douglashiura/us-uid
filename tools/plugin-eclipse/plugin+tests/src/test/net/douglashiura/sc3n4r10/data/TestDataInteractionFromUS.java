@@ -1,4 +1,4 @@
-package test.net.douglashiura.leb.uid.sc3n4r10.data;
+package test.net.douglashiura.sc3n4r10.data;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,12 +19,12 @@ public class TestDataInteractionFromUS {
 		List<DataInteraction> instances = DataInteractionFromUS.read(first, "file");
 		assertEquals(1, instances.size());
 		assertEquals(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), instances.get(0).getId());
-		assertEquals(new Integer(0), instances.get(0).getEndDistance());
-		assertEquals(new Integer(0), instances.get(0).getInputs());
-		assertEquals(new Integer(0), instances.get(0).getOutputs());
-		assertEquals(new Integer(0), instances.get(0).getElements());
-		assertEquals(new Integer(0), instances.get(0).getStartDistance());
-		assertEquals(new Integer(0), instances.get(0).getDeep());
+		assertEquals(Integer.valueOf(0), instances.get(0).getEndDistance());
+		assertEquals(Integer.valueOf(0), instances.get(0).getInputs());
+		assertEquals(Integer.valueOf(0), instances.get(0).getOutputs());
+		assertEquals(Integer.valueOf(0), instances.get(0).getElements());
+		assertEquals(Integer.valueOf(0), instances.get(0).getStartDistance());
+		assertEquals(Integer.valueOf(0), instances.get(0).getDeep());
 		assertEquals("file", instances.get(0).getScenario());
 		assertEquals("fixture", instances.get(0).getFixture());
 	}

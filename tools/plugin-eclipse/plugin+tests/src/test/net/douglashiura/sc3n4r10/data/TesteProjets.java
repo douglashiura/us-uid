@@ -1,4 +1,4 @@
-package test.net.douglashiura.leb.uid.sc3n4r10.data;
+package test.net.douglashiura.sc3n4r10.data;
 
 import static org.junit.Assert.assertTrue;
 

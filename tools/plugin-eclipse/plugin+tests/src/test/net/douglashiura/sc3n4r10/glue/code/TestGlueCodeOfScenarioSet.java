@@ -1,4 +1,4 @@
-package test.net.douglashiura.leb.uid.sc3n4r10.glue.code;
+package test.net.douglashiura.sc3n4r10.glue.code;
 
 import static org.junit.Assert.assertEquals;
 

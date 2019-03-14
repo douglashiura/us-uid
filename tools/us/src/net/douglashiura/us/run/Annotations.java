@@ -33,7 +33,8 @@ public class Annotations {
 		return map;
 	}
 
-	private static List<Class<?>> getClassesAnnotatedWithFixture() throws IOException, ClassNotFoundException, URISyntaxException {
+	private static List<Class<?>> getClassesAnnotatedWithFixture()
+			throws IOException, ClassNotFoundException, URISyntaxException {
 		List<Class<?>> klasses = getClasses();
 		return klasses;
 	}
@@ -44,14 +45,15 @@ public class Annotations {
 		Enumeration<URL> recursos = ClassLoader.getSystemResources("");
 		while (recursos.hasMoreElements()) {
 			URL url = (URL) recursos.nextElement();
-			read(new File(url.toURI()), classes,url.getPath());
+			read(new File(url.toURI()), classes, url.getPath());
 		}
 		return classes;
 	}
 
-	private static void read(File file, List<Class<?>> classes, String relative) throws ClassNotFoundException, IOException {
+	private static void read(File file, List<Class<?>> classes, String relative)
+			throws ClassNotFoundException, IOException {
 		Class<?> classe;
-		if (file.isFile() && ((classe = getCLassAnnotation(file,relative)) != null))
+		if (file.isFile() && ((classe = getCLassAnnotation(file, relative)) != null))
 			classes.add(classe);
 		if (file.isDirectory())
 			for (File filho : file.listFiles())
@@ -61,9 +63,13 @@ public class Annotations {
 	private static Class<?> getCLassAnnotation(File file, String relative) throws ClassNotFoundException, IOException {
 		if (file.getName().endsWith(".class")) {
 			String name = file.getAbsolutePath().replace(relative, "").replace(".class", "").replace("/", ".");
-			Class<?> klass = Class.forName(name);
-			if (klass.getAnnotation(Fixture.class) != null)
-				return klass;
+			try {
+				Class<?> klass = Class.forName(name);
+				if (klass.getAnnotation(Fixture.class) != null)
+					return klass;
+			} catch (SecurityException e) {
+				return null;
+			}
 		}
 		return null;
 	}

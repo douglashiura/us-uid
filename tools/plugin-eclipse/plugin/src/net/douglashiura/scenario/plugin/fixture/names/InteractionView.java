@@ -17,8 +17,9 @@ import org.eclipse.swt.widgets.TableItem;
 
 import net.douglashiura.scenario.project.Elements;
 import net.douglashiura.scenario.project.FileInteraction;
+import net.douglashiura.scenario.project.util.AutoNameByUniformity;
 
-public class InteractionView {
+public class InteractionView implements ViewControlable {
 
 	private Table tableInteractions;
 	private Group group;
@@ -28,10 +29,9 @@ public class InteractionView {
 		this.group = group;
 		group.setLayout(new GridLayout(1, false));
 		group.setText("Interactions");
-
 	}
 
-	void createTableInteractions(List<IJavaProject> projects) {
+	public void createTable(List<IJavaProject> projects) {
 		tableInteractions = new Table(group, SWT.BORDER | SWT.RESIZE | SWT.SCROLL_PAGE | SWT.V_SCROLL | SWT.H_SCROLL);
 		tableInteractions.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		tableInteractions.setHeaderVisible(true);
@@ -43,17 +43,13 @@ public class InteractionView {
 		fixtureName.setWidth(246);
 		fixtureName.setText("Fixture name (click to auto naming)");
 		SelectionListener listener = new SelectionListener() {
-
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				autoNamingFixtures();
-				createInteracionsItens(projects);
-
+				createItens(projects);
 			}
-
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
-
 			}
 		};
 		fixtureName.addSelectionListener(listener);
@@ -63,11 +59,11 @@ public class InteractionView {
 		TableColumn outputs = new TableColumn(tableInteractions, SWT.NONE);
 		outputs.setWidth(246);
 		outputs.setText("Ouputs");
-		createInteracionsItens(projects);
+		createItens(projects);
 		new Control(tableInteractions, 1);
 	}
 
-	void createInteracionsItens(List<IJavaProject> projects) {
+	public void createItens(List<IJavaProject> projects) {
 		tableInteractions.removeAll();
 		try {
 			elements = Elements.ofInteractionsFrom(projects);
@@ -84,7 +80,7 @@ public class InteractionView {
 		}
 	}
 
-	public void autoNamingFixtures() {
+	private void autoNamingFixtures() {
 		try {
 			new AutoNameByUniformity(elements).naming();
 		} catch (CoreException | IOException e) {

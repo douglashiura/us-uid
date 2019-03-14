@@ -65,7 +65,7 @@ public class TransactionGeometry implements Rateable {
 	}
 
 	@Override
-	public void rate(java.awt.Color cor) {
+	public void setColor(java.awt.Color cor) {
 		this.color = cor;
 	}
 

@@ -1,6 +1,7 @@
 package net.douglashiura.scenario.plugin.editor;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -18,14 +19,22 @@ public class Executor {
 	private Integer complete;
 	private Integer faults;
 	private Integer errors;
-	private FileScenario scenarioProcessing;
-	private Iterator<FileScenario> scenarios;
+	private PathScenario scenarioProcessing;
+	private Iterator<PathScenario> scenarios;
 	private Integer total;
 	private Processor processor;
 
 	public Executor(List<FileScenario> scenarios) throws IOException {
-		this.total = scenarios.size();
-		this.scenarios = scenarios.iterator();
+		List<PathScenario> manyPaths = new ArrayList<PathScenario>();
+		for (FileScenario fileScenario : scenarios) {
+			List<Interaction> paths = fileScenario.getPaths();
+			Integer index = 0;
+			for (Interaction scenario : paths) {
+				manyPaths.add(new PathScenario(fileScenario, scenario, index++));
+			}
+		}
+		this.total = manyPaths.size();
+		this.scenarios = manyPaths.iterator();
 		prepareExeution();
 	}
 
@@ -37,18 +46,17 @@ public class Executor {
 	private void next() throws IOException {
 		if (scenarios.hasNext()) {
 			scenarioProcessing = scenarios.next();
-			scenarioProcessing.prepareToExecute();
-			List<Interaction> paths = scenarioProcessing.getPaths();
-			for (int index = 0; index < paths.size(); index++) {
-				processor.write(new InputFile(scenarioProcessing.getName(), paths.get(index), index));
-			}
+			FileScenario fileScenario = scenarioProcessing.getFileScenario();
+			fileScenario.prepareToExecute();
+			processor.write(new InputFile(fileScenario.getName(), scenarioProcessing.getScenario(),
+					scenarioProcessing.getIndex()));
 		} else {
 			processor.exit();
 		}
 	}
-	
+
 	public void delivery(Result result) {
-		scenarioProcessing.addResult(result);
+		scenarioProcessing.getFileScenario().addResult(result);
 		if (Results.isExecutionFinishy(result.getResult())) {
 			try {
 				next();
@@ -57,8 +65,6 @@ public class Executor {
 			}
 		}
 	}
-
-	
 
 	private void prepareExeution() {
 		complete = 0;
@@ -89,7 +95,5 @@ public class Executor {
 		else if (Results.FAIL.equals(status))
 			faults++;
 	}
-
-	
 
 }

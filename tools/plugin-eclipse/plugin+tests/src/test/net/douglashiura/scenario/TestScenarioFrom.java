@@ -1,9 +1,10 @@
-package test.net.douglashiura.us.of.plugin;
+package test.net.douglashiura.scenario;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.Test;
 
@@ -60,14 +61,14 @@ public class TestScenarioFrom {
 		assertEquals(113, interacao.getGeometry().getWidth().intValue());
 		assertEquals(83, interacao.getGeometry().getHeight().intValue());
 		assertEquals("Alvo", interacao.getFixtureName());
-		assertEquals("6063b665-b963-62dd-de91-195d0d6791ad", interacao.getId());
+		assertEquals(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), interacao.getId());
 		assertNull(interacao.getTransaction());
 
 		assertEquals(647, output.getGeometry().getX().intValue());
 		assertEquals(170, output.getGeometry().getY().intValue());
 		assertEquals(43, output.getGeometry().getWidth().intValue());
 		assertEquals(23, output.getGeometry().getHeight().intValue());
-		assertEquals("a2df2c45-be51-27cc-ae8d-f2772ceaa6f4", output.getId());
+		assertEquals(UUID.fromString("a2df2c45-be51-27cc-ae8d-f2772ceaa6f4"), output.getId());
 		assertEquals("saida", output.getFixtureName());
 		assertEquals("Valor", output.getValue());
 
@@ -100,7 +101,7 @@ public class TestScenarioFrom {
 		assertEquals(43, input.getGeometry().getWidth().intValue());
 		assertEquals(23, input.getGeometry().getHeight().intValue());
 		assertEquals("entrada", input.getFixtureName());
-		assertEquals("deb51e97-bd3f-82c3-74d2-ef1815a42265", input.getId());
+		assertEquals(UUID.fromString("deb51e97-bd3f-82c3-74d2-ef1815a42265"), input.getId());
 		assertEquals("Valor", input.getValue());
 	}
 
@@ -110,7 +111,7 @@ public class TestScenarioFrom {
 				String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo)).starts().get(0);
 		InteractionGeometry target = interacao.getTransaction().getTargets().get(0);
 		assertNull(target.getTransaction());
-		assertEquals("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85", interacao.getTransaction().getUuid());
+		assertEquals(UUID.fromString("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85"), interacao.getTransaction().getUuid());
 		assertEquals(638, interacao.getGeometry().getX().intValue());
 		assertEquals(291, interacao.getGeometry().getY().intValue());
 		assertEquals(93, interacao.getGeometry().getWidth().intValue());

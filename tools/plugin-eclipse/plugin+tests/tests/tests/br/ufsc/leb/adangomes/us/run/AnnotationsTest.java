@@ -7,12 +7,12 @@ import org.junit.Test;
 import net.douglashiura.us.Fixture;
 import net.douglashiura.us.run.Annotations;
 
-@Fixture("Exemplo")
+@Fixture("AnnotationsTestFixture")
 public class AnnotationsTest {
 
 	@Test
 	public void selfAnnotation() throws Exception {
-		assertNotNull(Annotations.getFixture("Exemplo"));
+		assertNotNull(Annotations.getFixture("AnnotationsTestFixture"));
 	}
 
 }

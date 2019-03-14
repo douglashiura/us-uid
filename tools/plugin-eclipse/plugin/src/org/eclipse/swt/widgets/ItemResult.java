@@ -48,4 +48,5 @@ public class ItemResult extends TreeItem {
 	public FileScenario getScenario() {
 		return fileScenario;
 	}
+
 }

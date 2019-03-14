@@ -57,8 +57,9 @@ public class ItemPath extends TreeItem implements Notificable {
 		Map<UUID, Rateable> elements = scenario.getElements();
 		Map<UUID, Rateable> neighbors = new HashMap<UUID, Rateable>();
 		for (Result result : results) {
-			elements.get(result.getUuid()).rate(result.getResult().getColor());
-			neighbors.put(result.getUuid(), elements.get(result.getUuid()));
+			Rateable rateable = elements.get(result.getUuid());
+			rateable.setColor(result.getResult().getColor());
+			neighbors.put(result.getUuid(), rateable);
 		}
 		return neighbors;
 	}

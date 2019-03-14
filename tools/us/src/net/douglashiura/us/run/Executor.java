@@ -50,17 +50,14 @@ public class Executor {
 
 	public static void main(String[] args) throws UnknownHostException, IOException, ClassNotFoundException {
 		Socket socket = new Socket("localhost", Integer.valueOf(args[0]));
-		try {
-			ObjectOutputStream write = new ObjectOutputStream(socket.getOutputStream());
-			ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
-			Executor executor = new Executor(write);
-			InputFile message;
-			while ((message = (InputFile) inputStream.readObject()) != null) {
-				executor.execute(message.getScenario(), message.getIndex());
-			}
-		} finally {
-			socket.close();
+		ObjectOutputStream write = new ObjectOutputStream(socket.getOutputStream());
+		ObjectInputStream inputStream = new ObjectInputStream(socket.getInputStream());
+		Executor executor = new Executor(write);
+		InputFile message;
+		while ((message = (InputFile) inputStream.readObject()) != null) {
+			executor.execute(message.getScenario(), message.getIndex());
 		}
+		socket.close();
 	}
 
 	public PiconWithUsuid getPicon() {

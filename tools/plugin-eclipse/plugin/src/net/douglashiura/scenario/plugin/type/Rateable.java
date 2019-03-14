@@ -8,7 +8,7 @@ import org.eclipse.swt.graphics.GC;
 
 public interface Rateable {
 
-	void rate(Color color);
+	void setColor(Color color);
 
 	String getFixtureName();
 

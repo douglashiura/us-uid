@@ -17,7 +17,6 @@ public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 
 	@Override
 	public void launch(ISelection item, String modo) {
-		System.out.println("Run.launch()");
 		TreeSelection type = (TreeSelection) item;
 		Object selection = type.getFirstElement();
 		if (org.eclipse.jdt.internal.core.JavaProject.class.equals(selection.getClass())) {

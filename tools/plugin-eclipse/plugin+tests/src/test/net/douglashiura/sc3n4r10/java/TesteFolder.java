@@ -1,4 +1,4 @@
-package test.net.douglashiura.leb.uid.sc3n4r10.java;
+package test.net.douglashiura.sc3n4r10.java;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,7 +21,7 @@ public class TesteFolder {
 		List<Folder> folders = folder.getFolders();
 		assertEquals(0, scenaries.size());
 		assertEquals(0, folders.size());
-		assertEquals(new Integer(0), folder.getDeep());
+		assertEquals(Integer.valueOf(0), folder.getDeep());
 		assertEquals(File.separator, folder.getName());
 	}
 

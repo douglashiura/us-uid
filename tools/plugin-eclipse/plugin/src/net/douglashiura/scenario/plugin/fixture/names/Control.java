@@ -42,7 +42,7 @@ public class Control {
 			TableItem item = cursor.getRow();
 			Elementable element = (Elementable) item.getData();
 			element.getFileScenario().prepareToExecute();
-			element.getElement().rate(Results.HIGHLIGHT.getColor());
+			element.getElement().setColor(Results.HIGHLIGHT.getColor());
 			Runner.getRunner().setCurrent(element.getFileScenario(), element.getFileScenario().getElements());
 			Geometry geometry = element.getElement().getGeometry();
 			Runner.getRunner().setOrigin(geometry.getX(), geometry.getY());

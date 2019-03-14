@@ -1,4 +1,4 @@
-package test.net.douglashiura.us.of.plugin;
+package test.net.douglashiura.scenario;
 
 import static org.junit.Assert.assertEquals;
 

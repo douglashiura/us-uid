@@ -31,7 +31,7 @@ public abstract class DrawInteraction implements Rateable {
 	}
 
 	@Override
-	public void rate(java.awt.Color color) {
+	public void setColor(java.awt.Color color) {
 		this.color = color;
 	}
 }

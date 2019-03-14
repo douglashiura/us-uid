@@ -10,7 +10,7 @@ public class CalculatorFixture3 {
 	}
 
 	public String getDisplay() throws Exception {
-		return null;
+		return "1";
 	}
 
 	public void toCalculatorFixture4() {

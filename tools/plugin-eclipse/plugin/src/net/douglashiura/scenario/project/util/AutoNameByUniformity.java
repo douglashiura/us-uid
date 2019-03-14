@@ -1,4 +1,4 @@
-package net.douglashiura.scenario.plugin.fixture.names;
+package net.douglashiura.scenario.project.util;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ public class AutoNameByUniformity {
 		boolean isNewNamed = true;
 		while (isNewNamed) {
 			FileInteraction remover = null;
+			isNewNamed = false;
 			for (FileInteraction unamed : unameds) {
 				max = null;
 				for (FileInteraction named : nameds) {
@@ -41,6 +42,7 @@ public class AutoNameByUniformity {
 						max = actual;
 					} else if (max.uniformity < actual.uniformity) {
 						max = actual;
+						System.out.println(max.named.getFile() + max.uniformity);
 					}
 				}
 				isNewNamed = false;
