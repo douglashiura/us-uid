@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="feature"
+      label="Feature"
+      version="1.0.3"
+      provider-name="LEB (Douglas Hiura Longo)">
+
+   <description url="http://agil.inf.ufsc.br/us/">
+      User Scenarios through User Interaction Diagrams (US-UIDs) is
+a format to Automated Acceptance Tests.
+Scenario is a plugin to execute US-UIDs.
+   </description>
+
+   <copyright url="https://github.com/douglashiura/us-uid">
+      There is no license
+   </copyright>
+
+   <license url="https://github.com/douglashiura/us-uid">
+      There is no license
+   </license>
+
+   <plugin
+         id="us_uid"
+         download-size="0"
+         install-size="0"
+         version="1.0.3"/>
+
+</feature>
