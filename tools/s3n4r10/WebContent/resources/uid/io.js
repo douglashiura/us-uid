@@ -51,6 +51,6 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.getUniformity = function() {
 	});
 	request.done($.proxy(function(data) {
 		var span=document.getElementById('uniformity');
-		span.innerHTML=data.average*100;
+		span.innerHTML=(data.average*100).toFixed(0);
 	}, this));
 }

@@ -38,11 +38,12 @@ public class AutoNameByUniformity {
 				max = null;
 				for (FileInteraction named : nameds) {
 					Uniformity actual = new Uniformity(unamed, named);
+					System.out.println(actual.named.getFixtureName() + " " + actual.uniformity);
 					if (max == null) {
 						max = actual;
 					} else if (max.uniformity < actual.uniformity) {
 						max = actual;
-						System.out.println(max.named.getFile() + max.uniformity);
+						System.out.println(max.named.getFile() + " " + max.getFixtureName() + max.uniformity);
 					}
 				}
 				isNewNamed = false;
@@ -67,7 +68,6 @@ public class AutoNameByUniformity {
 		private Integer nonUniformityOutputs;
 		private List<String> inputs;
 		private List<String> outputs;
-		private List<String> fixtures;
 
 		private FileInteraction unamed;
 
@@ -80,7 +80,6 @@ public class AutoNameByUniformity {
 			nonUniformityOutputs = 0;
 			inputs = new ArrayList<String>();
 			outputs = new ArrayList<String>();
-			fixtures = new ArrayList<String>();
 			extractStrings(named);
 			uniformity = uniformityCalc();
 		}
@@ -88,15 +87,9 @@ public class AutoNameByUniformity {
 		private void extractStrings(FileInteraction named) {
 			for (InputGeometry input : named.getInputs()) {
 				inputs.add(input.getValue());
-				if (input.getFixtureName() != null && !input.getFixtureName().isEmpty()) {
-					fixtures.add(input.getFixtureName());
-				}
 			}
 			for (OutputGeometry output : named.getOutputs()) {
 				outputs.add(output.getValue());
-				if (output.getFixtureName() != null && !output.getFixtureName().isEmpty()) {
-					fixtures.add(output.getFixtureName());
-				}
 			}
 		}
 
@@ -114,7 +107,7 @@ public class AutoNameByUniformity {
 
 		private void calcOutputs() {
 			for (OutputGeometry output : unamed.getOutputs()) {
-				if (outputs.contains(output.getValue()) || fixtures.contains(output.getFixtureName())) {
+				if (outputs.contains(output.getValue())) {
 					uniformityOutputs++;
 				} else {
 					nonUniformityOutputs++;
@@ -124,12 +117,16 @@ public class AutoNameByUniformity {
 
 		private void calcInputs() {
 			for (InputGeometry input : unamed.getInputs()) {
-				if (inputs.contains(input.getValue()) || fixtures.contains(input.getFixtureName())) {
+				if (inputs.contains(input.getValue())) {
 					uniformityInputs++;
 				} else {
 					nonUniformityInputs++;
 				}
 			}
+		}
+
+		public String getFixtureName() {
+			return named.getFixtureName();
 		}
 	}
 }

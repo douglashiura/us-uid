@@ -28,6 +28,7 @@ br.ufsc.leb.uid.scenario.app.Canvas = draw2d.Canvas.extend({
 	init : function(id) {
 		this._super(id, 10000, 10000);
 		this.setScrollArea("#" + id);
+		this.installEditPolicy(new br.ufsc.leb.uid.scenario.CopyInterceptorPolicy());
 	},
 	getInteractions : function() {
 		var figures = this.getFigures().asArray();
@@ -173,3 +174,83 @@ br.ufsc.leb.uid.scenario.ResourceLocator = draw2d.layout.locator.OutputPortLocat
 						.getWidth(), figure.getParent().getHeight()/2);
 			}
 		});
+
+br.ufsc.leb.uid.scenario.CopyInterceptorPolicy = draw2d.policy.canvas.ExtendedKeyboardPolicy
+.extend({
+	NAME : "br.ufsc.leb.uid.scenario.CopyInterceptorPolicy",
+
+	init : function() {
+		this._super();
+
+	},
+
+	onKeyDown : function(canvas, keyCode, shiftKey, ctrlKey) {
+		if(canvas.getSelection()!==null){
+			switch (keyCode) {
+				case 37: {// <-
+					canvas.getSelection().each(function(i, figure) {
+						
+					});
+					break;
+				}
+				case 38: {// ^
+					
+					break;
+				}
+				case 39: {// ->
+					
+					break;
+				}
+				case 40: {// v
+					
+					break;
+				}
+			}
+		}
+		
+		
+		
+		if (canvas.getCurrentSelection() !== null && ctrlKey === true) {
+			switch (keyCode) {
+			case 67: {// C
+				copy = new draw2d.util.ArrayList();
+				canvas.getSelection().each(function(i, figure) {
+					copy.add(figure);
+				});
+				break;
+			}
+			case 86: {// V
+				if (canvas.getCurrentSelection() instanceof br.ufsc.leb.uid.scenario.Interacao) {
+					copy
+							.each(function(i, figure) {
+								if (figure instanceof br.ufsc.leb.uid.scenario.UserInput
+										|| figure instanceof br.ufsc.leb.uid.scenario.SystemOutput) {
+									this.interaction = canvas
+											.getCurrentSelection();
+									this.destination = this.interaction
+											.getPosition();
+									this.originalInteraction = figure
+											.getComposite()
+											.getPosition();
+									this.original = figure
+											.getPosition();
+									this.x = (this.original.x - this.originalInteraction.x)
+											+ this.destination.x;
+									this.y = (this.original.y - this.originalInteraction.y)
+											+ this.destination.y;
+									this.clone = figure.clone();
+									canvas.addFigure(this.clone,
+											this.x, this.y);
+									this.interaction
+											.assignFigure(this.clone);
+								}
+							});
+				}
+				break;
+			}
+			}
+		}
+		this._super(canvas, keyCode, shiftKey, ctrlKey);
+	}
+});
+

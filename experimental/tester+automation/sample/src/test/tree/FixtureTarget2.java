@@ -2,10 +2,7 @@ package test.tree;
 import net.douglashiura.us.Fixture;
 @Fixture("Target2")
 public class FixtureTarget2 {
-	public FixtureTarget2() throws Exception {
-	}
-	
-	public String getDisplay() {
-		return "4";
+	public String getDisplay(){
+		return null;
 	}
 }
