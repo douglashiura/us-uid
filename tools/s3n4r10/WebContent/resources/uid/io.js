@@ -19,7 +19,7 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.send = function() {
 	var writer = new draw2d.io.json.Writer();
 	writer.marshal(this.view, function(json) {
 		$.ajax({
-			url :   app.scenarioFile,
+			url : "files"+  app.scenarioFile,
 			method : "POST",
 			data : JSON.stringify(json, null, 2),
 			dataType : "json"
@@ -28,7 +28,7 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.send = function() {
 };
 br.ufsc.leb.uid.scenario.io.Store.prototype.load = function() {
 	var request = $.ajax({
-		url :  app.scenarioFile,
+		url : "files"+ app.scenarioFile,
 		method : "GET",
 		data : '',
 		dataType : "json"

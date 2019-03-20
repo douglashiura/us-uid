@@ -15,14 +15,6 @@ public class Scenario {
 		this.defaultDir = defaultDir;
 	}
 
-	public String getName() {
-		return file.getName();
-	}
-
-	public File getFile() {
-		return file;
-	}
-
 	public String getDocument() throws IOException {
 		FileInputStream stream = new FileInputStream(file);
 		byte[] b = new byte[stream.available()];
@@ -38,6 +30,11 @@ public class Scenario {
 	}
 
 	public String getVirtualName() {
-		return file.getAbsolutePath().replace(defaultDir.getAbsolutePath(), "");
+		return  file.getAbsolutePath().replace(defaultDir.getAbsolutePath(), "");
+	}
+
+	public void create() throws IOException {
+		file.createNewFile();
+		write("".getBytes());
 	}
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
+import net.douglashiura.leb.uid.scenario.EmptyScenarioException;
 import net.douglashiura.leb.uid.scenario.ScenarioFromText;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 import net.douglashiura.us.serial.Input;
@@ -14,10 +15,10 @@ public class UniformValues {
 
 	private HashMap<String, Integer> instances;
 
-	public UniformValues(List<Scenario> scenaries) throws IOException {
+	public UniformValues(List<Scenario> scenaries) throws IOException, EmptyScenarioException {
 		instances = new HashMap<>();
 		for (Scenario scenario : scenaries) {
-			Interaction interaction = new ScenarioFromText(scenario.getDocument(),scenario.getFile().getAbsolutePath()).firstState();
+			Interaction interaction = new ScenarioFromText(scenario.getDocument(),scenario.getVirtualName()).firstState();
 			recursiveReader(interaction);
 		}
 

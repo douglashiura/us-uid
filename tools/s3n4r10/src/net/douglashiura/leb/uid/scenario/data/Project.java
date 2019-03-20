@@ -2,6 +2,7 @@ package net.douglashiura.leb.uid.scenario.data;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,32 +51,29 @@ public class Project {
 		return diretoriesName;
 	}
 
-	public List<String> getScenariesAsNames() {
-		List<String> scenarios = new LinkedList<String>();
-		for (File file : directory.listFiles(new FilterScenario())) {
-			scenarios.add(file.getName());
+	public List<String> getScenariesAsNames() throws IOException {
+		List<Scenario> scenaries = getScenaries();
+		List<String> manyScenaries = new ArrayList<String>(scenaries.size());
+		for (Scenario file : scenaries) {
+			manyScenaries.add(file.getVirtualName());
 		}
-		return scenarios;
+		return manyScenaries;
 	}
 
-	public List<Scenario> getScenaries() {
+	public List<Scenario> getScenaries() throws IOException {
 		List<Scenario> scenarios = new LinkedList<Scenario>();
 		for (File file : directory.listFiles(new FilterScenario())) {
-			scenarios.add(new Scenario(file,getDefaultDir()));
+			scenarios.add(new Scenario(file, getDefaultDir()));
 		}
 		return scenarios;
 	}
 
-	public String getScenario() throws IOException {
-		return new Scenario(directory,getDefaultDir()).getDocument();
+	public Scenario getScenario() {
+		return new Scenario(directory, getDefaultDir());
 	}
 
-	public void write(byte[] data) throws IOException {
-		new Scenario(directory,getDefaultDir()).write(data);
+	public void newScenario(String name) throws IOException {
+		File file = new File(directory, String.format("%s.us", name));
+		new Scenario(file, getDefaultDir()).create();
 	}
-
-	public OnSenarios onScenarios() throws IOException {
-		return new OnSenarios(this);
-	}
-
 }

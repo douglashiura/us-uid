@@ -4,8 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.xml.sax.SAXException;
-
+import net.douglashiura.leb.uid.scenario.EmptyScenarioException;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 
 public class Pairs {
@@ -16,7 +15,8 @@ public class Pairs {
 				if (i != j) {
 					try {
 						pairs.add(new Pair(scenaries.get(i), scenaries.get(j)));
-					} catch (SAXException e) {
+					} catch (EmptyScenarioException e) {
+
 					}
 				}
 			}

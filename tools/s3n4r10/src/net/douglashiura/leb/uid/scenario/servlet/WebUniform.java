@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import net.douglashiura.leb.uid.scenario.Scenaries;
 import net.douglashiura.leb.uid.scenario.data.Project;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 import net.douglashiura.leb.uid.scenario.measures.uniform.Average;
 import net.douglashiura.leb.uid.scenario.measures.uniform.Pair;
 import net.douglashiura.leb.uid.scenario.measures.uniform.Pairs;
-import net.douglashiura.leb.uid.scenario.measures.uniform.Scenaries;
 
 @WebServlet("/uniformity")
 public class WebUniform extends HttpServlet {

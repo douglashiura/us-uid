@@ -19,10 +19,23 @@ public class WebListFolder extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String path = request.getRequestURL().toString().split("folders")[1];
 		List<String> folders = Project.get(path).getFolders();
-		response.getWriter().write(folders.toString());
+		StringBuilder json = new StringBuilder();
+		json.append("[");
+		int i = 0;
+		for (String folder : folders) {
+			json.append("\"");
+			json.append(folder);
+			if (++i == folders.size()) {
+				json.append("\"");
+			} else {
+				json.append("\", ");
+			}
+		}
+		json.append("]");
+		response.getWriter().write(json.toString());
 	}
 }

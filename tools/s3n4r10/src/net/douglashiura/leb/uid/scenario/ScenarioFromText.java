@@ -25,7 +25,7 @@ public class ScenarioFromText {
 	private String origin;
 
 	@SuppressWarnings("unchecked")
-	public ScenarioFromText(String text, String scenarioName) {
+	public ScenarioFromText(String text, String scenarioName) throws EmptyScenarioException {
 		this.origin = scenarioName;
 		Gson gson = new Gson();
 		this.elements = gson.fromJson(text, List.class);
@@ -95,7 +95,7 @@ public class ScenarioFromText {
 		return object.get("text").toString();
 	}
 
-	private void extractInteractions() {
+	private void extractInteractions() throws EmptyScenarioException {
 		try {
 			for (Map<String, ?> object : elements) {
 				if (INTERACTION.equals(object.get("type"))) {
@@ -103,7 +103,7 @@ public class ScenarioFromText {
 				}
 			}
 		} catch (NullPointerException e) {
-			throw new RuntimeException("Erro:" + origin,e);
+			throw new EmptyScenarioException("Erro:" + origin, e);
 		}
 	}
 

@@ -18,19 +18,30 @@ public class WebListFiles extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String path = request.getRequestURL().toString().split("files")[1];
 		if (path.endsWith(".us")) {
 			response.setContentType("text/plain; charset=utf-8");
 			response.setCharacterEncoding("UTF-8");
-			String scenario = Project.get(path).getScenario();
+			String scenario = Project.get(path).getScenario().getDocument();
 			response.getWriter().write(scenario.toString());
 		} else {
 			List<String> scenarios = Project.get(path).getScenariesAsNames();
-			response.getWriter().write(scenarios.toString());
+			StringBuilder json = new StringBuilder();
+			json.append("[");
+			int i = 0;
+			for (String scenario : scenarios) {
+				json.append("\"");
+				json.append(scenario);
+				if (++i == scenarios.size()) {
+					json.append("\"");
+				} else {
+					json.append("\", ");
+				}
+			}
+			json.append("]");
+			response.getWriter().write(json.toString());
 		}
 	}
 
@@ -39,6 +50,6 @@ public class WebListFiles extends HttpServlet {
 		String path = request.getRequestURL().toString().split("files")[1];
 		byte[] all = new byte[request.getContentLength()];
 		IOUtils.readFully(request.getInputStream(), all);
-		Project.get(path).write(all);
+		Project.get(path).getScenario().write(all);
 	}
 }

@@ -1,0 +1,72 @@
+
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+	xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<title>User scenario</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="resources/uid/canvas2d/jquery-1.10.2.min.js"></script>
+
+
+<script type="text/javascript">
+	$(window).load(function() {
+		var scenaries = $("scenaries");
+		
+		var request = $.ajax({
+			url :  'scenaries',
+			method : "GET",
+			data : '',
+			dataType : "json"
+				
+		});
+		request.done($.proxy(function(data) {
+			var ul =document.createElement("ul")
+			this.scenaries.append(ul);
+			var i;
+			for (i = 0; i < data.length; i++) {
+				var a = document.createElement("a");
+				a.href = "Editor.jsp?scenario="+data[i];
+				a.innerHTML =data[i];
+				var li=document.createElement("li");;
+				li.append(a);
+				ul.append(li);
+			} 
+		}, this));
+
+	});
+</script>
+
+
+
+</head>
+
+
+<body>
+
+	<form action="scenaries" method="post">
+		<h2>New User Scenario</h2>
+		<table style="padding-left: 50px;">
+			<tbody>
+				<tr>
+					<td><label>Package</label></td>
+					<td><input name="folder" size="50" /></td>
+					<td>i.e.: org.eclipse.plugin</td>
+				</tr>
+				<tr>
+					<td><label>Name </label></td>
+					<td><input name="scenario" size="50" /></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><button>New scenario</button></td>
+				</tr>
+			</tbody>
+		</table>
+	</form>
+	<br />
+	<h2>Project</h2>
+
+	<div id="scenaries"></div>
+
+
+</body>
+</html>
