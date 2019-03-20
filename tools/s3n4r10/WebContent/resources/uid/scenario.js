@@ -189,20 +189,38 @@ br.ufsc.leb.uid.scenario.CopyInterceptorPolicy = draw2d.policy.canvas.ExtendedKe
 			switch (keyCode) {
 				case 37: {// <-
 					canvas.getSelection().each(function(i, figure) {
-						
+						var position=figure.getPosition();
+						var x =(position.x-5);
+						x=x-(x%5);
+						figure.setPosition(x, position.y);
 					});
 					break;
 				}
 				case 38: {// ^
-					
+					canvas.getSelection().each(function(i, figure) {
+						var position=figure.getPosition();
+						var y =(position.y-5);
+						y=y-(y%5);
+						figure.setPosition(position.x, y);
+					});
 					break;
 				}
 				case 39: {// ->
-					
+					canvas.getSelection().each(function(i, figure) {
+						var position=figure.getPosition();
+						var x =(position.x+5);
+						x=x-(x%5);
+						figure.setPosition(x, position.y);
+					});					
 					break;
 				}
 				case 40: {// v
-					
+					canvas.getSelection().each(function(i, figure) {
+						var position=figure.getPosition();
+						var y =(position.y+5);
+						y=y-(y%5);
+						figure.setPosition(position.x, y);
+					});
 					break;
 				}
 			}
