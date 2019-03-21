@@ -38,12 +38,10 @@ public class AutoNameByUniformity {
 				max = null;
 				for (FileInteraction named : nameds) {
 					Uniformity actual = new Uniformity(unamed, named);
-					System.out.println(actual.named.getFixtureName() + " " + actual.uniformity);
 					if (max == null) {
 						max = actual;
 					} else if (max.uniformity < actual.uniformity) {
 						max = actual;
-						System.out.println(max.named.getFile() + " " + max.getFixtureName() + max.uniformity);
 					}
 				}
 				isNewNamed = false;

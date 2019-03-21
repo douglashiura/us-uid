@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
@@ -19,10 +18,10 @@ import net.douglashiura.us.serial.Interaction;
 public class GlueCodeGenerate {
 
 	private GlueCodeOfScenarioSet codeOfScenarioSet;
-	private Project project;
+	private IProject project;
 
-	public GlueCodeGenerate(String _package, Project project) throws IOException, CoreException {
-		this(_package, project.getProject());
+	public GlueCodeGenerate(String _package, IProject project) throws IOException, CoreException {
+		this(_package, (IContainer) project.getProject());
 		this.project = project;
 	}
 

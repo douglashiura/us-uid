@@ -50,8 +50,7 @@ public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 
 	@Override
 	public void launch(IEditorPart arg0, String arg1) {
-		System.out.println("Run.launch(2)");
-
+		throw new RuntimeException("Not implemneted!");
 	}
 
 }

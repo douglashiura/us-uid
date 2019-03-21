@@ -92,12 +92,9 @@ public class FileScenario {
 
 	private Results generalResult() {
 		for (Result result : results) {
-			if (Results.ERROR.equals(result.getResult()))
-				return Results.ERROR;
-		}
-		for (Result result : results) {
-			if (Results.FAIL.equals(result.getResult()))
-				return Results.FAIL;
+			if (Results.ERROR.equals(result.getResult()) || Results.FAIL.equals(result.getResult())) {
+				return result.getResult();
+			}
 		}
 		return Results.OK;
 	}

@@ -81,15 +81,25 @@ public class ItemScenario extends TreeItem implements Notificable {
 
 	@Override
 	public void finishyATestExecution(Results generalResult) {
+
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				setText(String.format("%s (%s)", scenario.getName(), generalResult));
+				setText(String.format("%s (%s)", scenario.getName(), getContextResult()));
 				if (paths != null) {
 					for (Entry<Integer, ItemPath> item : paths.entrySet()) {
 						item.getValue().finishyATestExecution(generalResult);
 					}
 				}
+			}
+
+			private Results getContextResult() {
+				for (Result result : results) {
+					if (Results.ERROR.equals(result.getResult()) || Results.FAIL.equals(result.getResult())) {
+						return result.getResult();
+					}
+				}
+				return Results.OK;
 			}
 		});
 	}

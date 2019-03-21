@@ -61,7 +61,8 @@ public class WebListFiles extends HttpServlet {
 			path = new java.net.URI(path).getPath();
 			byte[] all = new byte[request.getContentLength()];
 			IOUtils.readFully(request.getInputStream(), all);
-			Project.get(extractDiretory(path)).newScenario(extractFile(path)).write(all);
+			Project.get(extractDiretory(path)).newScenario(extractFile(path).replace(FilterScenario.EXTENSION, ""))
+					.write(all);
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		} catch (ExceptionNotAFile e) {
