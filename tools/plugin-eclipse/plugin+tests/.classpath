@@ -10,7 +10,7 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/us"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/us+plugin"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/s3n4r10"/>
-	<classpathentry kind="lib" path="/s3n4r10/WebContent/WEB-INF/lib/SimMetrics.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/sc3n4r10"/>
+	<classpathentry kind="lib" path="/sc3n4r10/WebContent/WEB-INF/lib/SimMetrics.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
