@@ -7,6 +7,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.handlers.HandlerUtil;
@@ -29,7 +30,10 @@ public class GlueCodeCommandHandler extends AbstractHandler {
 			} catch (IOException | CoreException e1) {
 				e1.printStackTrace();
 			}
+		}else {
+			MessageDialog.openInformation(null, "Fault", "Select a Java project!");
 		}
+		
 		return null;
 	}
 

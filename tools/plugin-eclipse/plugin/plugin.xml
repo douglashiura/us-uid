@@ -37,7 +37,7 @@
 			category="view.Scenario"
 			name="Scenario"
 			class="net.douglashiura.scenario.plugin.editor.ScenarioView"
-			id="view.HelloWorldView">
+			id="net.douglashiura.scenario.plugin.editor.ScenarioView">
 		</view>
 	</extension>
 	
@@ -50,7 +50,7 @@
 			category="view.Scenario"
 			class="net.douglashiura.scenario.plugin.fixture.names.FixtureNamesView"
 			name="Fixture names"
-			id="view.FixturesNames">
+			id="net.douglashiura.scenario.plugin.fixture.names.FixtureNamesView">
 		</view>
 	</extension>
    
@@ -63,7 +63,7 @@
        <view
              category="view.Scenario"
              class="net.douglashiura.scenario.plugin.view.ViewTests"
-             id="view.ViewTests"
+             id="net.douglashiura.scenario.plugin.view.ViewTests"
              name="Tests">
        </view>
     </extension>
@@ -83,6 +83,24 @@
    <extension point="org.eclipse.ui.handlers"> 
      <handler commandId="net.douglashiura.scenario.command.generate.glue.code"
             class="net.douglashiura.scenario.plugin.fixture.names.GlueCodeCommandHandler">
+     </handler>
+   </extension>
+   
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.ui.popup.any">
+         <command commandId="net.douglashiura.scenario.command.download"
+               id="Download-us-uids"
+               label="Download of US-UIDs"
+                mnemonic="M1+D"
+               style="push"
+               tooltip="Download of US-UIDs from a server">
+         </command>
+      </menuContribution>
+   </extension>
+   
+   <extension point="org.eclipse.ui.handlers"> 
+     <handler commandId="net.douglashiura.scenario.command.download"
+            class="net.douglashiura.scenario.plugin.download.DownloadCommandHandler">
      </handler>
    </extension>
        
