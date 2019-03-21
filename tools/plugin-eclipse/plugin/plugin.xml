@@ -103,5 +103,25 @@
             class="net.douglashiura.scenario.plugin.download.DownloadCommandHandler">
      </handler>
    </extension>
+   
+   
+    <extension point="org.eclipse.ui.menus">
+      <menuContribution locationURI="popup:org.eclipse.ui.popup.any">
+         <command commandId="net.douglashiura.scenario.command.upload"
+               id="Upload-us-uids"
+               label="Upload of US-UIDs"
+                mnemonic="M1+U"
+               style="push"
+               tooltip="Upload of US-UIDs to the server">
+         </command>
+      </menuContribution>
+   </extension>
+   
+   <extension point="org.eclipse.ui.handlers"> 
+     <handler commandId="net.douglashiura.scenario.command.upload"
+            class="net.douglashiura.scenario.plugin.upload.UploadCommandHandler">
+     </handler>
+   </extension>
+       
        
 </plugin>

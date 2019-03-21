@@ -3,6 +3,7 @@ package net.douglashiura.scenario.project.util;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -67,7 +68,7 @@ public class FileScenario {
 
 	@Override
 	public String toString() {
-		return new String(text);
+		return new String(text, StandardCharsets.UTF_8);
 	}
 
 	public void addResult(Result result) {

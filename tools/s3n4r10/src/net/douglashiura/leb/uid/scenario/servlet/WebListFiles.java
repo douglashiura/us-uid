@@ -1,5 +1,6 @@
 package net.douglashiura.leb.uid.scenario.servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
+import net.douglashiura.leb.uid.scenario.data.FilterScenario;
 import net.douglashiura.leb.uid.scenario.data.Project;
 
 @WebServlet("/files/*")
@@ -54,9 +56,28 @@ public class WebListFiles extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-		String path = request.getRequestURL().toString().split("files")[1];
-		byte[] all = new byte[request.getContentLength()];
-		IOUtils.readFully(request.getInputStream(), all);
-		Project.get(path).getScenario().write(all);
+		try {
+			String path = request.getRequestURI().split("files")[1];
+			path = new java.net.URI(path).getPath();
+			byte[] all = new byte[request.getContentLength()];
+			IOUtils.readFully(request.getInputStream(), all);
+			Project.get(extractDiretory(path)).newScenario(extractFile(path)).write(all);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		} catch (ExceptionNotAFile e) {
+			e.printStackTrace();
+		}
+	}
+
+	private String extractFile(String path) throws ExceptionNotAFile {
+		if (path.endsWith(FilterScenario.EXTENSION)) {
+			return path.substring(path.lastIndexOf(File.separatorChar + ""));
+		} else {
+			throw new ExceptionNotAFile("Not a file");
+		}
+	}
+
+	private String extractDiretory(String path) throws ExceptionNotAFile {
+		return path.replace(extractFile(path), "");
 	}
 }

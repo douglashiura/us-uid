@@ -21,7 +21,7 @@ public class Project {
 			directory.mkdirs();
 	}
 
-	public static Project get(String path) {
+	public static Project get(String path) throws IOException {
 		return get().enter(path);
 	}
 
@@ -36,9 +36,10 @@ public class Project {
 		return DEFAULT_DIR;
 	}
 
-	public Project enter(String path) {
-		if (directory.isDirectory())
+	public Project enter(String path) throws IOException {
+		if (directory.isDirectory()) {
 			return new Project(directory, path);
+		}
 		throw new RuntimeException("Não é diretório");
 	}
 
@@ -72,8 +73,10 @@ public class Project {
 		return new Scenario(directory, getDefaultDir());
 	}
 
-	public void newScenario(String name) throws IOException {
+	public Scenario newScenario(String name) throws IOException {
 		File file = new File(directory, String.format("%s.us", name));
-		new Scenario(file, getDefaultDir()).create();
+		Scenario scenario = new Scenario(file, getDefaultDir());
+		scenario.create();
+		return scenario;
 	}
 }
