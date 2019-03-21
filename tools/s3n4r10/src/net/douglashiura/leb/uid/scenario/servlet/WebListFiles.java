@@ -1,6 +1,7 @@
 package net.douglashiura.leb.uid.scenario.servlet;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,12 +21,18 @@ public class WebListFiles extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String path = request.getRequestURL().toString().split("files")[1];
+		String path = request.getRequestURI().split("files")[1];
 		if (path.endsWith(".us")) {
 			response.setContentType("text/plain; charset=utf-8");
 			response.setCharacterEncoding("UTF-8");
-			String scenario = Project.get(path).getScenario().getDocument();
-			response.getWriter().write(scenario.toString());
+			try {
+				path = new java.net.URI(path).getPath();
+				String scenario = Project.get(path).getScenario().getDocument();
+				response.getWriter().write(scenario);
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+
 		} else {
 			List<String> scenarios = Project.get(path).getScenariesAsNames();
 			StringBuilder json = new StringBuilder();

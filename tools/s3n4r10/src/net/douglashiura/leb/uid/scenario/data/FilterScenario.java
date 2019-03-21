@@ -7,7 +7,7 @@ public class FilterScenario implements FilenameFilter {
 
 	@Override
 	public boolean accept(File dir, String name) {
-		return name.endsWith(".us");
+		return name.endsWith(".us") && new File(dir, name).isFile();
 	}
 
 }

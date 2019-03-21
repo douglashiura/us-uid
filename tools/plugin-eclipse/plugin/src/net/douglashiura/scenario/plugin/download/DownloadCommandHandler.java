@@ -3,12 +3,16 @@ package net.douglashiura.scenario.plugin.download;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
@@ -58,21 +62,25 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 	public void run(IProgressMonitor monitor) throws CoreException {
 		String server = dialog.getServer();
 		server = server.endsWith("/") ? server : server + "/";
-		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpget = new HttpGet(server + "scenaries/");
-
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpGet httpGet = new HttpGet(server + "scenaries/");
 		try {
-			httpget.setHeader("accept", "text/json");
-			HttpResponse response = httpclient.execute(httpget);
+			httpGet.setHeader("accept", "text/json");
+			httpGet.setHeader("charset", StandardCharsets.UTF_8.name());
+			HttpResponse response = httpClient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
-			String content = EntityUtils.toString(entity);
+			String content = EntityUtils.toString(entity, StandardCharsets.UTF_8);
 			@SuppressWarnings("unchecked")
 			List<String> elements = new GsonBuilder().create().fromJson(content, List.class);
 			int indexFile = 0;
 			for (String file : elements) {
 				monitor.worked(indexFile++);
-				httpget = new HttpGet(server + "/files" + file);
-				response = httpclient.execute(httpget);
+				URI uri = new URIBuilder(server + "files").build();
+				URI uri2 = new URIBuilder(uri).setPath(uri.getPath() + file).build();
+				httpGet = new HttpGet(uri2);
+				httpGet.setHeader("accept", "text/json");
+				httpGet.setHeader("charset", StandardCharsets.UTF_8.name());
+				response = httpClient.execute(httpGet);
 				entity = response.getEntity();
 				byte[] scenario = EntityUtils.toByteArray(entity);
 				String[] folders = file.split("" + File.separatorChar);
@@ -94,10 +102,12 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
 		} finally {
-			httpget.releaseConnection();
+			httpGet.releaseConnection();
 			try {
-				httpclient.close();
+				httpClient.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
