@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/feature_1.0.3.jar" id="feature" version="1.0.3">
+   <feature url="features/net.douglashiura.scenario_1.0.4.jar" id="net.douglashiura.scenario" version="1.0.4">
       <category name="test"/>
    </feature>
    <category-def name="test" label="Test"/>
