@@ -64,7 +64,7 @@ public class Elements {
 		return list;
 	}
 
-	public static List<FileInteraction> ofInteractionsFrom(List<IJavaProject> projects) throws CoreException, IOException {
+	public static List<FileInteraction> ofInteractionsFrom(List<IJavaProject> projects) throws CoreException {
 		List<FileInteraction> list = new ArrayList<>();
 		for (IJavaProject iJavaProject : projects) {
 			List<FileScenario> files = Files.from(iJavaProject.getProject());

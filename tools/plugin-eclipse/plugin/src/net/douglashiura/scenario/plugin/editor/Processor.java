@@ -9,6 +9,9 @@ import java.net.SocketException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.debug.core.DebugException;
 import org.eclipse.debug.core.DebugPlugin;
 import org.eclipse.debug.core.ILaunch;
@@ -31,27 +34,32 @@ public class Processor implements Runnable {
 	private ObjectInputStream input;
 	private Thread reader;
 
-	public Processor(IProject project, Executor executor) throws CoreException, IOException {
+	public Processor(IProject project, Executor executor, IProgressMonitor monitor) throws CoreException {
 		this.executor = executor;
-		server = new ServerSocket(0);
-		ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
-		ILaunchConfigurationType type = manager
-				.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
-		ILaunchConfigurationWorkingCopy wc = type.newInstance(null,
-				String.format("User Scenario [%s]", server.getLocalPort()));
-		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName());
-		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "net.douglashiura.us.run.Executor");
-		wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS,
-				Integer.toString(server.getLocalPort()));
-		ILaunchConfiguration configuration = wc.doSave();
-		launch = configuration.launch(ILaunchManager.RUN_MODE, null);
-		wc.delete();
-		configuration.delete();
-		client = server.accept();
-		output = new ObjectOutputStream(client.getOutputStream());
-		input = new ObjectInputStream(client.getInputStream());
-		reader = new Thread(this);
-		reader.start();
+		try {
+			server = new ServerSocket(0);
+			ILaunchManager manager = DebugPlugin.getDefault().getLaunchManager();
+			ILaunchConfigurationType type = manager
+					.getLaunchConfigurationType(IJavaLaunchConfigurationConstants.ID_JAVA_APPLICATION);
+			ILaunchConfigurationWorkingCopy wc = type.newInstance(null,
+					String.format("User Scenario [%s]", server.getLocalPort()));
+			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROJECT_NAME, project.getName());
+			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_MAIN_TYPE_NAME, "net.douglashiura.us.run.Executor");
+			wc.setAttribute(IJavaLaunchConfigurationConstants.ATTR_PROGRAM_ARGUMENTS,
+					Integer.toString(server.getLocalPort()));
+			ILaunchConfiguration configuration = wc.doSave();
+			launch = configuration.launch(ILaunchManager.RUN_MODE, monitor);
+			wc.delete();
+			configuration.delete();
+			client = server.accept();
+			output = new ObjectOutputStream(client.getOutputStream());
+			input = new ObjectInputStream(client.getInputStream());
+			reader = new Thread(this);
+			reader.start();
+		} catch (IOException e) {
+			IStatus status = new Status(0, "net.douglashiura.scenario.plugin.editor.ScenarioView", e.getMessage(), e);
+			throw new CoreException(status);
+		}
 	}
 
 	public void write(InputFile scenario) throws IOException {

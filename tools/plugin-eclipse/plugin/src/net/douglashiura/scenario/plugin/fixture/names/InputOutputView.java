@@ -48,7 +48,7 @@ public class InputOutputView implements ViewControlable {
 				try {
 					autoNamingFixtures();
 					createItens(projects);
-				} catch (CoreException | IOException e) {
+				} catch (CoreException  e) {
 					e.printStackTrace();
 				}
 			}
@@ -91,13 +91,13 @@ public class InputOutputView implements ViewControlable {
 		}
 	}
 
-	public void autoNamingFixtures() throws CoreException, IOException {
+	public void autoNamingFixtures() throws CoreException {
 		for (Element element : elements) {
 			findNameFor(element);
 		}
 	}
 
-	private void findNameFor(Element element) throws CoreException, IOException {
+	private void findNameFor(Element element) throws CoreException {
 		for (Element element2 : elements) {
 			if (named(element2) && !named(element) && sameValue(element, element2)) {
 				element.setFixtureName(element2.getFixtureName());

@@ -1,15 +1,18 @@
 package net.douglashiura.scenario.plugin.fixture.names;
 
-import java.io.IOException;
 import java.util.List;
 
+import org.eclipse.core.internal.refresh.MonitorJob;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ICoreRunnable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -31,7 +34,8 @@ public class InteractionView implements ViewControlable {
 		group.setText("Interactions");
 	}
 
-	public void createTable(List<IJavaProject> projects) {
+	@Override
+	public void createTable(List<IJavaProject> projects) throws CoreException {
 		tableInteractions = new Table(group, SWT.BORDER | SWT.RESIZE | SWT.SCROLL_PAGE | SWT.V_SCROLL | SWT.H_SCROLL);
 		tableInteractions.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		tableInteractions.setHeaderVisible(true);
@@ -45,9 +49,29 @@ public class InteractionView implements ViewControlable {
 		SelectionListener listener = new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				autoNamingFixtures();
-				createItens(projects);
+				MonitorJob.create("Naming fixtures", new ICoreRunnable() {
+					@Override
+					public void run(IProgressMonitor monitor) throws CoreException {
+						monitor.worked(10);
+						autoNamingFixtures();
+						monitor.worked(50);
+
+						Display.getDefault().syncExec(new Runnable() {
+							@Override
+							public void run() {
+								try {
+									createItens(projects);
+								} catch (CoreException e) {
+									e.printStackTrace();
+								}
+							}
+						});
+						monitor.worked(100);
+						monitor.done();
+					}
+				}).schedule();
 			}
+
 			@Override
 			public void widgetDefaultSelected(SelectionEvent arg0) {
 			}
@@ -63,29 +87,23 @@ public class InteractionView implements ViewControlable {
 		new Control(tableInteractions, 1);
 	}
 
-	public void createItens(List<IJavaProject> projects) {
+	@Override
+	public void createItens(List<IJavaProject> projects) throws CoreException {
 		tableInteractions.removeAll();
-		try {
-			elements = Elements.ofInteractionsFrom(projects);
-			for (FileInteraction element : elements) {
-				TableItem item = new TableItem(tableInteractions, SWT.NONE);
-				item.setText(0, element.getFile());
-				item.setText(1, element.getFixtureName());
-				item.setText(2, element.getInputs().toString());
-				item.setText(3, element.getOutputs().toString());
-				item.setData(element);
-			}
-		} catch (CoreException | IOException e1) {
-			e1.printStackTrace();
+		elements = Elements.ofInteractionsFrom(projects);
+		for (FileInteraction element : elements) {
+			TableItem item = new TableItem(tableInteractions, SWT.NONE);
+			item.setText(0, element.getFile());
+			item.setText(1, element.getFixtureName());
+			item.setText(2, element.getInputs().toString());
+			item.setText(3, element.getOutputs().toString());
+			item.setData(element);
 		}
+
 	}
 
-	private void autoNamingFixtures() {
-		try {
-			new AutoNameByUniformity(elements).naming();
-		} catch (CoreException | IOException e) {
-			e.printStackTrace();
-		}
+	private void autoNamingFixtures() throws CoreException {
+		new AutoNameByUniformity(elements).naming();
 	}
 
 }

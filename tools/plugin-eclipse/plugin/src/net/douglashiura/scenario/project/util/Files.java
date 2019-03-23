@@ -1,6 +1,5 @@
 package net.douglashiura.scenario.project.util;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +12,12 @@ public class Files {
 	private static final String EXTENSION = "us";
 	private List<FileScenario> scenarios;
 
-	private Files(IContainer root) throws CoreException, IOException {
+	private Files(IContainer root) throws CoreException {
 		scenarios = new ArrayList<>();
 		processContainer(root);
 	}
 
-	static public List<FileScenario> from(IContainer root) throws CoreException, IOException {
+	static public List<FileScenario> from(IContainer root) throws CoreException {
 		return new Files(root).getScenarios();
 	}
 
@@ -26,7 +25,7 @@ public class Files {
 		return scenarios;
 	}
 
-	private void processContainer(IContainer container) throws CoreException, IOException {
+	private void processContainer(IContainer container) throws CoreException {
 		if (container != null) {
 			IResource[] members = container.members();
 			for (IResource member : members) {
@@ -39,7 +38,7 @@ public class Files {
 		}
 	}
 
-	private void processFile(IFile member) throws IOException, CoreException {
+	private void processFile(IFile member) throws CoreException {
 		if (EXTENSION.equals(member.getFileExtension())) {
 			scenarios.add(new FileScenario(member));
 		}

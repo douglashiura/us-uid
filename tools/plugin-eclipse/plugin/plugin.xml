@@ -7,10 +7,10 @@
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
             label="Scenario"
-            icon="icons/us.gif"
+            icon="icons/test.png"
             modes="run, debug"
             class="net.douglashiura.scenario.plugin.tiggres.Run"
-            id="net.douglashiura.usuid.shortCut">
+            id="net.douglashiura.usuid.shortCut" >
          <contextualLaunch>
            <enablement>
              <with variable="selection">
@@ -25,7 +25,30 @@
            </enablement>
   		 </contextualLaunch>
       </shortcut>
+      
+      
 	</extension>
+	
+	
+	<extension point="org.eclipse.ui.commands">
+      <command
+            name="Run Scenario"
+            description="Run scenario"
+            categoryId="org.eclipse.debug.ui.category.run"
+            id="com.example.ExampleLaunchShortcutId.debug"
+            defaultHandler="net.douglashiura.scenario.plugin.tiggres.ShortCutHandle"
+          	>
+      </command>
+      <keyBinding
+            keySequence="M3+M1+X S"
+            contextId="org.eclipse.ui.globalScope"
+            commandId="com.example.ExampleLaunchShortcutId.debug"
+            keyConfigurationId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            >
+      </keyBinding>
+   </extension> 
+	
+	
 	
 	
    <extension point="org.eclipse.ui.views">
@@ -73,6 +96,7 @@
          <command commandId="net.douglashiura.scenario.command.generate.glue.code"
                id="GenerateGlueCode"
                label="Generate glue code from US-UIDs"
+                icon="icons/code.png"
                 mnemonic="M1+P"
                style="push"
                tooltip="Genarate all glue code template from US-UIDs">
@@ -91,6 +115,7 @@
          <command commandId="net.douglashiura.scenario.command.download"
                id="Download-us-uids"
                label="Download of US-UIDs"
+                icon="icons/download.png"
                 mnemonic="M1+D"
                style="push"
                tooltip="Download of US-UIDs from a server">
@@ -111,6 +136,7 @@
                id="Upload-us-uids"
                label="Upload of US-UIDs"
                 mnemonic="M1+U"
+                icon="icons/upload.png"
                style="push"
                tooltip="Upload of US-UIDs to the server">
          </command>

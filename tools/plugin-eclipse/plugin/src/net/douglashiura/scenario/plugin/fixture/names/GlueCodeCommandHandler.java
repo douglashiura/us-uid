@@ -21,7 +21,6 @@ public class GlueCodeCommandHandler extends AbstractHandler {
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		TreeSelection aEvent = (TreeSelection) HandlerUtil.getCurrentSelection(event);
-		System.out.println(aEvent.getFirstElement().getClass());
 		if (aEvent.getFirstElement() instanceof Project) {
 			Project aProject = (Project) aEvent.getFirstElement();
 			generate(aProject);

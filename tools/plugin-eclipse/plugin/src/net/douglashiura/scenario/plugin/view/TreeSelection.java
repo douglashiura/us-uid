@@ -45,7 +45,6 @@ public class TreeSelection implements Listener {
 				Rateable element = itemResult.getElement();
 				view.setResult(itemResult.getResult(), element);
 				Runner.getRunner().setOrigin(element.getGeometry().getX(), element.getGeometry().getY());
-
 			} else if (selectedItem[0] instanceof ItemPath) {
 				ItemPath result = (ItemPath) selectedItem[0];
 				Map<UUID, Rateable> neighbors = result.selected();

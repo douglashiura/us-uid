@@ -13,6 +13,8 @@ import java.util.UUID;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 import net.douglashiura.scenario.plugin.type.ExtractPahts;
 import net.douglashiura.scenario.plugin.type.InteractionGeometry;
@@ -35,7 +37,7 @@ public class FileScenario {
 	private List<InteractionGeometry> interactions;
 	private Scenario scenario;
 
-	public FileScenario(IFile member) throws IOException, CoreException {
+	public FileScenario(IFile member) throws CoreException {
 		this.member = member;
 		this.results = new ArrayList<>();
 		prepareScenario();
@@ -45,7 +47,7 @@ public class FileScenario {
 		return member.getProjectRelativePath().toString();
 	}
 
-	private void prepareScenario() throws IOException, CoreException {
+	private void prepareScenario() throws CoreException {
 		text = read();
 		scenario = new Scenario(new String(text));
 		List<InteractionGeometry> starts = scenario.starts();
@@ -54,12 +56,21 @@ public class FileScenario {
 		interactions = scenario.getAllInteractions();
 	}
 
-	private byte[] read() throws IOException, CoreException {
+	private byte[] read() throws CoreException {
 		InputStream input = member.getContents();
-		byte[] bytes = new byte[input.available()];
-		input.read(bytes);
-		input.close();
-		return bytes;
+		try {
+			byte[] bytes = new byte[input.available()];
+			input.read(bytes);
+			return bytes;
+		} catch (IOException e) {
+			IStatus status = new Status(0, e.getMessage(), 0, e.getMessage(), e);
+			throw new CoreException(status);
+		} finally {
+			try {
+				input.close();
+			} catch (IOException e) {
+			}
+		}
 	}
 
 	public IProject getProject() {
@@ -133,7 +144,7 @@ public class FileScenario {
 		return interactions;
 	}
 
-	public void save() throws CoreException, IOException {
+	public void save() throws CoreException {
 		text = scenario.getJson();
 		InputStream content = new ByteArrayInputStream(text);
 		member.setContents(content, 0, null);

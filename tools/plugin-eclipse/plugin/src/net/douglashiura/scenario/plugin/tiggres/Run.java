@@ -1,9 +1,8 @@
 package net.douglashiura.scenario.plugin.tiggres;
 
-import java.io.IOException;
-
 import org.eclipse.core.internal.resources.File;
 import org.eclipse.core.internal.resources.Folder;
+import org.eclipse.core.internal.resources.Project;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.internal.core.JavaProject;
 import org.eclipse.jface.viewers.ISelection;
@@ -19,38 +18,34 @@ public class Run implements org.eclipse.debug.ui.ILaunchShortcut {
 	public void launch(ISelection item, String modo) {
 		TreeSelection type = (TreeSelection) item;
 		Object selection = type.getFirstElement();
-		if (org.eclipse.jdt.internal.core.JavaProject.class.equals(selection.getClass())) {
+		if (selection instanceof org.eclipse.jdt.internal.core.JavaProject) {
 			JavaProject java = (JavaProject) selection;
 			Runner.getRunner().setContainer(java.getProject());
-			try {
-				Runner.getRunner().runAll();
-			} catch (CoreException | IOException e) {
-				e.printStackTrace();
-			}
-		} else if (org.eclipse.core.internal.resources.Folder.class.equals(selection.getClass())) {
+			Runner.getRunner().runAll();
+		} else if (selection instanceof Project) {
+			Project project = (Project) selection;
+			Runner.getRunner().setContainer(project.getProject());
+			Runner.getRunner().runAll();
+		} else if (selection instanceof Folder) {
 			Folder folder = (Folder) selection;
 			Runner.getRunner().setContainer(folder);
-			try {
-				Runner.getRunner().runAll();
-			} catch (CoreException | IOException e) {
-				e.printStackTrace();
-			}
-		} else if (org.eclipse.core.internal.resources.File.class.equals(selection.getClass())) {
+			Runner.getRunner().runAll();
+		} else if (selection instanceof File) {
 			File file = (File) selection;
-
 			try {
-				FileScenario aFile=new FileScenario(file);
+				FileScenario aFile = new FileScenario(file);
 				Runner.getRunner().setCurrent(aFile, aFile.getElements());
 				Runner.getRunner().run();
-			} catch (IOException | CoreException e) {
+			} catch (CoreException e) {
 				e.printStackTrace();
 			}
+
 		}
 	}
 
 	@Override
 	public void launch(IEditorPart arg0, String arg1) {
-		throw new RuntimeException("Not implemneted!");
+		throw new RuntimeException("Not implemented!");
 	}
 
 }

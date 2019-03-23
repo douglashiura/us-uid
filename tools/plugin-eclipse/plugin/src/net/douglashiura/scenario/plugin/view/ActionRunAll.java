@@ -1,8 +1,5 @@
 package net.douglashiura.scenario.plugin.view;
 
-import java.io.IOException;
-
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.PlatformUI;
 
@@ -19,11 +16,8 @@ public class ActionRunAll extends Action {
 
 	@Override
 	public void run() {
-		try {
-			Runner.getRunner().runAll();
-		} catch (CoreException | IOException e) {
-			e.printStackTrace();
-		}
+		Runner.getRunner().runAll();
+
 	}
 
 }

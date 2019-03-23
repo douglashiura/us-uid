@@ -1,7 +1,5 @@
 package net.douglashiura.scenario.project;
 
-import java.io.IOException;
-
 import org.eclipse.core.runtime.CoreException;
 
 import net.douglashiura.scenario.plugin.type.AbstractTypeGeometry;
@@ -41,7 +39,7 @@ public class Element implements Elementable {
 	}
 
 	@Override
-	public void setFixtureName(String text) throws CoreException, IOException {
+	public void setFixtureName(String text) throws CoreException {
 		element.setFixtureName(text);
 		fileScenario.save();
 	}

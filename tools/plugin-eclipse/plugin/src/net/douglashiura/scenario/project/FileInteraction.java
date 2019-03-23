@@ -1,6 +1,5 @@
 package net.douglashiura.scenario.project;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
@@ -38,7 +37,7 @@ public class FileInteraction implements Elementable {
 	}
 
 	@Override
-	public void setFixtureName(String text) throws CoreException, IOException {
+	public void setFixtureName(String text) throws CoreException {
 		interaction.setFixtureName(text);
 		fileScenario.save();
 	}

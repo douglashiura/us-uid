@@ -35,7 +35,12 @@ public class FixtureNamesView extends ViewPart {
 		fillLayout.type = SWT.VERTICAL;
 		composite.setLayout(fillLayout);
 		composite.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-		createInteraction();
+		try {
+			createInteraction();
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		IActionBars bars = getViewSite().getActionBars();
 		bars.getMenuManager().add(interactionButton());
 		bars.getMenuManager().add(inputOutputButton());
@@ -43,7 +48,7 @@ public class FixtureNamesView extends ViewPart {
 		parent.pack();
 	}
 
-	private void createInteraction() {
+	private void createInteraction() throws CoreException {
 		clearComposite();
 		controlable = new InteractionView(new Group(composite, SWT.NONE));
 		controlable.createTable(projects);
@@ -61,10 +66,14 @@ public class FixtureNamesView extends ViewPart {
 		Action inputOutput = new Action() {
 			@Override
 			public void run() {
-				createInputsOutputs();
+				try {
+					createInputsOutputs();
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
 			}
 
-			private void createInputsOutputs() {
+			private void createInputsOutputs() throws CoreException {
 				clearComposite();
 				controlable = new InputOutputView(new Group(composite, SWT.NONE));
 				controlable.createTable(projects);
@@ -80,7 +89,11 @@ public class FixtureNamesView extends ViewPart {
 		Action interactions = new Action() {
 			@Override
 			public void run() {
-				createInteraction();
+				try {
+					createInteraction();
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
 			}
 		};
 		interactions.setText("Interactions");
@@ -92,7 +105,11 @@ public class FixtureNamesView extends ViewPart {
 		Action reload = new Action() {
 			@Override
 			public void run() {
-				reload();
+				try {
+					reload();
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
 			}
 		};
 		reload.setText("Reload");
@@ -108,13 +125,9 @@ public class FixtureNamesView extends ViewPart {
 	public void setFocus() {
 	}
 
-	public void reload() {
-		try {
-			loadProjects();
-			controlable.createItens(projects);
-		} catch (CoreException e) {
-			e.printStackTrace();
-		}
+	public void reload() throws CoreException {
+		loadProjects();
+		controlable.createItens(projects);
 	}
 
 }

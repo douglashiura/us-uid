@@ -7,6 +7,9 @@ import java.util.List;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 
 import net.douglashiura.scenario.project.util.FileScenario;
 import net.douglashiura.us.serial.InputFile;
@@ -24,7 +27,7 @@ public class Executor {
 	private Integer total;
 	private Processor processor;
 
-	public Executor(List<FileScenario> scenarios) throws IOException {
+	public Executor(List<FileScenario> scenarios) {
 		List<PathScenario> manyPaths = new ArrayList<PathScenario>();
 		for (FileScenario fileScenario : scenarios) {
 			List<Interaction> paths = fileScenario.getPaths();
@@ -38,18 +41,24 @@ public class Executor {
 		prepareExeution();
 	}
 
-	public void execute(IProject project) throws CoreException, IOException, InterruptedException {
-		processor = new Processor(project, this);
+	public void execute(IProject project, IProgressMonitor monitor) throws CoreException {
+		processor = new Processor(project, this, monitor);
 		next();
 	}
 
-	private void next() throws IOException {
+	private void next() throws CoreException {
 		if (scenarios.hasNext()) {
 			scenarioProcessing = scenarios.next();
 			FileScenario fileScenario = scenarioProcessing.getFileScenario();
 			fileScenario.prepareToExecute();
-			processor.write(new InputFile(fileScenario.getName(), scenarioProcessing.getScenario(),
-					scenarioProcessing.getIndex()));
+			try {
+				processor.write(new InputFile(fileScenario.getName(), scenarioProcessing.getScenario(),
+						scenarioProcessing.getIndex()));
+			} catch (IOException e) {
+				IStatus status = new Status(0, "net.douglashiura.scenario.plugin.editor.ScenarioView", e.getMessage(),
+						e);
+				throw new CoreException(status);
+			}
 		} else {
 			processor.exit();
 		}
@@ -58,11 +67,11 @@ public class Executor {
 	public void delivery(Result result) {
 		scenarioProcessing.getFileScenario().addResult(result);
 		if (Results.isExecutionFinishy(result.getResult())) {
-			try {
-				next();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+				try {
+					next();
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 

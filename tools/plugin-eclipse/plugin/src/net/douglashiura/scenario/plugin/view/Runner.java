@@ -1,14 +1,16 @@
 package net.douglashiura.scenario.plugin.view;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.eclipse.core.internal.refresh.MonitorJob;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.ICoreRunnable;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
@@ -51,13 +53,17 @@ public class Runner {
 		}
 	}
 
-	public void runAll() throws CoreException, IOException {
+	public void runAll() {
 		if (container != null) {
-			List<FileScenario> nodes = Files.from(container);
-			for (FileScenario fileScenario : nodes) {
-				fileScenario.prepareToExecute();
+			try {
+				List<FileScenario> nodes = Files.from(container);
+				for (FileScenario fileScenario : nodes) {
+					fileScenario.prepareToExecute();
+				}
+				execute(nodes, container.getProject());
+			} catch (CoreException e) {
+				e.printStackTrace();
 			}
-			execute(nodes, container.getProject());
 		} else {
 			MessageDialog.openInformation(null, "Fault", "It is necessary to open an scenario folder!");
 		}
@@ -66,17 +72,20 @@ public class Runner {
 	private void execute(List<FileScenario> scenarios, IProject project) {
 		if (current != null) {
 			current.prepareToExecute();
-			try {
-				viewTests.popularArvore(scenarios);
-				executor = new Executor(scenarios);
-				viewTests.setExecutionAmounts(executor);
-				executor.execute(project);
-			} catch (Exception e) {
-				e.printStackTrace();
-				MessageDialog.openInformation(null, "Fault",
-						"It is necessary to open before the scenario view and test view! (Window->Show View->Other->Scenario)");
-			}
 		}
+		viewTests.popularArvore(scenarios);
+		executor = new Executor(scenarios);
+		viewTests.setExecutionAmounts(executor);
+		MonitorJob.create("Run as scenario test", new ICoreRunnable() {
+			@Override
+			public void run(IProgressMonitor monitor) throws CoreException {
+				monitor.worked(10);
+				executor.execute(project, monitor);
+				monitor.worked(100);
+				monitor.done();
+			}
+		}).schedule();
+
 	}
 
 	public void addPaintScenario(PaintScenario paintScenario) {
@@ -91,7 +100,7 @@ public class Runner {
 	}
 
 	private void removePaintScenario() {
-		if (scenario != null && paintScenario != null) {
+		if (scenario != null && paintScenario != null && !scenario.getCanvas().isDisposed()) {
 			scenario.getCanvas().removePaintListener(paintScenario);
 		}
 	}
@@ -118,9 +127,12 @@ public class Runner {
 		Display.getDefault().asyncExec(new Runnable() {
 			@Override
 			public void run() {
-				scenario.getCanvas().redraw();
-				if (rateable != null)
-					setOrigin(rateable.getGeometry().getX(), rateable.getGeometry().getY());
+				if (scenario != null && !scenario.getCanvas().isDisposed()) {
+					scenario.getCanvas().redraw();
+					if (rateable != null) {
+						setOrigin(rateable.getGeometry().getX(), rateable.getGeometry().getY());
+					}
+				}
 			}
 		});
 	}

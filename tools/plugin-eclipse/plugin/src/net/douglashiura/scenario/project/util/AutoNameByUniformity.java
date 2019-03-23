@@ -1,6 +1,5 @@
 package net.douglashiura.scenario.project.util;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,7 @@ public class AutoNameByUniformity {
 		}
 	}
 
-	public void naming() throws CoreException, IOException {
+	public void naming() throws CoreException {
 		Uniformity max = null;
 		boolean isNewNamed = true;
 		while (isNewNamed) {
