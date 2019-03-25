@@ -1,4 +1,4 @@
-package net.douglashiura.scenario.plugin.editor;
+package net.douglashiura.scenario.plugin.editor.run;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -33,6 +33,7 @@ public class Processor implements Runnable {
 	private ObjectOutputStream output;
 	private ObjectInputStream input;
 	private Thread reader;
+	private DefenderWithoutExecution defender;
 
 	public Processor(IProject project, Executor executor, IProgressMonitor monitor) throws CoreException {
 		this.executor = executor;
@@ -51,6 +52,7 @@ public class Processor implements Runnable {
 			launch = configuration.launch(ILaunchManager.RUN_MODE, monitor);
 			wc.delete();
 			configuration.delete();
+			defender = new DefenderWithoutExecution(launch, this);
 			client = server.accept();
 			output = new ObjectOutputStream(client.getOutputStream());
 			input = new ObjectInputStream(client.getInputStream());
@@ -81,24 +83,29 @@ public class Processor implements Runnable {
 	}
 
 	public void exit() {
-
 		try {
 			launch.terminate();
 		} catch (DebugException e) {
 			e.printStackTrace();
 		}
 		try {
-			input.close();
+			if (input != null) {
+				input.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			output.close();
+			if (output != null) {
+				output.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		try {
-			client.close();
+			if (client != null) {
+				client.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -108,10 +115,22 @@ public class Processor implements Runnable {
 			e.printStackTrace();
 		}
 		try {
-			reader.join();
+			if (reader != null) {
+				reader.join();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		try {
+			defender.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
 
+	public void exitIfSockIsOpen() {
+		if (!server.isClosed()) {
+			exit();
+		}
+	}
 }

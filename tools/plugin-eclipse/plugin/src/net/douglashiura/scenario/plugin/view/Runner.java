@@ -14,9 +14,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Display;
 
-import net.douglashiura.scenario.plugin.editor.Executor;
 import net.douglashiura.scenario.plugin.editor.PaintScenario;
 import net.douglashiura.scenario.plugin.editor.ScenarioView;
+import net.douglashiura.scenario.plugin.editor.run.Executor;
 import net.douglashiura.scenario.plugin.type.Rateable;
 import net.douglashiura.scenario.project.util.FileScenario;
 import net.douglashiura.scenario.project.util.Files;
@@ -124,7 +124,7 @@ public class Runner {
 	}
 
 	public void redraw(Rateable rateable) {
-		Display.getDefault().asyncExec(new Runnable() {
+		Display.getDefault().syncExec(new Runnable() {
 			@Override
 			public void run() {
 				if (scenario != null && !scenario.getCanvas().isDisposed()) {

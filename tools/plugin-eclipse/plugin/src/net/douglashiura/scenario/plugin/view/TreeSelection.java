@@ -36,8 +36,11 @@ public class TreeSelection implements Listener {
 				itemScenario.selected();
 				FileScenario scenario = itemScenario.getScenario();
 				Runner.getRunner().setCurrent(scenario, scenario.getElements());
-				InteractionGeometry interactionGeometry = scenario.getAllInteractions().get(0);
-				Runner.getRunner().setOrigin(interactionGeometry.getGeometry().getX(), interactionGeometry.getGeometry().getY());
+				if (!scenario.getAllInteractions().isEmpty()) {
+					InteractionGeometry interactionGeometry = scenario.getAllInteractions().get(0);
+					Runner.getRunner().setOrigin(interactionGeometry.getGeometry().getX(),
+							interactionGeometry.getGeometry().getY());
+				}
 			} else if (selectedItem[0] instanceof ItemResult) {
 				ItemResult itemResult = (ItemResult) selectedItem[0];
 				FileScenario scenario = itemResult.getScenario();

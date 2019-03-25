@@ -1,4 +1,4 @@
-package net.douglashiura.scenario.plugin.editor;
+package net.douglashiura.scenario.plugin.editor.run;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 
+import net.douglashiura.scenario.plugin.editor.PathScenario;
 import net.douglashiura.scenario.project.util.FileScenario;
 import net.douglashiura.us.serial.InputFile;
 import net.douglashiura.us.serial.Interaction;

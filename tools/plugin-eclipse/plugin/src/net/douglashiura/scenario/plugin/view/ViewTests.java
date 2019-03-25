@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
 
-import net.douglashiura.scenario.plugin.editor.Executor;
+import net.douglashiura.scenario.plugin.editor.run.Executor;
 import net.douglashiura.scenario.plugin.type.Rateable;
 import net.douglashiura.scenario.project.util.FileScenario;
 import net.douglashiura.us.serial.Result;

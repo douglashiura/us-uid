@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-  
-
 	<extension
          point="org.eclipse.debug.ui.launchShortcuts">
       <shortcut
@@ -25,10 +23,7 @@
            </enablement>
   		 </contextualLaunch>
       </shortcut>
-      
-      
 	</extension>
-	
 	
 	<extension point="org.eclipse.ui.commands">
       <command
@@ -36,8 +31,7 @@
             description="Run scenario"
             categoryId="org.eclipse.debug.ui.category.run"
             id="com.example.ExampleLaunchShortcutId.debug"
-            defaultHandler="net.douglashiura.scenario.plugin.tiggres.ShortCutHandle"
-          	>
+            defaultHandler="net.douglashiura.scenario.plugin.tiggres.ShortCutHandle">
       </command>
       <keyBinding
             keySequence="M3+M1+X S"
@@ -48,9 +42,6 @@
       </keyBinding>
    </extension> 
 	
-	
-	
-	
    <extension point="org.eclipse.ui.views">
 		<category
 			name="Scenario"
@@ -60,7 +51,8 @@
 			category="view.Scenario"
 			name="Scenario"
 			class="net.douglashiura.scenario.plugin.editor.ScenarioView"
-			id="net.douglashiura.scenario.plugin.editor.ScenarioView">
+			id="net.douglashiura.scenario.plugin.editor.ScenarioView"
+			icon="icons/diagram.png">
 		</view>
 	</extension>
 	
@@ -73,7 +65,8 @@
 			category="view.Scenario"
 			class="net.douglashiura.scenario.plugin.fixture.names.FixtureNamesView"
 			name="Fixture names"
-			id="net.douglashiura.scenario.plugin.fixture.names.FixtureNamesView">
+			id="net.douglashiura.scenario.plugin.fixture.names.FixtureNamesView"
+			icon="icons/naming.png">
 		</view>
 	</extension>
    
@@ -87,7 +80,8 @@
              category="view.Scenario"
              class="net.douglashiura.scenario.plugin.view.ViewTests"
              id="net.douglashiura.scenario.plugin.view.ViewTests"
-             name="Tests">
+             name="Tests"
+             icon="icons/play.png">
        </view>
     </extension>
     

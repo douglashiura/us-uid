@@ -37,17 +37,10 @@ public class ItemScenario extends TreeItem implements Notificable {
 
 	@Override
 	public void addResult(Result result, Rateable element) {
-		Display.getDefault().asyncExec(new Runnable() {
+		Display.getDefault().syncExec(new Runnable() {
 
-			@SuppressWarnings("unused")
 			@Override
 			public void run() {
-				while (null == ItemScenario.this) {
-					try {
-						wait(0, 10);
-					} catch (InterruptedException e) {
-					}
-				}
 				if (scenario.getPaths().size() > 1) {
 					ItemPath item = getPath(result);
 					item.addResult(result, element);
@@ -69,7 +62,7 @@ public class ItemScenario extends TreeItem implements Notificable {
 	}
 
 	public void prepareToExecute() {
-		Display.getDefault().asyncExec(new Runnable() {
+		Display.getDefault().syncExec(new Runnable() {
 			@Override
 			public void run() {
 				removeAll();
@@ -82,13 +75,15 @@ public class ItemScenario extends TreeItem implements Notificable {
 	@Override
 	public void finishyATestExecution(Results generalResult) {
 
-		Display.getDefault().asyncExec(new Runnable() {
+		Display.getDefault().syncExec(new Runnable() {
 			@Override
 			public void run() {
-				setText(String.format("%s (%s)", scenario.getName(), getContextResult()));
-				if (paths != null) {
-					for (Entry<Integer, ItemPath> item : paths.entrySet()) {
-						item.getValue().finishyATestExecution(generalResult);
+				if (!isDisposed()) {
+					setText(String.format("%s (%s)", scenario.getName(), getContextResult()));
+					if (paths != null) {
+						for (Entry<Integer, ItemPath> item : paths.entrySet()) {
+							item.getValue().finishyATestExecution(generalResult);
+						}
 					}
 				}
 			}

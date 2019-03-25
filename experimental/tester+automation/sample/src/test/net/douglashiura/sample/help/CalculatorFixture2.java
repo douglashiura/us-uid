@@ -6,15 +6,15 @@ import net.douglashiura.us.Fixture;
 public class CalculatorFixture2 {
 
 	public void setCommand(String name) throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.sleep(4000);
 	}
 
 	public String getDisplay() throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.sleep(4000);
 		return null;
 	}
 
 	public void toCalculatorFixture3() throws InterruptedException {
-		Thread.sleep(1000);
+		Thread.sleep(100);
 	}
 }
