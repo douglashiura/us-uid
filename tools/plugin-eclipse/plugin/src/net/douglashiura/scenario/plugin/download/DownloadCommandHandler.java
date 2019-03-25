@@ -64,7 +64,7 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 		String server = dialog.getServer();
 		server = server.endsWith("/") ? server : server + "/";
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(server + "scenaries/");
+		HttpGet httpGet = new HttpGet(server + "scenarios/");
 		try {
 			httpGet.setHeader("accept", "text/json");
 			httpGet.setHeader("charset", StandardCharsets.UTF_8.name());

@@ -36,7 +36,7 @@ public class WebListFiles extends HttpServlet {
 			}
 
 		} else {
-			List<String> scenarios = Project.get(path).getScenariesAsNames();
+			List<String> scenarios = Project.get(path).getScenariosAsNames();
 			StringBuilder json = new StringBuilder();
 			json.append("[");
 			int i = 0;

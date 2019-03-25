@@ -8,11 +8,9 @@ public class Transaction implements Serializable, Elementable {
 	private static final long serialVersionUID = 1L;
 	private UUID uuid;
 	private Interaction target;
-	private Interaction source;
 
 	public Transaction(UUID uuid, Interaction source, Interaction target) {
 		this.uuid = uuid;
-		this.source = source;
 		this.target = target;
 	}
 
@@ -25,8 +23,5 @@ public class Transaction implements Serializable, Elementable {
 		return uuid;
 	}
 
-	public Interaction findFist() {
-		return source;
-	}
 
 }

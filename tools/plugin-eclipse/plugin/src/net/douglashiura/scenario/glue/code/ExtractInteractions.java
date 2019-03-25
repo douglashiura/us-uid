@@ -7,10 +7,10 @@ import net.douglashiura.us.serial.Interaction;
 
 public class ExtractInteractions {
 
-	public static List<Interaction> from(List<Interaction> scenaries) {
+	public static List<Interaction> from(List<Interaction> scenarios) {
 
 		List<Interaction> interactions = new ArrayList<>();
-		for (Interaction interaction : scenaries) {
+		for (Interaction interaction : scenarios) {
 			add(interaction, interactions);
 		}
 		return interactions;

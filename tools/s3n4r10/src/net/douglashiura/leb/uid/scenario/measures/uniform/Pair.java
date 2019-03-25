@@ -1,11 +1,12 @@
 package net.douglashiura.leb.uid.scenario.measures.uniform;
 
 import java.io.IOException;
+import java.util.List;
 
 import net.douglashiura.leb.uid.scenario.EmptyScenarioException;
-import net.douglashiura.leb.uid.scenario.ScenarioFromText;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
-import net.douglashiura.us.serial.Interaction;
+import net.douglashiura.leb.uid.scenario.model.InteractionTree;
+import net.douglashiura.leb.uid.scenario.model.ScenarioFromText;
 
 public class Pair {
 
@@ -16,8 +17,8 @@ public class Pair {
 	public Pair(Scenario a, Scenario b) throws IOException, EmptyScenarioException {
 		this.a = a;
 		this.b = b;
-		Interaction scenarioA = new ScenarioFromText(a.getDocument(), a.getVirtualName()).firstState();
-		Interaction scenarioB = new ScenarioFromText(b.getDocument(), a.getVirtualName()).firstState();
+		List<InteractionTree> scenarioA = new ScenarioFromText(a.getDocument()).getInteractionsUnsctrutured();
+		List<InteractionTree> scenarioB = new ScenarioFromText(b.getDocument()).getInteractionsUnsctrutured();
 		uniform = new AbsoluteUniformity(scenarioA, scenarioB);
 
 	}

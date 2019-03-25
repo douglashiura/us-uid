@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import net.douglashiura.leb.uid.scenario.Scenaries;
+import net.douglashiura.leb.uid.scenario.Scenarios;
 import net.douglashiura.leb.uid.scenario.data.Project;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 import net.douglashiura.leb.uid.scenario.measures.uniform.Average;
@@ -29,8 +29,8 @@ public class WebUniform extends HttpServlet {
 		response.setContentType("application/json; charset=utf-8");
 		response.setCharacterEncoding("UTF-8");
 		JsonObject uniform = new JsonObject();
-		List<Scenario> allScenaries = Scenaries.getScenarios(Project.get());
-		List<Pair> pairs = Pairs.pairs(allScenaries);
+		List<Scenario> allScenarios = Scenarios.getScenarios(Project.get());
+		List<Pair> pairs = Pairs.pairs(allScenarios);
 		uniform.addProperty("average", new Average(pairs).getUniformity());
 		mountByPairs(uniform, pairs);
 		response.getWriter().append(uniform.toString());

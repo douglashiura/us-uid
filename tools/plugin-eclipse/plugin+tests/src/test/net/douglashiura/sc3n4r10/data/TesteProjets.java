@@ -31,7 +31,7 @@ public class TesteProjets {
 	@Test
 	public void scenarios() throws Exception {
 		Project.get("another/us.us");
-		List<String> scenarios = Project.get("another").getScenariesAsNames();
+		List<String> scenarios = Project.get("another").getScenariosAsNames();
 		assertTrue(scenarios.contains("us.us"));
 		java.io.File file = new java.io.File(System.getProperty("user.home"), "another");
 		file.delete();

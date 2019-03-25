@@ -52,16 +52,16 @@ public class Project {
 		return diretoriesName;
 	}
 
-	public List<String> getScenariesAsNames() throws IOException {
-		List<Scenario> scenaries = getScenaries();
-		List<String> manyScenaries = new ArrayList<String>(scenaries.size());
-		for (Scenario file : scenaries) {
-			manyScenaries.add(file.getVirtualName());
+	public List<String> getScenariosAsNames() throws IOException {
+		List<Scenario> scenarios = getScenarios();
+		List<String> manyScenarios = new ArrayList<String>(scenarios.size());
+		for (Scenario file : scenarios) {
+			manyScenarios.add(file.getVirtualName());
 		}
-		return manyScenaries;
+		return manyScenarios;
 	}
 
-	public List<Scenario> getScenaries() throws IOException {
+	public List<Scenario> getScenarios() throws IOException {
 		List<Scenario> scenarios = new LinkedList<Scenario>();
 		for (File file : directory.listFiles(new FilterScenario())) {
 			scenarios.add(new Scenario(file, getDefaultDir()));

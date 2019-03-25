@@ -27,8 +27,8 @@ public class GlueCodeGenerate {
 
 	private GlueCodeGenerate(String _package, IContainer directory) throws IOException, CoreException {
 		GetAllScenariosOfAPath allScenariosOfAPath = new GetAllScenariosOfAPath(directory);
-		List<Interaction> scenaries = ExtractInteractions.from(allScenariosOfAPath.getAll());
-		codeOfScenarioSet = new GlueCodeOfScenarioSet(_package, scenaries);
+		List<Interaction> scenarios = ExtractInteractions.from(allScenariosOfAPath.getAll());
+		codeOfScenarioSet = new GlueCodeOfScenarioSet(_package, scenarios);
 	}
 
 	@Override

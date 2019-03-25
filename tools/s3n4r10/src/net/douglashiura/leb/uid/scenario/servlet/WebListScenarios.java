@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.douglashiura.leb.uid.scenario.Scenaries;
+import net.douglashiura.leb.uid.scenario.Scenarios;
 import net.douglashiura.leb.uid.scenario.data.Project;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 
 /**
  * Servlet implementation class WebList
  */
-@WebServlet("/scenaries/*")
+@WebServlet("/scenarios/*")
 public class WebListScenarios extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -41,14 +41,14 @@ public class WebListScenarios extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Scenario> scenaries = Scenaries.getScenarios(Project.get());
+		List<Scenario> scenarios = Scenarios.getScenarios(Project.get());
 		StringBuilder json = new StringBuilder();
 		json.append("[");
 		int i = 0;
-		for (Scenario scenario : scenaries) {
+		for (Scenario scenario : scenarios) {
 			json.append("\"");
 			json.append(scenario.getVirtualName());
-			if (++i == scenaries.size()) {
+			if (++i == scenarios.size()) {
 				json.append("\"");
 			} else {
 				json.append("\", ");
