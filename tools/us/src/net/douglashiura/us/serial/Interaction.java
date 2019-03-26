@@ -51,7 +51,7 @@ public class Interaction implements Serializable, Elementable {
 		outputs.add(output);
 	}
 
-	public void to(Interaction destination, UUID uuid2) {
-		transaction = new Transaction(uuid2, this, destination);
+	public void to(Interaction destination, UUID uuid2, String action) {
+		transaction = new Transaction(uuid2, this, destination, action);
 	}
 }

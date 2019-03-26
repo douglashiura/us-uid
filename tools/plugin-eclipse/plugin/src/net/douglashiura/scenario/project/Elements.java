@@ -11,6 +11,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.jdt.core.IJavaProject;
 
 import net.douglashiura.scenario.plugin.type.InputGeometry;
+import net.douglashiura.scenario.plugin.type.InteractionAction;
 import net.douglashiura.scenario.plugin.type.InteractionGeometry;
 import net.douglashiura.scenario.plugin.type.OutputGeometry;
 import net.douglashiura.scenario.plugin.type.Rateable;
@@ -37,9 +38,9 @@ public class Elements {
 		if (firstState.getTransaction() != null) {
 			TransactionGeometry transaction = firstState.getTransaction();
 			map.put(transaction.getUuid(), transaction);
-			List<InteractionGeometry> transactions = transaction.getTargets();
-			for (InteractionGeometry interactionGeometry : transactions) {
-				ofInteraction(interactionGeometry, map);
+			List<InteractionAction> transactions = transaction.getTargets();
+			for (InteractionAction interactionGeometry : transactions) {
+				ofInteraction(interactionGeometry.getTarget(), map);
 			}
 		}
 

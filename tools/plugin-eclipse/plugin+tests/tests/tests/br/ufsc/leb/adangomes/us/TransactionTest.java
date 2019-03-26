@@ -16,7 +16,7 @@ public class TransactionTest {
 		UUID uuid = UUID.randomUUID();
 		Interaction travelsGuide = new Interaction(UUID.randomUUID(), "TravelsGuide");
 		Interaction destination = new Interaction(UUID.randomUUID(), "Destination");
-		Transaction transaction = new Transaction(uuid, travelsGuide, destination);
+		Transaction transaction = new Transaction(uuid, travelsGuide, destination,"OK");
 		assertEquals(uuid, transaction.getUuid());
 		assertEquals(destination, transaction.getTarget());
 	}

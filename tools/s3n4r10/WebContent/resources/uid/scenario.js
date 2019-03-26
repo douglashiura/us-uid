@@ -58,14 +58,18 @@ br.ufsc.leb.uid.scenario.UserInput = draw2d.shape.basic.Label.extend({
 });
 
 
-br.ufsc.leb.uid.scenario.UserInputTransaction = br.ufsc.leb.uid.scenario.UserInput.extend({
+br.ufsc.leb.uid.scenario.UserInputTransaction = draw2d.shape.basic.Text.extend({
 	NAME : 'br.ufsc.leb.uid.scenario.UserInputTransaction',
 	init : function(transaction) {
-		this.transaction=transaction;
 		this._super();
+		this.transaction=transaction;
+		this.installEditor(new draw2d.ui.LabelInplaceEditor());
+		this.setColor(new draw2d.util.Color("#ffffff"));
+		this.setFontColor(new draw2d.util.Color("#000000"));
 	},
-	setText : function (aValue){
-		this.transaction.getUserData().text=aValue;
+	setText :function (value){
+		this.transaction.getUserData().text=value;
+		return this._super(value);
 	},
 	getText:function (){
 		return this.transaction.getUserData().text;
@@ -142,11 +146,17 @@ br.ufsc.leb.uid.scenario.Transaction = draw2d.Connection
 				this
 						.setTargetDecorator(new draw2d.decoration.connection.ArrowDecorator());
 				this.setColor(new draw2d.util.Color("#000000"));
+				this.setUserData({text:''});
 				this.valueAction = new br.ufsc.leb.uid.scenario.UserInputTransaction(this);
 				this.add(this.valueAction, new draw2d.layout.locator.ParallelMidpointLocator());
-				this.setUserData(new br.ufsc.leb.uid.scenario.FunctionalData());
+				this.valueAction.setText("Action");
 			    
 			},
+			setPersistentAttributes : function(memento){
+				 	this._super(memento);
+				 	this.valueAction.setText(memento.userData.text);
+				 	
+			 },
 			installConnection : function(source, target) {
 				target.createPort("input",
 						new br.ufsc.leb.uid.scenario.TargetLocator());
@@ -156,6 +166,7 @@ br.ufsc.leb.uid.scenario.Transaction = draw2d.Connection
 				}
 				this.setSource(source.getOutputPort(0));
 				this.setTarget(target.getInputPort(0));
+				
 			},
 			getFrom : function() {
 				return this.getSource().getParent();
@@ -197,12 +208,13 @@ br.ufsc.leb.uid.scenario.CopyInterceptorPolicy = draw2d.policy.canvas.ExtendedKe
 
 	onKeyDown : function(canvas, keyCode, shiftKey, ctrlKey) {
 		if(canvas.getSelection()!==null){
+			var distance = 10;
 			switch (keyCode) {
 				case 37: {// <-
 					canvas.getSelection().each(function(i, figure) {
 						var position=figure.getPosition();
-						var x =(position.x-5);
-						x=x-(x%5);
+						var x =(position.x-distance);
+						x=x-(x%distance);
 						figure.setPosition(x, position.y);
 					});
 					break;
@@ -210,8 +222,8 @@ br.ufsc.leb.uid.scenario.CopyInterceptorPolicy = draw2d.policy.canvas.ExtendedKe
 				case 38: {// ^
 					canvas.getSelection().each(function(i, figure) {
 						var position=figure.getPosition();
-						var y =(position.y-5);
-						y=y-(y%5);
+						var y =(position.y-distance);
+						y=y-(y%distance);
 						figure.setPosition(position.x, y);
 					});
 					break;
@@ -219,8 +231,8 @@ br.ufsc.leb.uid.scenario.CopyInterceptorPolicy = draw2d.policy.canvas.ExtendedKe
 				case 39: {// ->
 					canvas.getSelection().each(function(i, figure) {
 						var position=figure.getPosition();
-						var x =(position.x+5);
-						x=x-(x%5);
+						var x =(position.x+distance);
+						x=x-(x%distance);
 						figure.setPosition(x, position.y);
 					});					
 					break;
@@ -228,8 +240,8 @@ br.ufsc.leb.uid.scenario.CopyInterceptorPolicy = draw2d.policy.canvas.ExtendedKe
 				case 40: {// v
 					canvas.getSelection().each(function(i, figure) {
 						var position=figure.getPosition();
-						var y =(position.y+5);
-						y=y-(y%5);
+						var y =(position.y+distance);
+						y=y-(y%distance);
 						figure.setPosition(position.x, y);
 					});
 					break;

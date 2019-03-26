@@ -31,10 +31,12 @@ public class ScenarioExtractTest {
 		assertNotNull(origin);
 		assertEquals("Origin", origin.getFixtureName());
 		assertNotNull(origin.getTransaction());
-		assertNull(origin.getTransaction().getTargets().get(0).getTransaction());
+		assertNull(origin.getTransaction().getTargets().get(0).getTarget().getTransaction());
 		assertEquals(2, origin.getTransaction().getTargets().size());
-		assertEquals("Target2", origin.getTransaction().getTargets().get(0).getFixtureName());
-		assertEquals("Target1", origin.getTransaction().getTargets().get(1).getFixtureName());
+		assertEquals("Target2", origin.getTransaction().getTargets().get(0).getTarget().getFixtureName());
+		assertEquals("OK", origin.getTransaction().getTargets().get(0).getAction());
+		assertEquals("Target1", origin.getTransaction().getTargets().get(1).getTarget().getFixtureName());
+		assertEquals("Cancel", origin.getTransaction().getTargets().get(1).getAction());
 	}
 
 	@Test
@@ -53,18 +55,18 @@ public class ScenarioExtractTest {
 		assertEquals("Origin1", origin1.getFixtureName());
 		assertEquals("Origin", origin.getFixtureName());
 		assertEquals(1, origin.getTransaction().getTargets().size());
-		assertEquals("Target1", origin.getTransaction().getTargets().get(0).getFixtureName());
+		assertEquals("Target1", origin.getTransaction().getTargets().get(0).getTarget().getFixtureName());
 		assertEquals("Target3",
-				origin.getTransaction().getTargets().get(0).getTransaction().getTargets().get(0).getFixtureName());
+				origin.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(0).getTarget().getFixtureName());
 		assertEquals("Target4",
-				origin.getTransaction().getTargets().get(0).getTransaction().getTargets().get(1).getFixtureName());
+				origin.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(1).getTarget().getFixtureName());
 		assertEquals(2, origin1.getTransaction().getTargets().size());
-		assertEquals("Target1", origin1.getTransaction().getTargets().get(0).getFixtureName());
-		assertEquals("Target2", origin1.getTransaction().getTargets().get(1).getFixtureName());
+		assertEquals("Target1", origin1.getTransaction().getTargets().get(0).getTarget().getFixtureName());
+		assertEquals("Target2", origin1.getTransaction().getTargets().get(1).getTarget().getFixtureName());
 		assertEquals("Target3",
-				origin1.getTransaction().getTargets().get(0).getTransaction().getTargets().get(0).getFixtureName());
+				origin1.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(0).getTarget().getFixtureName());
 		assertEquals("Target4",
-				origin1.getTransaction().getTargets().get(0).getTransaction().getTargets().get(1).getFixtureName());
+				origin1.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(1).getTarget().getFixtureName());
 	}
 
 	@Test
@@ -112,8 +114,9 @@ public class ScenarioExtractTest {
 		assertEquals("Target4", origin3.getTransaction().getTarget().getTransaction().getTarget().getFixtureName());
 		assertEquals("Origin1", origin4.getFixtureName());
 		assertEquals("Target1", origin2.getTransaction().getTarget().getFixtureName());
-		assertNotSame(origin1.getTransaction().getTarget(),origin.getTransaction().getTarget());
-		assertSame(origin1.getTransaction().getTarget().getFixtureName(),origin.getTransaction().getTarget().getFixtureName());
+		assertNotSame(origin1.getTransaction().getTarget(), origin.getTransaction().getTarget());
+		assertSame(origin1.getTransaction().getTarget().getFixtureName(),
+				origin.getTransaction().getTarget().getFixtureName());
 	}
 
 	@Test
@@ -149,14 +152,14 @@ public class ScenarioExtractTest {
 		assertEquals(2, scenario.starts().size());
 		assertEquals("Origin2", origin.getFixtureName());
 		assertNotNull(origin.getTransaction());
-		assertNull(origin.getTransaction().getTargets().get(0).getTransaction());
+		assertNull(origin.getTransaction().getTargets().get(0).getTarget().getTransaction());
 		assertEquals(1, origin.getTransaction().getTargets().size());
-		assertEquals("Target", origin1.getTransaction().getTargets().get(0).getFixtureName());
+		assertEquals("Target", origin1.getTransaction().getTargets().get(0).getTarget().getFixtureName());
 		assertEquals("Source1", origin1.getFixtureName());
 		assertNotNull(origin1.getTransaction());
-		assertNull(origin1.getTransaction().getTargets().get(0).getTransaction());
+		assertNull(origin1.getTransaction().getTargets().get(0).getTarget().getTransaction());
 		assertEquals(1, origin1.getTransaction().getTargets().size());
-		assertEquals("Target", origin1.getTransaction().getTargets().get(0).getFixtureName());
+		assertEquals("Target", origin1.getTransaction().getTargets().get(0).getTarget().getFixtureName());
 
 	}
 
@@ -188,7 +191,7 @@ public class ScenarioExtractTest {
 		assertEquals("Origin", origin.getFixtureName());
 		assertNotNull(origin.getTransaction());
 		assertEquals(1, origin.getTransaction().getTargets().size());
-		assertEquals("Target", origin.getTransaction().getTargets().get(0).getFixtureName());
+		assertEquals("Target", origin.getTransaction().getTargets().get(0).getTarget().getFixtureName());
 	}
 
 	@Test

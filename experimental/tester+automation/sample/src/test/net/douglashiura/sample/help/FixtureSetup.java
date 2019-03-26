@@ -8,6 +8,6 @@ public class FixtureSetup {
 	public void setUrl(String url) {
 	}
 
-	public void toCalculatorFixture() {
+	public void toCalculatorFixture(String action) {
 	}
 }

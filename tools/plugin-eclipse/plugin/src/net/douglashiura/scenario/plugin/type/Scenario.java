@@ -58,8 +58,8 @@ public class Scenario {
 	}
 
 	private Boolean contains(InteractionGeometry nonTarget, TransactionGeometry transaction) {
-		for (InteractionGeometry aTransaction : transaction.getTargets()) {
-			if (nonTarget.equals(aTransaction)) {
+		for (InteractionAction aTransaction : transaction.getTargets()) {
+			if (nonTarget.equals(aTransaction.getTarget())) {
 				return true;
 			}
 		}
@@ -95,7 +95,9 @@ public class Scenario {
 					transactions.put(aSource, transaction);
 					aSource.setTransaction(transaction);
 				}
-				transaction.addTarget(aTarget);
+				LinkedTreeMap<String, ?> userData = (LinkedTreeMap<String, ?>) object.get("userData");
+				String action = (String) userData.get("text");
+				transaction.addTarget(aTarget, action);
 			}
 		}
 

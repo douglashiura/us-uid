@@ -55,9 +55,9 @@ public class RecursiveExecutor {
 
 	private void execute(Transaction transaction, Object instance) throws ExceptionInExecution {
 		try {
-			Class<?>[] cArg = new Class[0];
+			Class<?>[] cArg = new Class[]{String.class};
 			Method method = instance.getClass().getMethod(CamelCase.to(transaction.getTarget().getFixtureName()), cArg);
-			method.invoke(instance);
+			method.invoke(instance, transaction.getAction());
 			executor.message(transaction.getUuid(), index, Results.OK, null);
 		} catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NullPointerException e) {

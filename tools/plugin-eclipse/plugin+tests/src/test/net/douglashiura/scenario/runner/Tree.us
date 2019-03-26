@@ -80,7 +80,8 @@
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": ""
+      "model": "",
+      "text" : "OK"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
     "stroke": 1,
@@ -105,7 +106,8 @@
     "alpha": 1,
     "userData": {
       "result": "",
-      "model": ""
+      "model": "",
+      "text" : "Cancel"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
     "stroke": 1,

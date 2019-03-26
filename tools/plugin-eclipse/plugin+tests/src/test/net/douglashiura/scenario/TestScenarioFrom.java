@@ -109,7 +109,7 @@ public class TestScenarioFrom {
 	public void interacaoSaidaEEntrada() throws Exception {
 		InteractionGeometry interacao = new Scenario(
 				String.format("[%s,%s,%s]", transaction, interacaoInicial, interacaoAlvo)).starts().get(0);
-		InteractionGeometry target = interacao.getTransaction().getTargets().get(0);
+		InteractionGeometry target = interacao.getTransaction().getTargets().get(0).getTarget();
 		assertNull(target.getTransaction());
 		assertEquals(UUID.fromString("dcc6fc42-5fb4-d204-0d39-fbaf82c1cf85"), interacao.getTransaction().getUuid());
 		assertEquals(638, interacao.getGeometry().getX().intValue());

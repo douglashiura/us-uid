@@ -20,7 +20,7 @@ public class TestExtractInteractionsOfScenarios {
 	public void setUp() {
 		scenario = new Interaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), "EightPuzzle");
 		scenario2 = new Interaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), "EightPuzzle");
-		scenario2.to(scenario, UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"));
+		scenario2.to(scenario, UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"),"Ok");
 	}
 
 	@Test

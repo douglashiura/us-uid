@@ -13,6 +13,6 @@ public class CalculatorFixture3 {
 		return "1";
 	}
 
-	public void toCalculatorFixture4() {
+	public void toCalculatorFixture4(String action) {
 	}
 }

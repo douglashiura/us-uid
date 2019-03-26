@@ -4,6 +4,6 @@ import net.douglashiura.us.Fixture;
 public class FixtureCalculatorFixture {
 	public void setCommand(String value){
 	}
-	public void toCalculatorFixture1(){
+	public void toCalculatorFixture1(String action){
 	}
 }

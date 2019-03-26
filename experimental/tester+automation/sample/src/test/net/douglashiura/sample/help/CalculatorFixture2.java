@@ -14,7 +14,7 @@ public class CalculatorFixture2 {
 		return null;
 	}
 
-	public void toCalculatorFixture3() throws InterruptedException {
+	public void toCalculatorFixture3(String action) throws InterruptedException {
 		Thread.sleep(100);
 	}
 }

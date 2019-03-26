@@ -35,7 +35,7 @@ public class ClassTemplate {
 	}
 
 	private CharSequence transactionMethods() {
-		String template = "	public void to{FIXTURE_NAME}(){\n	}";
+		String template = "	public void to{FIXTURE_NAME}(String action){\n	}";
 		String methods = "";
 		Set<String> methodsList = new HashSet<>();
 		for (Interaction interaction : interactions) {

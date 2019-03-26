@@ -130,7 +130,8 @@
     "alpha": 1.0,
     "userData": {
       "result": "",
-      "model": ""
+      "model": "",
+      "text": "OK"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_Transaction",
     "stroke": 1.0,

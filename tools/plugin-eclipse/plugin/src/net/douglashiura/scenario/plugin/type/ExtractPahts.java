@@ -24,11 +24,27 @@ public class ExtractPahts {
 		if (point.getTransaction() == null || point.getTransaction().getTargets().isEmpty()) {
 			paths.add(currentPath.get(0));
 		} else {
-			for (InteractionGeometry interactionGeometry : point.getTransaction().getTargets()) {
+			for (InteractionAction interactionGeometry : point.getTransaction().getTargets()) {
 				List<Interaction> newPath = clone(currentPath);
-				Interaction newInteraction = extractInteraction(interactionGeometry);
+				Interaction newInteraction = extractInteraction(interactionGeometry.getTarget());
 				Interaction last = newPath.get(newPath.size() - 1);
-				last.to(newInteraction, point.getTransaction().getUuid());
+				last.to(newInteraction, point.getTransaction().getUuid(),interactionGeometry.getAction());
+				last.getTransaction().hashCode();
+				newPath.add(newInteraction);
+				readAllPahts(newPath, interactionGeometry);
+			}
+		}
+	}
+
+	private void readAllPahts(List<Interaction> currentPath, InteractionAction point) {
+		if (point.getTarget().getTransaction() == null || point.getTarget().getTransaction().getTargets().isEmpty()) {
+			paths.add(currentPath.get(0));
+		} else {
+			for (InteractionAction interactionGeometry : point.getTarget().getTransaction().getTargets()) {
+				List<Interaction> newPath = clone(currentPath);
+				Interaction newInteraction = extractInteraction(interactionGeometry.getTarget());
+				Interaction last = newPath.get(newPath.size() - 1);
+				last.to(newInteraction, point.getTarget().getTransaction().getUuid(),interactionGeometry.getAction());
 				last.getTransaction().hashCode();
 				newPath.add(newInteraction);
 				readAllPahts(newPath, interactionGeometry);
@@ -42,7 +58,8 @@ public class ExtractPahts {
 			newCurrentPath.add(cloneInteraction(interaction));
 		}
 		for (int i = 0; i < newCurrentPath.size() - 1; i++) {
-			newCurrentPath.get(i).to(newCurrentPath.get(i + 1), newCurrentPath.get(i).getTransaction().getUuid());
+			Transaction transaction = newCurrentPath.get(i).getTransaction();
+			newCurrentPath.get(i).to(newCurrentPath.get(i + 1), transaction.getUuid(),transaction.getAction());
 		}
 		return newCurrentPath;
 	}
@@ -58,19 +75,19 @@ public class ExtractPahts {
 		}
 		Transaction transaction = interaction.getTransaction();
 		if (transaction != null && transaction.getTarget() != null) {
-			aInteraction.to(transaction.getTarget(), transaction.getUuid());
+			aInteraction.to(transaction.getTarget(), transaction.getUuid(), transaction.getAction());
 		}
 		return aInteraction;
 	}
 
-	private Interaction extractInteraction(InteractionGeometry interaction) {
-		Interaction newInteraction = new Interaction(interaction.getId(), interaction.getFixtureName());
-		List<InputGeometry> inputs = interaction.getInputs();
+	private Interaction extractInteraction(InteractionGeometry interactionGeometry) {
+		Interaction newInteraction = new Interaction(interactionGeometry.getId(), interactionGeometry.getFixtureName());
+		List<InputGeometry> inputs = interactionGeometry.getInputs();
 		for (InputGeometry inputGeometry : inputs) {
 			newInteraction.addInput(
 					new Input(inputGeometry.getId(), inputGeometry.getFixtureName(), inputGeometry.getValue()));
 		}
-		List<OutputGeometry> outputs = interaction.getOutputs();
+		List<OutputGeometry> outputs = interactionGeometry.getOutputs();
 		for (OutputGeometry outputGeometry : outputs) {
 			newInteraction.addOutput(
 					new Output(outputGeometry.getId(), outputGeometry.getFixtureName(), outputGeometry.getValue()));

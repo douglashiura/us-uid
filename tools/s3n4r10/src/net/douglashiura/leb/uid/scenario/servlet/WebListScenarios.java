@@ -34,7 +34,7 @@ public class WebListScenarios extends HttpServlet {
 		Project project = Project.get();
 		for (String path : directories) {
 			project = project.enter(path);
-		}
+		} 
 		project.newScenario(name);
 		resp.sendRedirect(String.format(EDITOR_JSP, folder.replace('.', File.separatorChar), name));
 	}

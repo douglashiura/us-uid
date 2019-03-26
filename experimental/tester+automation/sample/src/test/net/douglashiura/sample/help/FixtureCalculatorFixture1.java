@@ -7,6 +7,6 @@ public class FixtureCalculatorFixture1 {
 	public String getDisplay(){
 		return "3";
 	}
-	public void toCalculatorFixture2(){
+	public void toCalculatorFixture2(String action){
 	}
 }

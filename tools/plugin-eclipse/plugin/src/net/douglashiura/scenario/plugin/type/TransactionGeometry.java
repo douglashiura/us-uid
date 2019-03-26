@@ -12,7 +12,7 @@ import net.douglashiura.us.serial.Results;
 
 public class TransactionGeometry implements Rateable {
 	private java.awt.Color color;
-	private List<InteractionGeometry> targets;
+	private List<InteractionAction> targets;
 	private InteractionGeometry source;
 	private UUID id;
 
@@ -23,11 +23,11 @@ public class TransactionGeometry implements Rateable {
 		color = java.awt.Color.BLACK;
 	}
 
-	public void addTarget(InteractionGeometry target) {
-		targets.add(target);
+	public void addTarget(InteractionGeometry target, String action) {
+		targets.add(new InteractionAction(target, action));
 	}
 
-	public List<InteractionGeometry> getTargets() {
+	public List<InteractionAction> getTargets() {
 		return targets;
 	}
 
@@ -37,9 +37,9 @@ public class TransactionGeometry implements Rateable {
 		java.awt.Color unExecuted = Results.UN_EXECUTED.getColor();
 		Color unExecutedColor = new Color(gc.getDevice(), unExecuted.getRed(), unExecuted.getGreen(),
 				unExecuted.getBlue());
-		for (InteractionGeometry targetState : targets) {
+		for (InteractionAction targetState : targets) {
 			gc.setForeground(aColor);
-			if (only.get(targetState.getId()) != null) {
+			if (only.get(targetState.getTarget().getId()) != null) {
 				drawArrow(gc, targetState);
 			} else {
 				gc.setForeground(unExecutedColor);
@@ -48,13 +48,23 @@ public class TransactionGeometry implements Rateable {
 		}
 	}
 
-	private void drawArrow(GC gc, InteractionGeometry anotherState) {
+	private void drawArrow(GC gc, InteractionAction anotherState) {
 		Geometry aGeometry = source.getGeometry();
-		Geometry anotherGeometry = anotherState.getGeometry();
+		Geometry anotherGeometry = anotherState.getTarget().getGeometry();
 		int anotherY = meioY(anotherGeometry);
 		int anotherX = anotherGeometry.getX();
-		gc.drawLine(aGeometry.getX() + aGeometry.getWidth(), meioY(aGeometry), anotherX-10, anotherY);
-		gc.drawPolygon(new int[] { anotherX-10, anotherY-7, anotherX, anotherY, anotherX-10, anotherY+7 });
+
+		int startFirst = aGeometry.getX() + aGeometry.getWidth();
+
+		gc.drawLine(startFirst, meioY(aGeometry), anotherX - 10, anotherY);
+
+		gc.drawPolygon(new int[] { anotherX - 10, anotherY - 7, anotherX, anotherY, anotherX - 10, anotherY + 7 });
+
+		String action = anotherState.getAction() == null ? "null" : anotherState.getAction();
+		int sizeAction = action.length() / 2 * 10;
+		gc.drawString(action, (startFirst + anotherX) / 2 - sizeAction,
+				(meioY(anotherGeometry) + meioY(aGeometry)) / 2 - 10);
+
 	}
 
 	private int meioY(Geometry aGeometry) {

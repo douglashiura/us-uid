@@ -66,10 +66,10 @@ public class TestGlueCodeOfAnInterection {
 
 	@Test
 	public void transition() throws Exception {
-		String inputMethod = "	public void toAnother(){\n	}";
+		String inputMethod = "	public void toAnother(String action){\n	}";
 		String klasse = _package + _import + body.replace("}", inputMethod + "\n}");
 		Interaction aTarget = new Interaction(UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"), "Another");
-		interaction.to(aTarget, UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"));
+		interaction.to(aTarget, UUID.fromString("6063b665-b963-62dd-de91-195d0d6791ad"),"OK");
 		ClassTemplate template = new ClassTemplate("com.net.douglashiura.example", Arrays.asList(interaction));
 		assertEquals(klasse, template.toString());
 	}
