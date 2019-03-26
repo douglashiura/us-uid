@@ -23,34 +23,34 @@ public class WebListFiles extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String path = request.getRequestURI().split("files")[1];
-		if (path.endsWith(".us")) {
-			response.setContentType("text/plain; charset=utf-8");
-			response.setCharacterEncoding("UTF-8");
-			try {
-				path = new java.net.URI(path).getPath();
+		try {
+			String path = new java.net.URI(request.getRequestURI()).getPath().split("files")[1];
+			if (path.endsWith(FilterScenario.EXTENSION)) {
+				response.setContentType("text/plain; charset=utf-8");
+				response.setCharacterEncoding("UTF-8");
+				System.out.println();
 				String scenario = Project.get(path).getScenario().getDocument();
 				response.getWriter().write(scenario);
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
 
-		} else {
-			List<String> scenarios = Project.get(path).getScenariosAsNames();
-			StringBuilder json = new StringBuilder();
-			json.append("[");
-			int i = 0;
-			for (String scenario : scenarios) {
-				json.append("\"");
-				json.append(scenario);
-				if (++i == scenarios.size()) {
+			} else {
+				List<String> scenarios = Project.get(path).getScenariosAsNames();
+				StringBuilder json = new StringBuilder();
+				json.append("[");
+				int i = 0;
+				for (String scenario : scenarios) {
 					json.append("\"");
-				} else {
-					json.append("\", ");
+					json.append(scenario);
+					if (++i == scenarios.size()) {
+						json.append("\"");
+					} else {
+						json.append("\", ");
+					}
 				}
+				json.append("]");
+				response.getWriter().write(json.toString());
 			}
-			json.append("]");
-			response.getWriter().write(json.toString());
+		} catch (URISyntaxException e) {
+			throw new ServletException(e);
 		}
 	}
 
@@ -61,12 +61,11 @@ public class WebListFiles extends HttpServlet {
 			path = new java.net.URI(path).getPath();
 			byte[] all = new byte[request.getContentLength()];
 			IOUtils.readFully(request.getInputStream(), all);
-			Project.get(extractDiretory(path)).newScenario(extractFile(path).replace(FilterScenario.EXTENSION, ""))
-					.write(all);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} catch (ExceptionNotAFile e) {
-			e.printStackTrace();
+			String name = extractFile(path).replace(FilterScenario.EXTENSION, "");
+			String directory = extractDiretory(path);
+			Project.get(directory).newScenario(name).write(all);
+		} catch (URISyntaxException | ExceptionNotAFile e) {
+			throw new ServletException(e);
 		}
 	}
 

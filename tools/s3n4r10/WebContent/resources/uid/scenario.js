@@ -21,7 +21,6 @@ br.ufsc.leb.uid.scenario.Util.filter = function(figures, type) {
 	return extract;
 }
 br.ufsc.leb.uid.scenario.FunctionalData = function FunctionalData(args) {
-	this.result = "";
 	this.model = "";
 }
 br.ufsc.leb.uid.scenario.app.Canvas = draw2d.Canvas.extend({
@@ -45,9 +44,6 @@ br.ufsc.leb.uid.scenario.SystemOutput = draw2d.shape.basic.Text.extend({
 		this.setUserData(new br.ufsc.leb.uid.scenario.FunctionalData());
 		this.setColor(new draw2d.util.Color("#ffffff"));
 		this.setFontColor(new draw2d.util.Color("#000000"));
-	},
-	evaluate : function(evaluator, result) {
-		evaluator.evaluateSystemOutput(this, result);
 	}
 });
 
@@ -58,11 +54,24 @@ br.ufsc.leb.uid.scenario.UserInput = draw2d.shape.basic.Label.extend({
 		this.installEditor(new draw2d.ui.LabelInplaceEditor());
 		this.setUserData(new br.ufsc.leb.uid.scenario.FunctionalData());
 		this.setColor(new draw2d.util.Color("#000000"));
-	},
-	evaluate : function(evaluator, result) {
-		evaluator.evaluateUserInput(this, result);
 	}
 });
+
+
+br.ufsc.leb.uid.scenario.UserInputTransaction = br.ufsc.leb.uid.scenario.UserInput.extend({
+	NAME : 'br.ufsc.leb.uid.scenario.UserInputTransaction',
+	init : function(transaction) {
+		this.transaction=transaction;
+		this._super();
+	},
+	setText : function (aValue){
+		this.transaction.getUserData().text=aValue;
+	},
+	getText:function (){
+		return this.transaction.getUserData().text;
+	}
+});
+
 
 br.ufsc.leb.uid.scenario.Interacao = draw2d.shape.composite.Jailhouse.extend({
 	NAME : "br.ufsc.leb.uid.scenario.Interacao",
@@ -132,8 +141,11 @@ br.ufsc.leb.uid.scenario.Transaction = draw2d.Connection
 				this.setRouter(new draw2d.layout.connection.DirectRouter());
 				this
 						.setTargetDecorator(new draw2d.decoration.connection.ArrowDecorator());
-				this.setUserData(new br.ufsc.leb.uid.scenario.FunctionalData());
 				this.setColor(new draw2d.util.Color("#000000"));
+				this.valueAction = new br.ufsc.leb.uid.scenario.UserInputTransaction(this);
+				this.add(this.valueAction, new draw2d.layout.locator.ParallelMidpointLocator());
+				this.setUserData(new br.ufsc.leb.uid.scenario.FunctionalData());
+			    
 			},
 			installConnection : function(source, target) {
 				target.createPort("input",
@@ -157,8 +169,8 @@ br.ufsc.leb.uid.scenario.TargetLocator = draw2d.layout.locator.InputPortLocator
 				this._super();
 			},
 			relocate : function(index, figure) {
-				this.applyConsiderRotation(figure, figure.getParent()
-						.getWidth() / 45, figure.getParent().getHeight()/2);
+				var parent = figure.getParent();
+				this.applyConsiderRotation(figure, parent.getWidth() / 45, parent.getHeight()/2);
 			}
 		});
 
@@ -169,9 +181,8 @@ br.ufsc.leb.uid.scenario.ResourceLocator = draw2d.layout.locator.OutputPortLocat
 				this._super();
 			},
 			relocate : function(index, figure) {
-				var p = figure.getParent();
-				this.applyConsiderRotation(figure, figure.getParent()
-						.getWidth(), figure.getParent().getHeight()/2);
+				var parent = figure.getParent();
+				this.applyConsiderRotation(figure, parent.getWidth(), parent.getHeight()/2);
 			}
 		});
 

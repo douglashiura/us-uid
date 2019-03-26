@@ -24,7 +24,7 @@ public class WebListScenarios extends HttpServlet {
 
 	private static final String NAME = "scenario";
 	private static final String FOLDER = "folder";
-	private String EDITOR_JSP = "Editor.jsp?scenario=files" + File.separatorChar + "%s" + File.separatorChar + "%s.us";
+	private String EDITOR_JSP = "Editor.jsp?scenario=" + File.separatorChar + "%s" + File.separatorChar + "%s.us";
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
