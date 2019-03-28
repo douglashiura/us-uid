@@ -461,7 +461,7 @@
     "alpha": 1.0,
     "userData": {
       "result": "",
-      "model": "",
+      "model": "asa",
       "model2": "pesquisa"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_UserInput",

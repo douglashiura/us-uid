@@ -1,74 +1,103 @@
 function InsertFunctions(li, data) {
 	this.li = li;
 	this.data = data;
+	this.file = data;
+}
 
-	this.clickClone = function() {
-		console.log(this.data);
-	};
-	this.clickRename = function() {
-		console.log(this.data);
-		$.ajax({
-			url : "rename" + app.scenarioFile,
-			method : "POST",
-			data : JSON.stringify(json, null, 2),
-			dataType : "json"
-		}).bind(this);
-	}
+InsertFunctions.prototype.clickClone = function() {
 	return function(event) {
-		var input = document.createElement("input");
-		input.value = this.data.replace(".us","");
-		input.setAttribute("size", "60");
-		input.setAttribute("id", "inputFunctions");
-		var rename = document.createElement("button");
-		rename.innerHTML = "Rename";
-		rename.setAttribute("id", "rename");
-		rename.addEventListener('click', this.clickRename.bind(this));
-		var clone = document.createElement("button");
-		clone.innerHTML = "Clone"
-		clone.setAttribute("id", "clone");
-		clone.addEventListener('click', this.clickClone.bind(this));
-		var section = document.createElement("section");
-		section.setAttribute("style", "padding-bottom: 30px;");
-		section.setAttribute("id", "sectionFunctions")
-		section.append(input);
-		section.append(rename);
-		section.append(clone);
-		this.li.append(section);
+		new br.ufsc.leb.uid.scenario.io.Store().clone(this.file,
+				this.input.value);
+		$(window).load();
 	}.bind(this);
 };
 
-$(window).load(
-		function() {
-			var scenarios = $("scenarios");
+InsertFunctions.prototype.clickRename = function() {
+	return function() {
+		new br.ufsc.leb.uid.scenario.io.Store().rename(this.file,
+				this.input.value);
+		$(window).load();
+	}.bind(this);
+}
 
-			var request = $.ajax({
-				url : 'scenarios',
-				method : "GET",
-				data : '',
-				dataType : "json"
+InsertFunctions.prototype.clickDelete = function() {
+	return function() {
+		new br.ufsc.leb.uid.scenario.io.Store().deleteScenario(this.file);
+		$(window).load();
+	}.bind(this);
+}
 
-			});
+InsertFunctions.prototype.eventFunction = function() {
+	return function(event) {
+		this.input = document.createElement("input");
+		this.input.value = this.data;
+		this.input.setAttribute("size", "60");
+		this.input.setAttribute("id", "inputFunctions");
 
-			this.removeFunctions = function(event) {
-				event.originalTarget.removeChild(document
-						.getElementById("sectionFunctions"));
-			}
+		var rename = document.createElement("button");
+		rename.innerHTML = "Rename";
+		rename.addEventListener('click', this.clickRename());
 
-			request.done($.proxy(function(data) {
-				var ul = document.createElement("ul")
-				this.scenarios.append(ul);
-				var i;
-				for (i = 0; i < data.length; i++) {
-					var a = document.createElement("a");
-					a.setAttribute("href", "Editor.jsp?scenario=" + data[i]);
-					a.innerHTML = data[i];
-					var li = document.createElement("li");
-					li.append(a);
-					li.addEventListener('mouseenter', new InsertFunctions(li,
-							data[i]));
-					li.addEventListener('mouseleave', this.removeFunctions);
-					ul.append(li);
-				}
-			}, this));
+		var clone = document.createElement("button");
+		clone.innerHTML = "Clone"
+		clone.addEventListener('click', this.clickClone());
+
+		var deleteButton = document.createElement("button");
+		deleteButton.innerHTML = "Delete"
+		deleteButton.addEventListener('click', this.clickDelete());
+
+		this.section = document.createElement("section");
+		this.section.setAttribute("style", "padding-bottom: 30px;");
+		this.section.setAttribute("id", "sectionFunctions")
+		this.section.append(this.input);
+		this.section.append(rename);
+		this.section.append(clone);
+		this.section.append(deleteButton);
+		this.li.append(this.section);
+	}.bind(this);
+};
+
+function RemoveFunctions(insert) {
+	this.insert = insert;
+	return function(event) {
+		this.insert.data = this.insert.input.value;
+		event.originalTarget.removeChild(this.insert.section);
+	}.bind(this);
+}
+
+function Load() {
+	return function() {
+
+		var scenarios = $("scenarios");
+		var scenarios = document.getElementById("scenarios");
+		while (scenarios.firstChild) {
+			scenarios.removeChild(scenarios.firstChild);
+		}
+		var request = $.ajax({
+			url : 'scenarios',
+			method : "GET",
+			data : '',
+			dataType : "json"
 
 		});
+
+		request.done($.proxy(function(data) {
+			var ul = document.createElement("ul")
+			this.scenarios.append(ul);
+			var i;
+			for (i = 0; i < data.length; i++) {
+				var a = document.createElement("a");
+				a.setAttribute("href", "Editor.jsp?scenario=" + data[i]);
+				a.innerHTML = data[i];
+				var li = document.createElement("li");
+				li.append(a);
+				var insert = new InsertFunctions(li, data[i]);
+				li.addEventListener('mouseenter', insert.eventFunction());
+				li.addEventListener('mouseleave', new RemoveFunctions(insert));
+				ul.append(li);
+			}
+		}, this));
+	}
+}
+
+$(window).load(new Load());

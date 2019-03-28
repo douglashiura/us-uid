@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.douglashiura.leb.uid.scenario.servlet.util.FileUtil;
+
 public class Project {
 
 	private static File DEFAULT_DIR = null;
@@ -78,5 +80,20 @@ public class Project {
 		Scenario scenario = new Scenario(file, getDefaultDir());
 		scenario.create();
 		return scenario;
+	}
+
+	public void delete() {
+		directory.delete();
+	}
+
+	public void rename(FileUtil file) throws IOException {
+		byte[] data = getScenario().getDocument().getBytes();
+		delete();
+		Project.get(file.getDirectory()).newScenario(file.getNameWithoutExtension()).write(data);
+	}
+
+	public void clone(FileUtil file) throws IOException {
+		byte[] data = getScenario().getDocument().getBytes();
+		Project.get(file.getDirectory()).newScenario(file.getNameWithoutExtension()).write(data);
 	}
 }

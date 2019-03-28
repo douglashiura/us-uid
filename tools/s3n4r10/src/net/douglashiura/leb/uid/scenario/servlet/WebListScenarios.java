@@ -25,22 +25,30 @@ public class WebListScenarios extends HttpServlet {
 	private static final String NAME = "scenario";
 	private static final String FOLDER = "folder";
 	private String EDITOR_JSP = "Editor.jsp?scenario=" + File.separatorChar + "%s" + File.separatorChar + "%s.us";
+	private String EDITOR_JSP_SEM_FOLDER = "Editor.jsp?scenario=" + File.separatorChar + "%s.us";
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/plain; charset=utf-8");
+		resp.setCharacterEncoding("UTF-8");
 		String folder = req.getParameter(FOLDER).toString();
 		String name = req.getParameter(NAME).toString();
 		String[] directories = folder.split("\\.");
 		Project project = Project.get();
 		for (String path : directories) {
 			project = project.enter(path);
-		} 
+		}
 		project.newScenario(name);
-		resp.sendRedirect(String.format(EDITOR_JSP, folder.replace('.', File.separatorChar), name));
+		if (folder.trim().isEmpty()) {
+			resp.sendRedirect(String.format(EDITOR_JSP_SEM_FOLDER, name));
+		} else {
+			resp.sendRedirect(String.format(EDITOR_JSP, folder.replace('.', File.separatorChar), name));
+		}
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/plain");
 		List<Scenario> scenarios = Scenarios.getScenarios(Project.get());
 		StringBuilder json = new StringBuilder();
 		json.append("[");

@@ -1,4 +1,4 @@
-package net.douglashiura.leb.uid.scenario.servlet;
+package net.douglashiura.leb.uid.scenario.servlet.util;
 
 public class ExceptionNotAFile extends Exception {
 

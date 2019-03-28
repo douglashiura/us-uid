@@ -21,6 +21,8 @@ public class WebListFolder extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/plain; charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
 		String path = request.getRequestURL().toString().split("folders")[1];
 		List<String> folders = Project.get(path).getFolders();
 		StringBuilder json = new StringBuilder();

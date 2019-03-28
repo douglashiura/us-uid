@@ -1,6 +1,5 @@
 package net.douglashiura.leb.uid.scenario.servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -15,6 +14,8 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import net.douglashiura.leb.uid.scenario.data.FilterScenario;
 import net.douglashiura.leb.uid.scenario.data.Project;
+import net.douglashiura.leb.uid.scenario.servlet.util.ExceptionNotAFile;
+import net.douglashiura.leb.uid.scenario.servlet.util.FileUtil;
 
 @WebServlet("/files/*")
 public class WebListFiles extends HttpServlet {
@@ -28,7 +29,6 @@ public class WebListFiles extends HttpServlet {
 			if (path.endsWith(FilterScenario.EXTENSION)) {
 				response.setContentType("text/plain; charset=utf-8");
 				response.setCharacterEncoding("UTF-8");
-				System.out.println();
 				String scenario = Project.get(path).getScenario().getDocument();
 				response.getWriter().write(scenario);
 
@@ -55,29 +55,19 @@ public class WebListFiles extends HttpServlet {
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/plain; charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
 		try {
 			String path = request.getRequestURI().split("files")[1];
-			path = new java.net.URI(path).getPath();
+			FileUtil file = new FileUtil(new java.net.URI(path));
 			byte[] all = new byte[request.getContentLength()];
 			IOUtils.readFully(request.getInputStream(), all);
-			String name = extractFile(path).replace(FilterScenario.EXTENSION, "");
-			String directory = extractDiretory(path);
-			Project.get(directory).newScenario(name).write(all);
+			Project.get(file.getDirectory()).newScenario(file.getNameWithoutExtension()).write(all);
 		} catch (URISyntaxException | ExceptionNotAFile e) {
 			throw new ServletException(e);
 		}
 	}
 
-	private String extractFile(String path) throws ExceptionNotAFile {
-		if (path.endsWith(FilterScenario.EXTENSION)) {
-			return path.substring(path.lastIndexOf(File.separatorChar + ""));
-		} else {
-			throw new ExceptionNotAFile("Not a file");
-		}
-	}
-
-	private String extractDiretory(String path) throws ExceptionNotAFile {
-		return path.replace(extractFile(path), "");
-	}
 }
