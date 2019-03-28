@@ -150,7 +150,6 @@ br.ufsc.leb.uid.scenario.Transaction = draw2d.Connection
 				this.valueAction = new br.ufsc.leb.uid.scenario.UserInputTransaction(this);
 				this.add(this.valueAction, new draw2d.layout.locator.ParallelMidpointLocator());
 				this.valueAction.setText("Action");
-			    
 			},
 			setPersistentAttributes : function(memento){
 				 	this._super(memento);

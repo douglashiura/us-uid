@@ -5,43 +5,10 @@
 <title>User scenario</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="resources/uid/canvas2d/jquery-1.10.2.min.js"></script>
-
-
-<script type="text/javascript">
-	$(window).load(function() {
-		var scenarios = $("scenarios");
-		
-		var request = $.ajax({
-			url :  'scenarios',
-			method : "GET",
-			data : '',
-			dataType : "json"
-				
-		});
-		request.done($.proxy(function(data) {
-			var ul =document.createElement("ul")
-			this.scenarios.append(ul);
-			var i;
-			for (i = 0; i < data.length; i++) {
-				var a = document.createElement("a");
-				a.href = "Editor.jsp?scenario="+data[i];
-				a.innerHTML =data[i];
-				var li=document.createElement("li");;
-				li.append(a);
-				ul.append(li);
-			} 
-		}, this));
-
-	});
-</script>
-
-
+<script src="resources/app.js"></script>
 
 </head>
-
-
 <body>
-
 	<form action="scenarios" method="post">
 		<h2>New User Scenario</h2>
 		<table style="padding-left: 50px;">
@@ -64,9 +31,6 @@
 	</form>
 	<br />
 	<h2>Project</h2>
-
 	<div id="scenarios"></div>
-
-
 </body>
 </html>
