@@ -1,6 +1,6 @@
 function InsertFunctions(li, data) {
 	this.li = li;
-	this.data = data;
+	this.data = data.replace("/","").replace(/\//g, ".");;
 	this.file = data;
 }
 
@@ -88,7 +88,7 @@ function Load() {
 			for (i = 0; i < data.length; i++) {
 				var a = document.createElement("a");
 				a.setAttribute("href", "Editor.jsp?scenario=" + data[i]);
-				a.innerHTML = data[i];
+				a.innerHTML = data[i].replace("/","").replace(/\//g, ".");
 				var li = document.createElement("li");
 				li.append(a);
 				var insert = new InsertFunctions(li, data[i]);

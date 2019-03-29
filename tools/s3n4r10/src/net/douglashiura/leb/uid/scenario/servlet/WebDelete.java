@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 
 import net.douglashiura.leb.uid.scenario.data.Project;
 import net.douglashiura.leb.uid.scenario.servlet.util.Command;
-import net.douglashiura.leb.uid.scenario.servlet.util.ExceptionNotAFile;
+import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
 import net.douglashiura.leb.uid.scenario.servlet.util.FileUtil;
 
 @WebServlet("/delete")
@@ -42,7 +42,7 @@ public class WebDelete extends HttpServlet {
 			projectScenario.delete();
 			response.setContentType("text/plain");
 			response.sendRedirect(APP_HTML);
-		} catch (ExceptionNotAFile e) {
+		} catch (NotAFileException e) {
 			throw new ServletException(e);
 		}
 	}

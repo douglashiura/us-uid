@@ -14,7 +14,7 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import net.douglashiura.leb.uid.scenario.data.FilterScenario;
 import net.douglashiura.leb.uid.scenario.data.Project;
-import net.douglashiura.leb.uid.scenario.servlet.util.ExceptionNotAFile;
+import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
 import net.douglashiura.leb.uid.scenario.servlet.util.FileUtil;
 
 @WebServlet("/files/*")
@@ -65,7 +65,7 @@ public class WebListFiles extends HttpServlet {
 			byte[] all = new byte[request.getContentLength()];
 			IOUtils.readFully(request.getInputStream(), all);
 			Project.get(file.getDirectory()).newScenario(file.getNameWithoutExtension()).write(all);
-		} catch (URISyntaxException | ExceptionNotAFile e) {
+		} catch (URISyntaxException | NotAFileException e) {
 			throw new ServletException(e);
 		}
 	}

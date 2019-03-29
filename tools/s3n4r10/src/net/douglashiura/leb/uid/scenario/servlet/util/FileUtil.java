@@ -9,29 +9,41 @@ public class FileUtil {
 	private String name;
 	private String directory;
 
-	public FileUtil(String path) throws ExceptionNotAFile {
+	public FileUtil(String path) throws NotAFileException {
+		path = path.trim();
+		if (path.endsWith(FilterScenario.EXTENSION)) {
+			path = path.substring(0, path.length() - FilterScenario.EXTENSION.length());
+		} else {
+			throw new NotAFileException("Not a US file");
+		}
 		name = extractFile(path);
-		directory = extractDiretory(path);
+		path = path.substring(0, path.length() - name.length());
+		if (path.contains(".")) {
+			path = path.replaceAll("\\.", File.separator);
+		}
+		if (!path.startsWith(File.separator)) {
+			path = File.separator + path;
+		}
+		directory = path.trim();
 	}
 
-	public FileUtil(java.net.URI uri) throws ExceptionNotAFile {
+	public FileUtil(java.net.URI uri) throws NotAFileException {
 		this(uri.getPath());
 	}
 
-	private String extractFile(String path) throws ExceptionNotAFile {
-		if (path.endsWith(FilterScenario.EXTENSION)) {
-			return path.substring(path.lastIndexOf(File.separator));
+	private String extractFile(String path) throws NotAFileException {
+		if (path.contains(File.separator)) {
+			return path.substring(path.lastIndexOf(File.separator)+1);
+		} else if (path.contains(".")) {
+			return path.substring(path.lastIndexOf(".")+1);
+
 		} else {
-			throw new ExceptionNotAFile("Not a file");
+			return path;
 		}
 	}
 
-	private String extractDiretory(String path) throws ExceptionNotAFile {
-		return path.replace(name, "").trim();
-	}
-
 	public String getName() {
-		return name;
+		return name + FilterScenario.EXTENSION;
 	}
 
 	public String getDirectory() {
@@ -39,11 +51,15 @@ public class FileUtil {
 	}
 
 	public String[] getPathsOfDirectory() {
-		return directory.split(File.separator);
+		if (directory.startsWith("/")) {
+			return directory.substring(1).split(File.separator);
+		} else {
+			return directory.split(File.separator);
+		}
 	}
 
 	public String getNameWithoutExtension() {
-		return name.replace(FilterScenario.EXTENSION, "");
+		return name;
 	}
 
 }

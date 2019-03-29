@@ -15,7 +15,7 @@ import com.google.gson.GsonBuilder;
 
 import net.douglashiura.leb.uid.scenario.data.Project;
 import net.douglashiura.leb.uid.scenario.servlet.util.Command;
-import net.douglashiura.leb.uid.scenario.servlet.util.ExceptionNotAFile;
+import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
 import net.douglashiura.leb.uid.scenario.servlet.util.FileUtil;
 
 @WebServlet("/rename")
@@ -41,7 +41,7 @@ public class WebRename extends HttpServlet {
 			enter.rename(new FileUtil(command.getNewFile()));
 			response.setContentType("text/plain");
 			response.sendRedirect(WebDelete.APP_HTML);
-		} catch (ExceptionNotAFile e) {
+		} catch (NotAFileException e) {
 			throw new ServletException(e);
 		}
 

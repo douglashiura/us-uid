@@ -1,9 +1,9 @@
 package net.douglashiura.leb.uid.scenario.servlet.util;
 
-public class ExceptionNotAFile extends Exception {
+public class NotAFileException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-	public ExceptionNotAFile(String message) {
+	public NotAFileException(String message) {
 		super(message);
 	}
 
