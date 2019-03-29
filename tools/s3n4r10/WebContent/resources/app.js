@@ -33,11 +33,11 @@ InsertFunctions.prototype.eventFunction = function() {
 		this.input.value = this.data;
 		this.input.setAttribute("size", "60");
 		this.input.setAttribute("id", "inputFunctions");
-
+		this.input.setAttribute("placeholder","/directory/File.us" );
 		var rename = document.createElement("button");
 		rename.innerHTML = "Rename";
 		rename.addEventListener('click', this.clickRename());
-
+		
 		var clone = document.createElement("button");
 		clone.innerHTML = "Clone"
 		clone.addEventListener('click', this.clickClone());
