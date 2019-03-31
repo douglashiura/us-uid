@@ -20,7 +20,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void tree() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("Tree.us");
+		InputStream source = this.getClass().getResourceAsStream("Tree.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -41,7 +41,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void complex() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("Complex.us");
+		InputStream source = this.getClass().getResourceAsStream("Complex.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -56,22 +56,22 @@ public class ScenarioExtractTest {
 		assertEquals("Origin", origin.getFixtureName());
 		assertEquals(1, origin.getTransaction().getTargets().size());
 		assertEquals("Target1", origin.getTransaction().getTargets().get(0).getTarget().getFixtureName());
-		assertEquals("Target3",
-				origin.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(0).getTarget().getFixtureName());
-		assertEquals("Target4",
-				origin.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(1).getTarget().getFixtureName());
+		assertEquals("Target3", origin.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets()
+				.get(0).getTarget().getFixtureName());
+		assertEquals("Target4", origin.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets()
+				.get(1).getTarget().getFixtureName());
 		assertEquals(2, origin1.getTransaction().getTargets().size());
 		assertEquals("Target1", origin1.getTransaction().getTargets().get(0).getTarget().getFixtureName());
 		assertEquals("Target2", origin1.getTransaction().getTargets().get(1).getTarget().getFixtureName());
-		assertEquals("Target3",
-				origin1.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(0).getTarget().getFixtureName());
-		assertEquals("Target4",
-				origin1.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets().get(1).getTarget().getFixtureName());
+		assertEquals("Target3", origin1.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets()
+				.get(0).getTarget().getFixtureName());
+		assertEquals("Target4", origin1.getTransaction().getTargets().get(0).getTarget().getTransaction().getTargets()
+				.get(1).getTarget().getFixtureName());
 	}
 
 	@Test
 	public void threeInteractions() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("threeInteractions.us");
+		InputStream source = this.getClass().getResourceAsStream("threeInteractions.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -87,7 +87,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void complexPaths() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("Complex.us");
+		InputStream source = this.getClass().getResourceAsStream("Complex.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -121,7 +121,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void treePaths() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("Tree.us");
+		InputStream source = this.getClass().getResourceAsStream("Tree.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -140,7 +140,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void twoOrigin() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("TwoOrigin.us");
+		InputStream source = this.getClass().getResourceAsStream("TwoOrigin.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -165,7 +165,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void anInteraction() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("AnInteraction.us");
+		InputStream source = this.getClass().getResourceAsStream("AnInteraction.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -180,7 +180,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void twoInteractions() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("TwoInteractions.us");
+		InputStream source = this.getClass().getResourceAsStream("TwoInteractions.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
@@ -196,7 +196,7 @@ public class ScenarioExtractTest {
 
 	@Test
 	public void twoInputs() throws Exception {
-		InputStream source = this.getClass().getResourceAsStream("TwoInputs.us");
+		InputStream source = this.getClass().getResourceAsStream("TwoInputs.us.temp");
 		byte[] bytes = new byte[source.available()];
 		source.read(bytes);
 		String jsonText = new String(bytes);
