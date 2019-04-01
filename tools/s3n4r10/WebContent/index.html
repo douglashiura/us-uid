@@ -1,0 +1,56 @@
+
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+	xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+<title>User scenario</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+<body style="text-align: center; background-image: url(resources/images/scenario.svg);  background-repeat: no-repeat; ">
+	<form action="authentication" method="post">
+		<h2>
+			<span id="authentication_title">Authentication</span> <span><a href="UserGuide.html" id="">User Guide</a></span>
+		</h2>
+		<div align="center">
+			<table style="text-align: center;">
+				<tbody>
+					<tr>
+						<td><input id="authentication_user" name="user" size="50" placeholder="User or e-mail" /></td>
+					</tr>
+					<tr>
+						<td><input id="authentication_password" name="password" size="50" placeholder="Password" /></td>
+					</tr>
+					<tr>
+						<td><button id="authentication_enter">Enter</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</form>
+	<br />
+	<form action="newAccount" method="post">
+		<h2>
+			<span id="newAccount_title">New account</span>
+		</h2>
+		<div align="center">
+			<table style="text-align: center;">
+				<tbody>
+					<tr>
+						<td><input name="email" id="newAccount_email" size="50" placeholder="E-mail" /></td>
+					</tr>
+					<tr>
+						<td><input name="user" id="newAccount_user" size="50" placeholder="User" /></td>
+
+					</tr>
+					<tr>
+						<td><input type="password" name="password" id="newAccount_password" size="50" placeholder="Password" /></td>
+					</tr>
+					<tr>
+						<td><button id="createUser">Create</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</form>
+</body>
+</html>

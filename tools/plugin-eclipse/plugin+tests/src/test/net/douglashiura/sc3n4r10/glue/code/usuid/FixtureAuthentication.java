@@ -1,48 +1,72 @@
 package test.net.douglashiura.sc3n4r10.glue.code.usuid;
+
 import net.douglashiura.us.Fixture;
+import test.net.douglashiura.selenium.SeleniumScenario;
+
 @Fixture("Authentication")
 public class FixtureAuthentication {
-	public void setEmail(String value){
+
+	private SeleniumScenario selenium;
+
+	public FixtureAuthentication() {
+		selenium = SeleniumScenario.getInstance();
 	}
-	public void setPassword(String value){
+
+	public void setEmail(String value) {
+		selenium.type("newAccount_email",value);
 	}
-	public void setUser(String value){
+
+	public void setPassword(String value) {
+		selenium.type("newAccount_password",value);
 	}
-	public String getCreate(){
-		return null;
+
+	public void setUser(String value) {
+		selenium.type("newAccount_user",value);
 	}
-	public String getEmail(){
-		return null;
+	
+	public String getCreate() {
+		return selenium.getText("createUser");
 	}
-	public String getEnterLogin(){
-		return null;
+
+	public String getEmail() {
+		return  selenium.getPlaceholder("newAccount_email");
 	}
-	public String getPassword(){
-		return null;
+	public String getPassword() {
+		return  selenium.getPlaceholder("newAccount_password");
 	}
-	public String getPasswordLogin(){
-		return null;
+	public String getUrl() {
+		return  selenium.getUrl();
 	}
-	public String getTitleAuthentication(){
-		return null;
+
+	public String getUser() {
+		return  selenium.getPlaceholder("newAccount_user");
 	}
-	public String getTitleNewAccount(){
-		return null;
+
+	public String getUserGuide() {
+		return selenium.getText("userGuide");
 	}
-	public String getUrl(){
-		return null;
+	public String getTitleAuthentication() {
+		return selenium.getText("authentication_title");
 	}
-	public String getUser(){
-		return null;
+	public String getEnterLogin() {
+		return  selenium.getText("authentication_enter");
 	}
-	public String getUserGuide(){
-		return null;
+	public String getTitleNewAccount() {
+		return selenium.getText("newAccount_title");
 	}
-	public String getUserLogin(){
-		return null;
+
+	public String getPasswordLogin() {
+		return  selenium.getPlaceholder("authentication_password");
 	}
-	public void toProjects(String action){
+
+	
+	public String getUserLogin() {
+		return  selenium.getPlaceholder("authentication_user");
 	}
-	public void toUserGuide(String action){
+
+	public void toProjects(String action) {
+	}
+
+	public void toUserGuide(String action) {
 	}
 }

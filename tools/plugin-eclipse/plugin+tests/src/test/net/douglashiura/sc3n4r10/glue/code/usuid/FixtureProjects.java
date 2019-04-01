@@ -1,35 +1,48 @@
 package test.net.douglashiura.sc3n4r10.glue.code.usuid;
+
 import net.douglashiura.us.Fixture;
+
 @Fixture("Projects")
 public class FixtureProjects {
-	public void setName(String value){
+	public void setName(String value) {
 	}
-	public String getCreate(){
+
+	public String getCreate() {
 		return null;
 	}
-	public String getEmptyProject(){
+
+	public String getEmptyProject() {
 		return null;
 	}
-	public String getName(){
+
+	public String getName() {
 		return null;
 	}
-	public String getPlaceholderName(){
+
+	public String getPlaceholderName() {
 		return null;
 	}
-	public String getTitleProject(){
+
+	public String getTitleProject() {
 		return null;
 	}
-	public String getTitleProjects(){
+
+	public String getTitleProjects() {
 		return null;
 	}
-	public String getUrl(){
+
+	public String getUrl() {
 		return null;
 	}
-	public String getUserGuide(){
+
+	public String getUserGuide() {
 		return null;
 	}
-	public void toProject(String action){
+
+	public void toProject(String action) {
 	}
-	public void toUserGuide(String action){
+
+	public void toUserGuide(String action) {
 	}
+
 }

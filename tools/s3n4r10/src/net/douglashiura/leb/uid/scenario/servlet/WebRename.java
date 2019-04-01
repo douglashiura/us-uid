@@ -40,7 +40,7 @@ public class WebRename extends HttpServlet {
 			Project enter = Project.get(file.getDirectory()).enter(file.getName());
 			enter.rename(new FileUtil(command.getNewFile()));
 			response.setContentType("text/plain");
-			response.sendRedirect(WebDelete.APP_HTML);
+			response.sendRedirect(WebDeleteScenario.APP_HTML);
 		} catch (NotAFileException e) {
 			throw new ServletException(e);
 		}
