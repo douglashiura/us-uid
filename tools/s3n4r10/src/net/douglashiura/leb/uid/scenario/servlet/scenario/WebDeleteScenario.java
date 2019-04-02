@@ -1,4 +1,4 @@
-package net.douglashiura.leb.uid.scenario.servlet;
+package net.douglashiura.leb.uid.scenario.servlet.scenario;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.douglashiura.leb.uid.scenario.data.Project;
+import net.douglashiura.leb.uid.scenario.data.ProjectScenario;
 import net.douglashiura.leb.uid.scenario.servlet.util.Command;
 import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
-import net.douglashiura.leb.uid.scenario.servlet.util.FileUtil;
+import net.douglashiura.leb.uid.scenario.servlet.util.FileName;
 
 @WebServlet("/delete")
 public class WebDeleteScenario extends HttpServlet {
@@ -35,10 +35,10 @@ public class WebDeleteScenario extends HttpServlet {
 		Gson gson = new GsonBuilder().create();
 		Command command = gson.fromJson(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8),
 				Command.class);
-		FileUtil file;
+		FileName file;
 		try {
-			file = new FileUtil(command.getActualFile());
-			Project projectScenario = Project.get(file.getDirectory()).enter(file.getName());
+			file = new FileName(command.getActualFile());
+			ProjectScenario projectScenario = ProjectScenario.get(file.getDirectory()).enter(file.getName());
 			projectScenario.delete();
 			response.setContentType("text/plain");
 			response.sendRedirect(APP_HTML);

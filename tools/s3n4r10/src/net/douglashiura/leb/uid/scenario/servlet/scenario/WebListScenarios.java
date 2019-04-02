@@ -1,4 +1,4 @@
-package net.douglashiura.leb.uid.scenario.servlet;
+package net.douglashiura.leb.uid.scenario.servlet.scenario;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.douglashiura.leb.uid.scenario.Scenarios;
-import net.douglashiura.leb.uid.scenario.data.Project;
+import net.douglashiura.leb.uid.scenario.data.ProjectScenario;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 
 /**
@@ -34,7 +34,7 @@ public class WebListScenarios extends HttpServlet {
 		String folder = req.getParameter(FOLDER).toString();
 		String name = req.getParameter(NAME).toString();
 		String[] directories = folder.split("\\.");
-		Project project = Project.get();
+		ProjectScenario project = ProjectScenario.get();
 		for (String path : directories) {
 			project = project.enter(path);
 		}
@@ -49,7 +49,7 @@ public class WebListScenarios extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/plain");
-		List<Scenario> scenarios = Scenarios.getScenarios(Project.get());
+		List<Scenario> scenarios = Scenarios.getScenarios(ProjectScenario.get());
 		StringBuilder json = new StringBuilder();
 		json.append("[");
 		int i = 0;

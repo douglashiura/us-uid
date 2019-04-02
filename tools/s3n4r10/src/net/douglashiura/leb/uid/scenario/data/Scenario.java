@@ -5,6 +5,9 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import net.douglashiura.leb.uid.scenario.servlet.util.FileName;
+import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
+
 public class Scenario {
 
 	private File file;
@@ -29,8 +32,8 @@ public class Scenario {
 		stream.close();
 	}
 
-	public String getVirtualName() {
-		return  file.getAbsolutePath().replace(defaultDir.getAbsolutePath(), "");
+	public String getVirtualName() throws NotAFileException {
+		return new FileName(file.getAbsolutePath().replace(defaultDir.getAbsolutePath(), "")).getNameScenario();
 	}
 
 	public void create() throws IOException {

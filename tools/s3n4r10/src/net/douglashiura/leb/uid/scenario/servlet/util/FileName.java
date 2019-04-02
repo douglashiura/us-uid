@@ -4,12 +4,12 @@ import java.io.File;
 
 import net.douglashiura.leb.uid.scenario.data.FilterScenario;
 
-public class FileUtil {
+public class FileName {
 
 	private String name;
 	private String directory;
 
-	public FileUtil(String path) throws NotAFileException {
+	public FileName(String path) throws NotAFileException {
 		path = path.trim();
 		if (path.endsWith(FilterScenario.EXTENSION)) {
 			path = path.substring(0, path.length() - FilterScenario.EXTENSION.length());
@@ -27,15 +27,27 @@ public class FileUtil {
 		directory = path.trim();
 	}
 
-	public FileUtil(java.net.URI uri) throws NotAFileException {
+	public FileName(java.net.URI uri) throws NotAFileException {
 		this(uri.getPath());
+	}
+
+	public FileName(String packaged, String name) throws NotAFileException {
+		this(mount(packaged, name));
+	}
+
+	private static String mount(String packaged, String name) {
+		if (name.endsWith(FilterScenario.EXTENSION)) {
+			return packaged + "." + name;
+		} else {
+			return packaged + "." + name + FilterScenario.EXTENSION;
+		}
 	}
 
 	private String extractFile(String path) throws NotAFileException {
 		if (path.contains(File.separator)) {
-			return path.substring(path.lastIndexOf(File.separator)+1);
+			return path.substring(path.lastIndexOf(File.separator) + 1);
 		} else if (path.contains(".")) {
-			return path.substring(path.lastIndexOf(".")+1);
+			return path.substring(path.lastIndexOf(".") + 1);
 
 		} else {
 			return path;
@@ -60,6 +72,10 @@ public class FileUtil {
 
 	public String getNameWithoutExtension() {
 		return name;
+	}
+
+	public String getNameScenario() {
+		return (directory + getName()).substring(1).replace(File.separator, ".");
 	}
 
 }
