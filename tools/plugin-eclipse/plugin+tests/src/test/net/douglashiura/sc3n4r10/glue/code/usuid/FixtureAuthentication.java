@@ -65,6 +65,7 @@ public class FixtureAuthentication {
 	}
 
 	public void toProjects(String action) {
+		selenium.click("createUser");
 	}
 
 	public void toUserGuide(String action) {

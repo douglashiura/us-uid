@@ -12,10 +12,12 @@ public class Scenario {
 
 	private File file;
 	private File defaultDir;
+	private OnProject onProject;
 
-	public Scenario(File file, File defaultDir) {
+	public Scenario(File file, File defaultDir, OnProject onProject) {
 		this.file = file;
 		this.defaultDir = defaultDir;
+		this.onProject = onProject;
 	}
 
 	public String getDocument() throws IOException {
@@ -39,5 +41,20 @@ public class Scenario {
 	public void create() throws IOException {
 		file.createNewFile();
 		write("".getBytes());
+	}
+
+	public void rename(FileName fileName) throws IOException {
+		byte[] data = getDocument().getBytes();
+		delete();
+		onProject.createNewScenario(fileName).write(data);
+	}
+
+	public void delete() {
+		file.delete();
+	}
+
+	public void clone(FileName file) throws IOException {
+		byte[] data = getDocument().getBytes();
+		onProject.createNewScenario(file).write(data);
 	}
 }

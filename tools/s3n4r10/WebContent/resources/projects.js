@@ -3,24 +3,18 @@ function InsertFunctions(li, data) {
 	this.data = data;
 	this.file = data;
 }
-
-InsertFunctions.prototype.clickClone = function() {
-	return function(event) {
-		new br.ufsc.leb.uid.scenario.io.Store().clone(this.file,
-				this.input.value);
-	}.bind(this);
-};
-
 InsertFunctions.prototype.clickRename = function() {
 	return function() {
-		new br.ufsc.leb.uid.scenario.io.Store().rename(this.file,
+		new br.ufsc.leb.uid.scenario.io.Store().renameProject(this.file,
 				this.input.value);
+		$(window).load();
 	}.bind(this);
 }
 
 InsertFunctions.prototype.clickDelete = function() {
 	return function() {
-		new br.ufsc.leb.uid.scenario.io.Store().deleteScenario(this.file);
+		new br.ufsc.leb.uid.scenario.io.Store().deleteProject(this.file);
+		$(window).load();
 	}.bind(this);
 }
 
@@ -30,14 +24,10 @@ InsertFunctions.prototype.eventFunction = function() {
 		this.input.value = this.data;
 		this.input.setAttribute("size", "60");
 		this.input.setAttribute("id", "inputFunctions");
-		this.input.setAttribute("placeholder", "org.scenario.File.us");
+		this.input.setAttribute("placeholder", "ProjectName");
 		var rename = document.createElement("button");
 		rename.innerHTML = "Rename";
 		rename.addEventListener('click', this.clickRename());
-
-		var clone = document.createElement("button");
-		clone.innerHTML = "Clone"
-		clone.addEventListener('click', this.clickClone());
 
 		var deleteButton = document.createElement("button");
 		deleteButton.innerHTML = "Delete"
@@ -48,7 +38,6 @@ InsertFunctions.prototype.eventFunction = function() {
 		this.section.setAttribute("id", "sectionFunctions")
 		this.section.append(this.input);
 		this.section.append(rename);
-		this.section.append(clone);
 		this.section.append(deleteButton);
 		this.li.append(this.section);
 	}.bind(this);
@@ -64,24 +53,27 @@ function RemoveFunctions(insert) {
 
 function Load() {
 	return function() {
-		var scenarios = document.getElementById("scenarios");
-		while (scenarios.firstChild) {
-			scenarios.removeChild(scenarios.firstChild);
+		var projects = document.getElementById("projects");
+		while (projects.firstChild) {
+			projects.removeChild(projects.firstChild);
 		}
 		var request = $.ajax({
-			url : 'scenarios/?user=' + user + "&project=" + project,
+			url : 'projects/?user=' + user,
 			method : "GET",
 			data : '',
 			dataType : "json"
+
 		});
+
 		request.done($.proxy(function(data) {
+			console.log(data);
 			var ul = document.createElement("ul")
-			this.scenarios.append(ul);
+			this.projects.append(ul);
 			var i;
 			for (i = 0; i < data.length; i++) {
 				var a = document.createElement("a");
-				a.setAttribute("href", "Editor.jsp?scenario=" + data[i]
-						+ "&user=" + user + "&project=" + project);
+				a.setAttribute("href", "App.jsp?user=" + user + "&project="
+						+ data[i]);
 				a.innerHTML = data[i];
 				var li = document.createElement("li");
 				li.append(a);

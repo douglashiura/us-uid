@@ -19,7 +19,7 @@ public class FileNameTest {
 		new FileName("/path");
 	}
 
-	@Test(expected = NotAFileException.class)
+	@Test()
 	public void fileNonUsud() throws Exception {
 		new FileName("File.im");
 	}
@@ -52,6 +52,16 @@ public class FileNameTest {
 		assertArrayEquals(new String[] { "path", "path2" }, file.getPathsOfDirectory());
 		assertEquals("path.path2.File.us",file.getNameScenario());
 	}
+	@Test
+	public void standartWithoutExtension() throws Exception {
+		FileName file = new FileName("path.path2.File");
+		assertEquals("/path/path2/", file.getDirectory());
+		assertEquals("File.us", file.getName());
+		assertEquals("File", file.getNameWithoutExtension());
+		assertArrayEquals(new String[] { "path", "path2" }, file.getPathsOfDirectory());
+		assertEquals("path.path2.File.us",file.getNameScenario());
+	}
+	
 
 	@Test
 	public void standart() throws Exception {

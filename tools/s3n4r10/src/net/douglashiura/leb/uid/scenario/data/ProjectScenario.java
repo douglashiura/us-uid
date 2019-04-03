@@ -13,11 +13,11 @@ import net.douglashiura.leb.uid.scenario.data.primitive.EmailEmptyException;
 import net.douglashiura.leb.uid.scenario.data.primitive.EmailInvalidException;
 import net.douglashiura.leb.uid.scenario.data.primitive.EmailNullException;
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleName;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameBiggerThat30Exception;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameEmptyException;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameInvalidException;
 import net.douglashiura.leb.uid.scenario.data.primitive.UserInvalidException;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameBiggerThat30Exception;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameEmptyException;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameInvalidException;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameNullException;
+import net.douglashiura.leb.uid.scenario.data.primitive.UserNameNullException;
 
 public class ProjectScenario {
 
@@ -50,15 +50,17 @@ public class ProjectScenario {
 			throw new UserDuplicationException();
 		}
 		file.mkdir();
-		FileOutputStream information = new FileOutputStream(new File(file, OWNER_FILE_NAME));
+		File fileOwner = new File(file, OWNER_FILE_NAME);
+		fileOwner.createNewFile();
+		FileOutputStream information = new FileOutputStream(fileOwner);
 		information.write(user.toString().getBytes());
 		information.flush();
 		information.close();
 	}
 
 	public List<User> listUsers() throws IOException, EmailEmptyException, EmailNullException,
-			EmailBiggerThat120Exception, EmailInvalidException, UsernameNullException, UsernameEmptyException,
-			UsernameBiggerThat30Exception, UsernameInvalidException {
+			EmailBiggerThat120Exception, EmailInvalidException, UserNameNullException, SimpleNameEmptyException,
+			SimpleNameBiggerThat30Exception, SimpleNameInvalidException {
 		List<User> users = new ArrayList<User>();
 		for (File directory : workDirectory.listFiles()) {
 			if (directory.isDirectory()) {

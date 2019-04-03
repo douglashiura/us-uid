@@ -66,4 +66,8 @@ public class SeleniumScenario {
 	public String getUrl() {
 		return selenium.getCurrentUrl();
 	}
+
+	public void click(String id) {
+		selenium.findElement(By.id(id)).click();
+	}
 }

@@ -9,7 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.douglashiura.leb.uid.scenario.data.InvalidProjectExeception;
+import net.douglashiura.leb.uid.scenario.data.ProjectInvalidExeception;
 import net.douglashiura.leb.uid.scenario.data.OnProject;
 import net.douglashiura.leb.uid.scenario.data.OnUser;
 import net.douglashiura.leb.uid.scenario.data.ProjectScenario;
@@ -79,7 +79,7 @@ public class OnProjectTest {
 
 	}
 
-	@Test(expected = InvalidProjectExeception.class)
+	@Test(expected = ProjectInvalidExeception.class)
 	public void onProjectWithoutProject() throws Exception {
 		ProjectScenario scenario = new ProjectScenario();
 		scenario.createUser(douglas);

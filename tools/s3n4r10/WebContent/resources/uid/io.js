@@ -18,7 +18,8 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.send = function() {
 	var writer = new draw2d.io.json.Writer();
 	writer.marshal(this.view, function(json) {
 		$.ajax({
-			url : "files" + app.scenarioFile,
+			url : "scenario/update/?scenario=" + app.scenarioFile + "&user="
+					+ user + "&project=" + project,
 			method : "POST",
 			data : JSON.stringify(json, null, 2),
 			dataType : "json"
@@ -27,7 +28,8 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.send = function() {
 };
 br.ufsc.leb.uid.scenario.io.Store.prototype.load = function() {
 	var request = $.ajax({
-		url : "files" + app.scenarioFile,
+		url : "scenario/get/?scenario=" + app.scenarioFile + "&user=" + user
+				+ "&project=" + project,
 		method : "GET",
 		data : '',
 		dataType : "json"
@@ -42,7 +44,7 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.load = function() {
 
 br.ufsc.leb.uid.scenario.io.Store.prototype.getUniformity = function() {
 	var request = $.ajax({
-		url : 'uniformity',
+		url : "uniformity?user=" + user + "&project=" + project,
 		method : "GET",
 		data : '',
 		dataType : "json"
@@ -56,35 +58,39 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.getUniformity = function() {
 
 br.ufsc.leb.uid.scenario.io.Store.prototype.rename = function(actualFile,
 		newFile) {
-	$.ajax({
-		url : "rename",
+	var request = $.ajax({
+		url : "scenario/rename/?user=" + user + "&project=" + project,
 		method : "POST",
 		data : JSON.stringify({
 			'actualFile' : actualFile,
 			'newFile' : newFile
 		}, null, 2),
-		dataType : "json",
-		contentType : "application/json"
+		dataType : "json"
+	});
+	request.complete(function(msg) {
+		$(window).load();
 	});
 };
 
 br.ufsc.leb.uid.scenario.io.Store.prototype.deleteScenario = function(
 		actualFile) {
 	$.ajax({
-		url : "delete",
+		url : "scenario/delete/?user=" + user + "&project=" + project,
 		method : "POST",
 		data : JSON.stringify({
 			'actualFile' : actualFile,
 		}, null, 2),
 		dataType : "json",
 		contentType : "application/json"
+	}).complete(function(msg) {
+		$(window).load();
 	});
 };
 
 br.ufsc.leb.uid.scenario.io.Store.prototype.clone = function(actualFile,
 		newFile) {
 	$.ajax({
-		url : "clone",
+		url : "scenario/clone?user=" + user + "&project=" + project,
 		method : "POST",
 		data : JSON.stringify({
 			'actualFile' : actualFile,
@@ -92,5 +98,7 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.clone = function(actualFile,
 		}, null, 2),
 		dataType : "json",
 		contentType : "application/json"
+	}).complete(function(msg) {
+		$(window).load();
 	});
 };

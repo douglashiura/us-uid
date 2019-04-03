@@ -11,10 +11,11 @@ public class FileName {
 
 	public FileName(String path) throws NotAFileException {
 		path = path.trim();
+		if (path.isEmpty() || !path.contains(".")) {
+			throw new NotAFileException("It is not a file!");
+		}
 		if (path.endsWith(FilterScenario.EXTENSION)) {
 			path = path.substring(0, path.length() - FilterScenario.EXTENSION.length());
-		} else {
-			throw new NotAFileException("Not a US file");
 		}
 		name = extractFile(path);
 		path = path.substring(0, path.length() - name.length());

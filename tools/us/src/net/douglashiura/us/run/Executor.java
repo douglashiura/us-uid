@@ -26,6 +26,7 @@ public class Executor {
 			picon = new PiconWithUsuid();
 		} catch (ProblemaDeCompilacaoException e) {
 			message(null, 0, Results.END, e.getMessage());
+			e.printStackTrace();
 		}
 	}
 

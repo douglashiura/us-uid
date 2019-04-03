@@ -1,6 +1,6 @@
 package net.douglashiura.leb.uid.scenario.data;
 
-public class InvalidProjectExeception extends Exception {
+public class ProjectInvalidExeception extends Exception {
 
 	private static final long serialVersionUID = 1L;
 

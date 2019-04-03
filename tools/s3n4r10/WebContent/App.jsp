@@ -1,4 +1,3 @@
-
 <html xmlns:v="urn:schemas-microsoft-com:vml"
 	xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -7,11 +6,17 @@
 <script src="resources/uid/canvas2d/jquery-1.10.2.min.js"></script>
 <script src="resources/app.js"></script>
 <script src="resources/uid/io.js"></script>
-
+<script type="text/javascript">
+	var user = "${param.user}";
+	var project = "${param.project}"
+</script>
 </head>
 <body>
 	<form action="scenarios" method="post">
-		<h2><span>New User Scenario</span> <span><a href="UserGuide.html">User Guide</a></span></h2> 
+		<h2>
+			<span>New User Scenario</span> <span><a href="UserGuide.html">User
+					Guide</a></span>
+		</h2>
 		<table style="padding-left: 50px;">
 			<tbody>
 				<tr>

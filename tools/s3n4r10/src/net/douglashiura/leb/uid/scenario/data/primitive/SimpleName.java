@@ -1,17 +1,18 @@
+
 package net.douglashiura.leb.uid.scenario.data.primitive;
 
 import java.util.regex.Pattern;
 
 public class SimpleName {
 
-	private static final String USER = "^[\\w-]+";
+	private static final String USER = "^[\\wW-]+";
 	public static final Pattern USERNAME = Pattern.compile(USER + "$");
 
 	private String name;
 
-	public  SimpleName(String name) throws UsernameNullException, UsernameEmptyException, UsernameBiggerThat30Exception, UsernameInvalidException  {
+	public  SimpleName(String name) throws UserNameNullException, SimpleNameEmptyException, SimpleNameBiggerThat30Exception, SimpleNameInvalidException  {
 		assertNotNull(name);
-		this.name = name.trim().toLowerCase();
+		this.name = name.trim();
 		assertNotEmpty();
 		assertEmailSizeLessThat120Caracters();
 		assertSyntacticallyValid();
@@ -45,27 +46,27 @@ public class SimpleName {
 		return true;
 	}
 
-	private void assertSyntacticallyValid() throws UsernameInvalidException {
+	private void assertSyntacticallyValid() throws SimpleNameInvalidException {
 		if (!USERNAME.matcher(name).matches()) {
-			throw new UsernameInvalidException();
+			throw new SimpleNameInvalidException();
 		}
 	}
 
-	private void assertEmailSizeLessThat120Caracters() throws UsernameBiggerThat30Exception {
-		if (name.length() > UsernameBiggerThat30Exception.MAX) {
-			throw new UsernameBiggerThat30Exception();
+	private void assertEmailSizeLessThat120Caracters() throws SimpleNameBiggerThat30Exception {
+		if (name.length() > SimpleNameBiggerThat30Exception.MAX) {
+			throw new SimpleNameBiggerThat30Exception();
 		}
 	}
 
-	private void assertNotEmpty() throws UsernameEmptyException {
+	private void assertNotEmpty() throws SimpleNameEmptyException {
 		if (name.isEmpty()) {
-			throw new UsernameEmptyException();
+			throw new SimpleNameEmptyException();
 		}
 	}
 
-	private void assertNotNull(String email) throws UsernameNullException {
+	private void assertNotNull(String email) throws UserNameNullException {
 		if (email == null) {
-			throw new UsernameNullException();
+			throw new UserNameNullException();
 		}
 	}
 

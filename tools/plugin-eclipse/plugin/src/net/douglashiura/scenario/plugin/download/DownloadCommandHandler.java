@@ -1,7 +1,6 @@
 package net.douglashiura.scenario.plugin.download;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -47,7 +46,7 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 		if (aEvent.getFirstElement() instanceof Folder
 				&& ((Folder) aEvent.getFirstElement()).getParent() instanceof Project) {
 			folder = (Folder) aEvent.getFirstElement();
-			dialog = new DialogServer(null);
+			dialog = new DialogServer(folder);
 			dialog.create();
 			if (dialog.open() == Window.OK) {
 				Job job = MonitorJob.create("Download Scenarios from " + dialog.getServer(), this);
@@ -64,7 +63,8 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 		String server = dialog.getServer();
 		server = server.endsWith("/") ? server : server + "/";
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(server + "scenarios/");
+		HttpGet httpGet = new HttpGet(server + "scenarios/?user=" + dialog.getUser() + "&project=" + dialog.getProject()
+				+ "&password=" + dialog.getPassword());
 		try {
 			httpGet.setHeader("accept", "text/json");
 			httpGet.setHeader("charset", StandardCharsets.UTF_8.name());
@@ -86,15 +86,15 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 				entity = response.getEntity();
 				byte[] scenario = EntityUtils.toByteArray(entity);
 				httpGet.releaseConnection();
-				String[] folders = file.split("" + File.separatorChar);
+				String[] folders = file.split(".");
 				IFolder aFolder = folder;
-				for (int indexFolder = 0; indexFolder < folders.length - 1; indexFolder++) {
+				for (int indexFolder = 0; indexFolder < folders.length - 2; indexFolder++) {
 					aFolder = aFolder.getFolder(folders[indexFolder]);
 					if (!aFolder.exists()) {
 						aFolder.create(true, true, monitor);
 					}
 				}
-				IFile aFile = aFolder.getFile(folders[folders.length - 1]);
+				IFile aFile = aFolder.getFile(folders[folders.length - 2] + "." + folders[folders.length - 1]);
 				if (aFile.exists()) {
 					aFile.setContents(new ByteArrayInputStream(scenario), 0, monitor);
 				} else {

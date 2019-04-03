@@ -11,27 +11,22 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.douglashiura.leb.uid.scenario.data.OnUser;
 import net.douglashiura.leb.uid.scenario.data.Project;
-import net.douglashiura.leb.uid.scenario.data.ProjectScenario;
-import net.douglashiura.leb.uid.scenario.data.primitive.SimpleName;
 import net.douglashiura.leb.uid.scenario.data.primitive.UserInvalidException;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameBiggerThat30Exception;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameEmptyException;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameInvalidException;
-import net.douglashiura.leb.uid.scenario.data.primitive.UsernameNullException;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameBiggerThat30Exception;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameEmptyException;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameInvalidException;
+import net.douglashiura.leb.uid.scenario.data.primitive.UserNameNullException;
+import net.douglashiura.leb.uid.scenario.servlet.scenario.OnContext;
 
-@WebServlet("/projetcs/*")
+@WebServlet("/projects/*")
 public class WebProjects extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		ProjectScenario scenario = (ProjectScenario) request.getServletContext()
-				.getAttribute(ListenerConfigProjectScenario.SCENARIO_APP);
-		String user = request.getParameter("user");
 		try {
-			OnUser onUser = scenario.onUser(new SimpleName(user));
-
+			OnUser onUser = new OnContext(request).onUser();
 			response.setContentType("text/plain; charset=utf-8");
 			response.setCharacterEncoding("UTF-8");
 			List<Project> projects = onUser.listProjects();
@@ -40,7 +35,7 @@ public class WebProjects extends HttpServlet {
 			int i = 0;
 			for (Project folder : projects) {
 				json.append("\"");
-				json.append(folder);
+				json.append(folder.getName().getName());
 				if (++i == projects.size()) {
 					json.append("\"");
 				} else {
@@ -49,8 +44,8 @@ public class WebProjects extends HttpServlet {
 			}
 			json.append("]");
 			response.getWriter().write(json.toString());
-		} catch (UserInvalidException | UsernameNullException | UsernameEmptyException | UsernameBiggerThat30Exception
-				| UsernameInvalidException error) {
+		} catch (UserInvalidException | UserNameNullException | SimpleNameEmptyException | SimpleNameBiggerThat30Exception
+				| SimpleNameInvalidException error) {
 			throw new ServletException(error);
 		}
 	}

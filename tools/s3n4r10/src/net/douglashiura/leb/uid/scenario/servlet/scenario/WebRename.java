@@ -13,20 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.douglashiura.leb.uid.scenario.data.ProjectScenario;
+import net.douglashiura.leb.uid.scenario.data.ProjectInvalidExeception;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameBiggerThat30Exception;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameEmptyException;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameInvalidException;
+import net.douglashiura.leb.uid.scenario.data.primitive.UserInvalidException;
+import net.douglashiura.leb.uid.scenario.data.primitive.UserNameNullException;
 import net.douglashiura.leb.uid.scenario.servlet.util.Command;
-import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
 import net.douglashiura.leb.uid.scenario.servlet.util.FileName;
+import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
 
-@WebServlet("/rename/*")
+@WebServlet("/scenario/rename/*")
 public class WebRename extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		response.getWriter().write("USE POST WITH JSON PARAMETER".toString());
-	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -34,14 +34,12 @@ public class WebRename extends HttpServlet {
 		Gson gson = new GsonBuilder().create();
 		Command command = gson.fromJson(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8),
 				Command.class);
-		FileName file;
 		try {
-			file = new FileName(command.getActualFile());
-			ProjectScenario enter = ProjectScenario.get(file.getDirectory()).enter(file.getName());
-			enter.rename(new FileName(command.getNewFile()));
+			FileName file = new FileName(command.getActualFile());
+			new OnContext(request).onProject().getScenario(file).rename(new FileName(command.getNewFile()));
 			response.setContentType("text/plain");
-			response.sendRedirect(WebDeleteScenario.APP_HTML);
-		} catch (NotAFileException e) {
+		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
+				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {
 			throw new ServletException(e);
 		}
 

@@ -1,6 +1,7 @@
 package net.douglashiura.leb.uid.scenario.data;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -25,7 +26,7 @@ public class OnProject {
 
 	private void listScenariosRecursive(List<Scenario> scenarios, File directory) {
 		for (File file : directory.listFiles(new FilterScenario())) {
-			scenarios.add(new Scenario(file, workDirectoryOfProject));
+			scenarios.add(new Scenario(file, workDirectoryOfProject,this));
 		}
 		for (File file : directory.listFiles()) {
 			if (file.isDirectory()) {
@@ -56,19 +57,22 @@ public class OnProject {
 			}
 		}
 		File file = new File(directory, String.format("%s.us", fileName.getNameWithoutExtension()));
-		Scenario scenario = new Scenario(file, workDirectoryOfProject);
+		Scenario scenario = new Scenario(file, workDirectoryOfProject,this);
 		scenario.create();
 		return scenario;
 	}
 
-//	public void rename(FileUtil file) throws IOException {
-//		byte[] data = getScenario().getDocument().getBytes();
-//		delete();
-//		Project.get(file.getDirectory()).newScenario(file.getNameWithoutExtension()).write(data);
-//	}
-//
-//	public void clone(FileUtil file) throws IOException {
-//		byte[] data = getScenario().getDocument().getBytes();
-//		Project.get(file.getDirectory()).newScenario(file.getNameWithoutExtension()).write(data);
-//	}
+	public Scenario getScenario(FileName fileName) throws FileNotFoundException {
+		File directory = workDirectoryOfProject;
+		for (String path : fileName.getPathsOfDirectory()) {
+			directory = new File(directory, path);
+		}
+		File file = new File(directory, String.format("%s.us", fileName.getNameWithoutExtension()));
+		if (file.exists() && file.isFile()) {
+			return new Scenario(file, workDirectoryOfProject,this);
+		} else {
+			throw new FileNotFoundException();
+		}
+	}
+
 }

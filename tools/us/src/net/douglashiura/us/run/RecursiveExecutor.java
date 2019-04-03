@@ -30,7 +30,7 @@ public class RecursiveExecutor {
 	private void execute(Interaction interaction) throws ExceptionInExecution {
 		Object instance = null;
 		try {
-			Class<?> klass = Annotations.getFixture(interaction.getFixtureName());
+			Class<?> klass = Annotations.getFixture(interaction.getFixtureName());			
 			instance = klass.getConstructors()[0].newInstance();
 			executor.message(interaction.getUuid(), index, Results.OK, null);
 			executor.getPicon().settings(instance);
