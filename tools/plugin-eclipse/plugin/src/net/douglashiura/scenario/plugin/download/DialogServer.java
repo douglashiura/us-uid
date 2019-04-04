@@ -3,7 +3,10 @@ package net.douglashiura.scenario.plugin.download;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 
+import org.apache.http.client.utils.URIBuilder;
 import org.eclipse.core.internal.resources.Folder;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
@@ -74,13 +77,19 @@ public class DialogServer extends TitleAreaDialog {
 				byte[] bytes = new byte[content.available()];
 				content.read(bytes);
 				String[] document = new String(bytes).split("\n");
-				txtServer.setText(document[0]);
-				txtProject.setText(document[1]);
-				txtUser.setText(document[2]);
-				txtPassword.setText(document[3]);
+				setIfExists(document, 0, txtServer);
+				setIfExists(document, 1, txtProject);
+				setIfExists(document, 2, txtUser);
+				setIfExists(document, 3, txtPassword);
 			} catch (CoreException | IOException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private void setIfExists(String[] document, Integer index, Text text) {
+		if (index < document.length) {
+			text.setText(document[index]);
 		}
 	}
 
@@ -139,7 +148,7 @@ public class DialogServer extends TitleAreaDialog {
 		password = txtPassword.getText();
 		IFile aFile = folder.getFile(SERVER_FILE_NAME);
 		InputStream input = new ByteArrayInputStream(
-				String.format("%s\n%s\n%s\n%s\n", server, user, project, password).getBytes());
+				String.format("%s\n%s\n%s\n%s\n", server, project, user, password).getBytes());
 		if (!aFile.exists()) {
 			try {
 				aFile.create(input, true, new NullProgressMonitor());
@@ -161,20 +170,14 @@ public class DialogServer extends TitleAreaDialog {
 		super.okPressed();
 	}
 
+	public URI getURI(String path) throws URISyntaxException {
+		String url = server.endsWith("/") ? server : server + "/";
+		return new URIBuilder(url + path).setParameter("user", user).setParameter("project", project)
+				.setParameter("password", password).build();
+	}
+
 	public String getServer() {
 		return server;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public String getProject() {
-		return project;
 	}
 
 }

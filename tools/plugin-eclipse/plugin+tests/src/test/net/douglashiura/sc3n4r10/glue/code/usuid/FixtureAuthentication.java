@@ -69,5 +69,6 @@ public class FixtureAuthentication {
 	}
 
 	public void toUserGuide(String action) {
+		selenium.click("userGuide");
 	}
 }

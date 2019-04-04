@@ -1,5 +1,6 @@
 package net.douglashiura.leb.uid.scenario.servlet.scenario;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -28,7 +29,6 @@ public class WebUpdate extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		response.setContentType("text/plain; charset=utf-8");
 		response.setCharacterEncoding("UTF-8");
 		try {
@@ -37,7 +37,10 @@ public class WebUpdate extends HttpServlet {
 			OnContext onContext = new OnContext(request);
 			OnProject onProject = onContext.onProject();
 			FileName fileName = new FileName(onContext.getFile());
-			onProject.getScenario(fileName).delete();
+			try {
+				onProject.getScenario(fileName).delete();
+			} catch (FileNotFoundException withoutFile) {
+			}
 			onProject.createNewScenario(fileName).write(all);
 		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
 				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {

@@ -2,10 +2,8 @@ package net.douglashiura.leb.uid.scenario.servlet.util;
 
 import java.io.File;
 
-import net.douglashiura.leb.uid.scenario.data.FilterScenario;
-
 public class FileName {
-
+	public static final String EXTENSION = ".us";
 	private String name;
 	private String directory;
 
@@ -14,8 +12,8 @@ public class FileName {
 		if (path.isEmpty() || !path.contains(".")) {
 			throw new NotAFileException("It is not a file!");
 		}
-		if (path.endsWith(FilterScenario.EXTENSION)) {
-			path = path.substring(0, path.length() - FilterScenario.EXTENSION.length());
+		if (path.endsWith(EXTENSION)) {
+			path = path.substring(0, path.length() - EXTENSION.length());
 		}
 		name = extractFile(path);
 		path = path.substring(0, path.length() - name.length());
@@ -37,10 +35,10 @@ public class FileName {
 	}
 
 	private static String mount(String packaged, String name) {
-		if (name.endsWith(FilterScenario.EXTENSION)) {
+		if (name.endsWith(EXTENSION)) {
 			return packaged + "." + name;
 		} else {
-			return packaged + "." + name + FilterScenario.EXTENSION;
+			return packaged + "." + name + EXTENSION;
 		}
 	}
 
@@ -56,7 +54,7 @@ public class FileName {
 	}
 
 	public String getName() {
-		return name + FilterScenario.EXTENSION;
+		return name + EXTENSION;
 	}
 
 	public String getDirectory() {

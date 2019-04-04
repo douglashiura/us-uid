@@ -1,72 +1,107 @@
 package test.net.douglashiura.sc3n4r10.glue.code.usuid;
+
 import net.douglashiura.us.Fixture;
+import test.net.douglashiura.selenium.SeleniumScenario;
+
 @Fixture("Project")
 public class FixtureProject {
-	public void setName(String value){
+	private SeleniumScenario selenium;
+
+	public FixtureProject() {
+		selenium = SeleniumScenario.getInstance();
 	}
-	public void setPackage(String value){
+
+	public void setName(String value) {
+		selenium.type("name", value);
 	}
-	public void setScenarioInput1(String value){
+
+	public void setPackage(String value) {
+		selenium.type("package", value);
 	}
-	public String getClone1(){
+
+	public void setScenarioInput1(String value) {
+		selenium.type("input", value);
+	}
+
+	public String getClone1() {
 		return null;
 	}
-	public String getCopy(){
+
+	public String getCopy() {
 		return null;
 	}
-	public String getDelete1(){
+
+	public String getDelete1() {
 		return null;
 	}
-	public String getEmptyScenario(){
+
+	public String getEmptyScenario() {
 		return null;
 	}
-	public String getMemory(){
+
+	public String getMemory() {
 		return null;
 	}
-	public String getName(){
+
+	public String getName() {
 		return null;
 	}
-	public String getNewScenario(){
+
+	public String getNewScenario() {
 		return null;
 	}
-	public String getPackage(){
+
+	public String getPackage() {
 		return null;
 	}
-	public String getPlaceholderName(){
+
+	public String getPlaceholderName() {
 		return null;
 	}
-	public String getPlaceholderPackage(){
+
+	public String getPlaceholderPackage() {
 		return null;
 	}
-	public String getRename1(){
+
+	public String getRename1() {
 		return null;
 	}
-	public String getScenario1(){
+
+	public String getScenario1() {
 		return null;
 	}
-	public String getScenario2(){
+
+	public String getScenario2() {
 		return null;
 	}
-	public String getScenarioInput1(){
+
+	public String getScenarioInput1() {
 		return null;
 	}
-	public String getTitleNewScenario(){
+
+	public String getTitleNewScenario() {
 		return null;
 	}
-	public String getTitleUserScenario(){
+
+	public String getTitleUserScenario() {
 		return null;
 	}
-	public String getUrl(){
+
+	public String getUrl() {
 		return null;
 	}
-	public String getUrlClone(){
+
+	public String getUrlClone() {
 		return null;
 	}
-	public String getUrlCloneTitle(){
+
+	public String getUrlCloneTitle() {
 		return null;
 	}
-	public void toProject(String action){
+
+	public void toProject(String action) {
 	}
-	public void toScenario(String action){
+
+	public void toScenario(String action) {
 	}
 }

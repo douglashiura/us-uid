@@ -12,7 +12,7 @@
 </script>
 </head>
 <body>
-	<form action="scenarios" method="post">
+	<form action="scenarios/?user=${param.user}&project=${param.project}" method="post">
 		<h2>
 			<span>New User Scenario</span> <span><a href="UserGuide.html">User
 					Guide</a></span>

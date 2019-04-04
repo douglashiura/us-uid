@@ -17,7 +17,12 @@ public class SeleniumScenario {
 	private FirefoxDriver selenium;
 
 	public SeleniumScenario() {
-		System.setProperty("webdriver.gecko.driver", "drivers/geckodriver-mac");
+		String osName = System.getProperty("os.name").toLowerCase();
+		if (osName.startsWith("linux")) {
+			System.setProperty("webdriver.gecko.driver", "drivers/geckodriver-linux");
+		} else {
+			System.setProperty("webdriver.gecko.driver", "drivers/geckodriver-mac");
+		}
 		FirefoxProfile profile = createProfile();
 		FirefoxOptions opcoes = new FirefoxOptions();
 		opcoes.setProfile(profile);

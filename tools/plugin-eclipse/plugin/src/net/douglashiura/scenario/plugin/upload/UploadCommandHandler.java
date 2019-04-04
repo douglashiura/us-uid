@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
@@ -30,6 +31,8 @@ import org.eclipse.jface.window.Window;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import net.douglashiura.scenario.plugin.download.DialogServer;
+import net.douglashiura.scenario.plugin.download.FileName;
+import net.douglashiura.scenario.plugin.download.NotAFileException;
 import net.douglashiura.scenario.project.util.FileScenario;
 import net.douglashiura.scenario.project.util.Files;
 
@@ -44,7 +47,7 @@ public class UploadCommandHandler extends AbstractHandler implements ICoreRunnab
 		if (aEvent.getFirstElement() instanceof Folder
 				&& ((Folder) aEvent.getFirstElement()).getParent() instanceof Project) {
 			folder = (Folder) aEvent.getFirstElement();
-			dialog = new DialogServer(null);
+			dialog = new DialogServer(folder);
 			dialog.create();
 			if (dialog.open() == Window.OK) {
 				Job job = MonitorJob.create("Upload Scenarios to " + dialog.getServer(), this);
@@ -58,8 +61,6 @@ public class UploadCommandHandler extends AbstractHandler implements ICoreRunnab
 
 	@Override
 	public void run(IProgressMonitor monitor) throws CoreException {
-		String server = dialog.getServer();
-		server = server.endsWith("/") ? server : server + "/";
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		try {
 			List<FileScenario> files = Files.from(folder);
@@ -67,17 +68,9 @@ public class UploadCommandHandler extends AbstractHandler implements ICoreRunnab
 			for (FileScenario file : files) {
 				String fileName = file.getName().substring(folder.getProjectRelativePath().toString().length());
 				monitor.worked(indexFile++);
-				URI uri = new URIBuilder(server + "files").build();
-				URI uri2 = new URIBuilder(uri).setPath(uri.getPath() + fileName).build();
-				HttpPost httpPost = new HttpPost(uri2);
-				StringEntity entity = new StringEntity(file.toString(), StandardCharsets.UTF_8);
-				httpPost.setEntity(entity);
-				httpPost.setHeader("Accept", "application/json");
-				httpPost.setHeader("Content-type", "application/json");
-				CloseableHttpResponse response = httpClient.execute(httpPost);
-				response.close();
+				sendAFile(httpClient, file, fileName);
 			}
-		} catch (IOException | URISyntaxException e) {
+		} catch (IOException | URISyntaxException | NotAFileException e) {
 			IStatus status = new Status(0, "net.douglashiura.scenario.plugin.editor.ScenarioView", e.getMessage(), e);
 			throw new CoreException(status);
 		} finally {
@@ -89,6 +82,18 @@ public class UploadCommandHandler extends AbstractHandler implements ICoreRunnab
 		}
 
 		monitor.done();
+	}
+
+	private void sendAFile(CloseableHttpClient httpClient, FileScenario file, String fileName)
+			throws URISyntaxException, NotAFileException, IOException, ClientProtocolException {
+		URI uri2 = new URIBuilder(dialog.getURI("/scenario/update/")).setParameter("scenario", new FileName(fileName).getNameScenario()).build();
+		HttpPost httpPost = new HttpPost(uri2);
+		StringEntity entity = new StringEntity(file.toString(), StandardCharsets.UTF_8);
+		httpPost.setEntity(entity);
+		httpPost.setHeader("Accept", "application/json");
+		httpPost.setHeader("Content-type", "application/json");
+		CloseableHttpResponse response = httpClient.execute(httpPost);
+		response.close();
 	}
 
 }

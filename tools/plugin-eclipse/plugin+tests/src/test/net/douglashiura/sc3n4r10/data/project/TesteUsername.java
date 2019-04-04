@@ -27,6 +27,7 @@ public class TesteUsername {
 		assertEquals("douglasHiura", new SimpleName("douglasHiura").getName());
 		assertEquals("douglasHiura", new SimpleName("douglasHiura").toString());
 		assertEquals("douglas-hiura", new SimpleName("douglas-hiura").toString());
+		assertEquals("douglashiura", new SimpleName("douglashiura").toString());
 	}
 
 	@Test(expected = SimpleNameInvalidException.class)

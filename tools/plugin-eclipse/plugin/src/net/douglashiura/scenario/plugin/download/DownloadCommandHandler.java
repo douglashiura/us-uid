@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -60,12 +61,11 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 
 	@Override
 	public void run(IProgressMonitor monitor) throws CoreException {
-		String server = dialog.getServer();
-		server = server.endsWith("/") ? server : server + "/";
+
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(server + "scenarios/?user=" + dialog.getUser() + "&project=" + dialog.getProject()
-				+ "&password=" + dialog.getPassword());
 		try {
+			URI server = dialog.getURI("scenarios/");
+			HttpGet httpGet = new HttpGet(server);
 			httpGet.setHeader("accept", "text/json");
 			httpGet.setHeader("charset", StandardCharsets.UTF_8.name());
 			HttpResponse response = httpClient.execute(httpGet);
@@ -77,31 +77,9 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 			httpGet.releaseConnection();
 			for (String file : elements) {
 				monitor.worked(indexFile++);
-				URI uri = new URIBuilder(server + "files").build();
-				URI uri2 = new URIBuilder(uri).setPath(uri.getPath() + file).build();
-				httpGet = new HttpGet(uri2);
-				httpGet.setHeader("accept", "text/json");
-				httpGet.setHeader("charset", StandardCharsets.UTF_8.name());
-				response = httpClient.execute(httpGet);
-				entity = response.getEntity();
-				byte[] scenario = EntityUtils.toByteArray(entity);
-				httpGet.releaseConnection();
-				String[] folders = file.split(".");
-				IFolder aFolder = folder;
-				for (int indexFolder = 0; indexFolder < folders.length - 2; indexFolder++) {
-					aFolder = aFolder.getFolder(folders[indexFolder]);
-					if (!aFolder.exists()) {
-						aFolder.create(true, true, monitor);
-					}
-				}
-				IFile aFile = aFolder.getFile(folders[folders.length - 2] + "." + folders[folders.length - 1]);
-				if (aFile.exists()) {
-					aFile.setContents(new ByteArrayInputStream(scenario), 0, monitor);
-				} else {
-					aFile.create(new ByteArrayInputStream(scenario), 0, monitor);
-				}
+				getFile(monitor, httpClient, file);
 			}
-		} catch (IOException | URISyntaxException e) {
+		} catch (IOException | URISyntaxException | NotAFileException e) {
 			IStatus status = new Status(0, "net.douglashiura.scenario.plugin.editor.ScenarioView", e.getMessage(), e);
 			throw new CoreException(status);
 
@@ -114,6 +92,34 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 		}
 
 		monitor.done();
+	}
+
+	private void getFile(IProgressMonitor monitor, CloseableHttpClient httpClient, String file)
+			throws URISyntaxException, IOException, ClientProtocolException, CoreException, NotAFileException {
+		URI server = dialog.getURI("scenario/get/");
+		URI uri = new URIBuilder(server).setParameter("scenario", file).build();
+		HttpGet httpGet = new HttpGet(uri);
+		httpGet.setHeader("accept", "text/json");
+		httpGet.setHeader("charset", StandardCharsets.UTF_8.name());
+		HttpResponse response = httpClient.execute(httpGet);
+		HttpEntity entity = response.getEntity();
+		byte[] scenario = EntityUtils.toByteArray(entity);
+		httpGet.releaseConnection();
+		FileName fileName = new FileName(file);
+		IFolder aFolder = folder;
+		for (String path : fileName.getPathsOfDirectory()) {
+			aFolder = aFolder.getFolder(path);
+			if (!aFolder.exists()) {
+				aFolder.create(true, true, monitor);
+			}
+		}
+		IFile aFile = aFolder.getFile(fileName.getName());
+		if (aFile.exists()) {
+			aFile.setContents(new ByteArrayInputStream(scenario), 0, monitor);
+		} else {
+			aFile.create(new ByteArrayInputStream(scenario), 0, monitor);
+		}
+
 	}
 
 }
