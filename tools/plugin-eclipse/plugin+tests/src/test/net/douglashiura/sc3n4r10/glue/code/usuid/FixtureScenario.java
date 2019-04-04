@@ -1,34 +1,54 @@
 package test.net.douglashiura.sc3n4r10.glue.code.usuid;
+
 import net.douglashiura.us.Fixture;
+import test.net.douglashiura.selenium.SeleniumScenario;
+
 @Fixture("Scenario")
 public class FixtureScenario {
-	public String getFuncionalData(){
-		return null;
+
+	private SeleniumScenario selenium;
+
+	public FixtureScenario() {
+		selenium = SeleniumScenario.getInstance();
 	}
-	public String getInput(){
-		return null;
+
+	public String getFuncionalData() {
+		return selenium.getText("propertyHeader");
 	}
-	public String getOutput(){
-		return null;
+
+	public String getInput() {
+		return selenium.getText("userInput");
 	}
-	public String getProgressive(){
-		return null;
+
+	public String getOutput() {
+		return selenium.getText("systemOutput");
 	}
-	public String getRegressive(){
-		return null;
+
+	public String getProgressive() {
+		return selenium.getText("stateProgressive");
 	}
-	public String getSave(){
-		return null;
+
+	public String getRegressive() {
+		return selenium.getText("stateRegressive");
 	}
-	public String getTool(){
-		return null;
+
+	public String getSave() {
+		return selenium.getText("save");
 	}
-	public String getUniformity(){
-		return null;
+
+	public String getTool() {
+		return selenium.getText("project");
 	}
-	public String getUrl(){
-		return null;
+
+	public String getUniformity() {
+		return selenium.getText("spanUniformity");
 	}
-	public void toProject(String action){
+
+	public String getUrl() {
+		return selenium.getUrl();
+	}
+
+	public void toProject(String action) {
+		selenium.click("project");
 	}
 }

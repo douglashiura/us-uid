@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,12 +23,25 @@ public class OnProject {
 	public List<Scenario> listScenarios() {
 		List<Scenario> scenarios = new LinkedList<Scenario>();
 		listScenariosRecursive(scenarios, workDirectoryOfProject);
+		scenarios = new ArrayList<Scenario>(scenarios);
+		Comparator<Scenario> comparator = new Comparator<Scenario>() {
+
+			@Override
+			public int compare(Scenario a, Scenario b) {
+				try {
+					return a.getVirtualName().compareTo(b.getVirtualName());
+				} catch (NotAFileException e) {
+					return 0;
+				}
+			}
+		};
+		Collections.sort(scenarios, comparator);
 		return scenarios;
 	}
 
 	private void listScenariosRecursive(List<Scenario> scenarios, File directory) {
 		for (File file : directory.listFiles(new FilterScenario())) {
-			scenarios.add(new Scenario(file, workDirectoryOfProject,this));
+			scenarios.add(new Scenario(file, workDirectoryOfProject, this));
 		}
 		for (File file : directory.listFiles()) {
 			if (file.isDirectory()) {
@@ -57,7 +72,7 @@ public class OnProject {
 			}
 		}
 		File file = new File(directory, String.format("%s.us", fileName.getNameWithoutExtension()));
-		Scenario scenario = new Scenario(file, workDirectoryOfProject,this);
+		Scenario scenario = new Scenario(file, workDirectoryOfProject, this);
 		scenario.create();
 		return scenario;
 	}
@@ -69,7 +84,7 @@ public class OnProject {
 		}
 		File file = new File(directory, String.format("%s.us", fileName.getNameWithoutExtension()));
 		if (file.exists() && file.isFile()) {
-			return new Scenario(file, workDirectoryOfProject,this);
+			return new Scenario(file, workDirectoryOfProject, this);
 		} else {
 			throw new FileNotFoundException();
 		}

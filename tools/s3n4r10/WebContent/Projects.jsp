@@ -12,7 +12,7 @@
 </script>
 </head>
 <body>
-	<form action="project" method="post">
+	<form action="newProject?user=${param.user}" method="POST">
 		<h2>
 			<span id="project_title">New project</span> <span><a
 				href="UserGuide.html" id="userGuide">User Guide</a></span>
@@ -21,8 +21,9 @@
 			<table style="text-align: center;">
 				<tbody>
 					<tr>
+						<td><span id="name_label">Name</span></td>
 						<td><input id="project_name" name="name" size="30"
-							placeholder="Project name" /></td>
+							placeholder="Name only with letters and numbers" /></td>
 					</tr>
 					<tr>
 						<td><button id="project_create">Create</button></td>
@@ -32,7 +33,7 @@
 		</div>
 	</form>
 	<h2>
-		<span id="projets_title">Projects</span>
+		<span id="projects_title">Projects</span>
 	</h2>
 	<div id="projects"></div>
 </body>

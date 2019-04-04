@@ -12,32 +12,32 @@
 </script>
 </head>
 <body>
-	<form action="scenarios/?user=${param.user}&project=${param.project}" method="post">
+	<form action="scenarios?user=${param.user}&project=${param.project}" method="post">
 		<h2>
-			<span>New User Scenario</span> <span><a href="UserGuide.html">User
+			<span id="new_scenario_title">New User Scenario</span> <span><a id="userGuide" href="UserGuide.html">User
 					Guide</a></span>
 		</h2>
 		<table style="padding-left: 50px;">
 			<tbody>
 				<tr>
-					<td><label>Package</label></td>
-					<td><input name="folder" size="50"
+					<td><label id="package">Package</label></td>
+					<td><input id="folder" name="folder" size="50"
 						placeholder="org.eclipse.plugin" /></td>
 				</tr>
 				<tr>
-					<td><label>Name </label></td>
-					<td><input name="scenario" size="50"
+					<td><label id="name">Name </label></td>
+					<td><input id="scenario" name="scenario" size="50"
 						placeholder="UpperFirstCharacter" /></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td><button>New scenario</button></td>
+					<td><button id="new_scenario">New scenario</button></td>
 				</tr>
 			</tbody>
 		</table>
 	</form>
 	<br />
-	<h2>Project</h2>
+	<h2 id="project_title">User scenarios</h2>
 	<div id="scenarios"></div>
 </body>
 </html>

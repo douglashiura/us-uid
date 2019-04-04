@@ -13,23 +13,23 @@ public class FixtureProjects {
 	}
 
 	public void setName(String value) {
-
+		selenium.type("project_name", value);
 	}
 
 	public String getCreate() {
-		return selenium.getText("create");
+		return selenium.getText("project_create");
 	}
 
 	public String getEmptyProject() {
-		return selenium.getText("emptyProject");
+		return selenium.getText("empty_projects");
 	}
 
 	public String getName() {
-		return selenium.getText("name");
+		return selenium.getText("name_label");
 	}
 
 	public String getPlaceholderName() {
-		return selenium.getPlaceholder("name");
+		return selenium.getPlaceholder("project_name");
 	}
 
 	public String getTitleProject() {
@@ -50,7 +50,7 @@ public class FixtureProjects {
 
 	public void toProject(String action) {
 		if ("Create".equals(action)) {
-			selenium.click("create");
+			selenium.click("project_create");
 		}
 	}
 

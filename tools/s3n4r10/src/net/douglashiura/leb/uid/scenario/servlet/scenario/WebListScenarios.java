@@ -29,7 +29,7 @@ public class WebListScenarios extends HttpServlet {
 
 	private static final String NAME = "scenario";
 	private static final String FOLDER = "folder";
-	private String EDITOR = "Editor.jsp";
+	private String EDITOR = "Editor.jsp?user=%s&project=%s&scenario=%s";
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +43,8 @@ public class WebListScenarios extends HttpServlet {
 			onContext.onProject().createNewScenario(file);
 			onContext.setProject(resp);
 			onContext.setFile(resp, file);
-			resp.sendRedirect(EDITOR);
+			resp.sendRedirect(
+					String.format(EDITOR, onContext.getUser(), onContext.getProject(), file.getNameScenario()));
 		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
 				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {
 			throw new ServletException(e);

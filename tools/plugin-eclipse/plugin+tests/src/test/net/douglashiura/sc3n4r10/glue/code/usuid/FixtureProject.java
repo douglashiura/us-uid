@@ -7,101 +7,107 @@ import test.net.douglashiura.selenium.SeleniumScenario;
 public class FixtureProject {
 	private SeleniumScenario selenium;
 
-	public FixtureProject() {
+	public FixtureProject() throws InterruptedException {
 		selenium = SeleniumScenario.getInstance();
 	}
 
 	public void setName(String value) {
-		selenium.type("name", value);
+		selenium.type("scenario", value);
 	}
 
 	public void setPackage(String value) {
-		selenium.type("package", value);
+		selenium.type("folder", value);
 	}
 
-	public void setScenarioInput1(String value) {
-		selenium.type("input", value);
+	public void setScenarioInput(String value) {
+		selenium.clean("inputFunctions");
+		selenium.type("inputFunctions", value);
 	}
 
-	public String getClone1() {
-		return null;
+	public String getClone() {
+		return selenium.getText("clone");
 	}
 
-	public String getCopy() {
-		return null;
+	public String getDelete() {
+		return selenium.getText("delete");
 	}
 
-	public String getDelete1() {
-		return null;
+	public String getRename() {
+		return selenium.getText("rename");
 	}
 
 	public String getEmptyScenario() {
-		return null;
-	}
-
-	public String getMemory() {
-		return null;
+		return selenium.getText("empty_scenario");
 	}
 
 	public String getName() {
-		return null;
+		return selenium.getText("name");
 	}
 
 	public String getNewScenario() {
-		return null;
+		return selenium.getText("new_scenario");
 	}
 
 	public String getPackage() {
-		return null;
+		return selenium.getText("package");
 	}
 
 	public String getPlaceholderName() {
-		return null;
+		return selenium.getPlaceholder("scenario");
 	}
 
 	public String getPlaceholderPackage() {
-		return null;
+		return selenium.getPlaceholder("folder");
 	}
 
-	public String getRename1() {
-		return null;
+	public String getScenario1() throws InterruptedException {
+		return selenium.getText("scenario_1");
 	}
 
-	public String getScenario1() {
-		return null;
+	public String getScenario2() throws InterruptedException {
+		return selenium.getText("scenario_2");
 	}
 
-	public String getScenario2() {
-		return null;
-	}
-
-	public String getScenarioInput1() {
-		return null;
+	public String getScenarioInput() {
+		return selenium.getValue("inputFunctions");
 	}
 
 	public String getTitleNewScenario() {
-		return null;
+		return selenium.getText("new_scenario_title");
 	}
 
 	public String getTitleUserScenario() {
-		return null;
+		return selenium.getText("project_title");
 	}
 
 	public String getUrl() {
-		return null;
+		return selenium.getUrl();
 	}
 
-	public String getUrlClone() {
-		return null;
-	}
+	public void toProject(String action) throws InterruptedException {
+		if ("MouseOn(scenario:1)".equals(action)) {
+			selenium.onMouse("new_scenario");
+			selenium.onMouse("scenario_1");
+			Thread.sleep(200);
+		} else if ("MouseOn(scenario:2)".equals(action)) {
+			selenium.onMouse("scenario_2");
+		} else if ("Delete(senario:1)".equals(action)) {
+			selenium.click("delete");
+		} else if ("Rename(scenario:1)".equals(action)) {
+			selenium.click("rename");
+		} else if ("Clone(scenario:1)".equals(action)) {
+			selenium.click("clone");
+		}
 
-	public String getUrlCloneTitle() {
-		return null;
-	}
-
-	public void toProject(String action) {
 	}
 
 	public void toScenario(String action) {
+		if (action.equals("New scenario")) {
+			selenium.click("new_scenario");
+		} else if ("Click(scenario:1)".equals(action)) {
+			selenium.click("scenario_1");
+		} else if ("Click(scenario:2)".equals(action)) {
+			selenium.click("scenario_2");
+		}
 	}
 }

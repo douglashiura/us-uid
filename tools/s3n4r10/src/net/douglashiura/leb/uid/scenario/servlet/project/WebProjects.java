@@ -1,4 +1,4 @@
-package net.douglashiura.leb.uid.scenario.servlet;
+package net.douglashiura.leb.uid.scenario.servlet.project;
 
 import java.io.IOException;
 import java.util.List;

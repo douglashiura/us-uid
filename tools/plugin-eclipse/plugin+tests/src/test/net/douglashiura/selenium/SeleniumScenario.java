@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.interactions.Actions;
 
 public class SeleniumScenario {
 
@@ -74,5 +75,19 @@ public class SeleniumScenario {
 
 	public void click(String id) {
 		selenium.findElement(By.id(id)).click();
+	}
+
+	public String getValue(String id) {
+		return selenium.findElement(By.id(id)).getAttribute("value");
+	}
+
+	public void onMouse(String id) {
+		Actions builder = new Actions(selenium);
+		builder.moveToElement(selenium.findElement(By.id(id))).build().perform();
+	}
+
+	public void clean(String id) {
+		selenium.findElement(By.id(id)).clear();
+		
 	}
 }

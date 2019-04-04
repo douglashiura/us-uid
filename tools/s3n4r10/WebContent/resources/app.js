@@ -33,16 +33,18 @@ InsertFunctions.prototype.eventFunction = function() {
 		this.input.setAttribute("placeholder", "org.scenario.File.us");
 		var rename = document.createElement("button");
 		rename.innerHTML = "Rename";
+		rename.setAttribute("id", "rename");
 		rename.addEventListener('click', this.clickRename());
 
 		var clone = document.createElement("button");
-		clone.innerHTML = "Clone"
+		clone.innerHTML = "Clone";
+		clone.setAttribute("id", "clone");
 		clone.addEventListener('click', this.clickClone());
 
 		var deleteButton = document.createElement("button");
 		deleteButton.innerHTML = "Delete"
 		deleteButton.addEventListener('click', this.clickDelete());
-
+		deleteButton.setAttribute("id", "delete");
 		this.section = document.createElement("section");
 		this.section.setAttribute("style", "padding-bottom: 30px;");
 		this.section.setAttribute("id", "sectionFunctions")
@@ -80,8 +82,9 @@ function Load() {
 			var i;
 			for (i = 0; i < data.length; i++) {
 				var a = document.createElement("a");
-				a.setAttribute("href", "Editor.jsp?scenario=" + data[i]
-						+ "&user=" + user + "&project=" + project);
+				a.setAttribute("href", "Editor.jsp?user=" + user + "&project="
+						+ project + "&scenario=" + data[i]);
+				a.setAttribute("id", "scenario_" + (i + 1));
 				a.innerHTML = data[i];
 				var li = document.createElement("li");
 				li.append(a);
@@ -89,6 +92,12 @@ function Load() {
 				li.addEventListener('mouseenter', insert.eventFunction());
 				li.addEventListener('mouseleave', new RemoveFunctions(insert));
 				ul.append(li);
+			}
+			if (data.length < 1) {
+				var span = document.createElement("span");
+				span.setAttribute("id", "empty_scenario");
+				span.innerHTML = "There is no user scenario";
+				this.scenarios.append(span);
 			}
 		}, this));
 	}

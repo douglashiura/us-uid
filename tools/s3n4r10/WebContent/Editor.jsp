@@ -65,7 +65,7 @@
 <body>
 	<div id="container">
 		<div id="logo" style="margin-top: 0px;">
-			<a
+			<a id="project"
 				href="http://${header['host']}${pageContext.request.contextPath}/App.jsp?user=${param.user}&project=${param.project}">Sc3n4r10</a>
 		</div>
 		<div id="toolbar" class="navbar-default"></div>

@@ -7,14 +7,12 @@ InsertFunctions.prototype.clickRename = function() {
 	return function() {
 		new br.ufsc.leb.uid.scenario.io.Store().renameProject(this.file,
 				this.input.value);
-		$(window).load();
 	}.bind(this);
 }
 
 InsertFunctions.prototype.clickDelete = function() {
 	return function() {
 		new br.ufsc.leb.uid.scenario.io.Store().deleteProject(this.file);
-		$(window).load();
 	}.bind(this);
 }
 
@@ -81,6 +79,12 @@ function Load() {
 				li.addEventListener('mouseenter', insert.eventFunction());
 				li.addEventListener('mouseleave', new RemoveFunctions(insert));
 				ul.append(li);
+			}
+			if (data.length < 1) {
+				var span = document.createElement("span");
+				span.setAttribute("id", "empty_projects");
+				span.innerHTML = "There is no project";
+				this.projects.append(span);
 			}
 		}, this));
 	}
