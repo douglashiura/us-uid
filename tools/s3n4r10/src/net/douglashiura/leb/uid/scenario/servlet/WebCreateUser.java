@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.douglashiura.leb.uid.scenario.data.EmailDuplicationException;
 import net.douglashiura.leb.uid.scenario.data.User;
+import net.douglashiura.leb.uid.scenario.data.UserAndEmailDuplicationException;
 import net.douglashiura.leb.uid.scenario.data.UserDuplicationException;
 import net.douglashiura.leb.uid.scenario.data.primitive.Email;
 import net.douglashiura.leb.uid.scenario.data.primitive.EmailBiggerThat120Exception;
@@ -30,24 +32,55 @@ public class WebCreateUser extends HttpServlet {
 	private static final String USER = "user";
 	private static final String EMAIL = "email";
 	private static final String PASSWORD = "password";
-	private String EDITOR_JSP = "Projects.jsp?user=%s";
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-		resp.setContentType("text/plain; charset=utf-8");
-		resp.setCharacterEncoding("UTF-8");
-		String email = request.getParameter(EMAIL);
-		String username = request.getParameter(USER);
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String user=null;
+		boolean emailInvalid = false;
+		boolean userInvalid = false;
+		boolean userUnavailable = false;
+		boolean emailUnavailable = false;
+		response.setContentType("application/json; charset=utf-8");
+		response.setCharacterEncoding("UTF-8");
 		String password = request.getParameter(PASSWORD);
 
+		Email email = null;
 		try {
-			SimpleName username2 = new SimpleName(username);
-			new OnContext(request).onProjectScenario().createUser(new User(new Email(email), username2, password));
-			resp.sendRedirect(String.format(EDITOR_JSP, username2.getName()));
-		} catch (UserDuplicationException | EmailEmptyException | EmailNullException | EmailBiggerThat120Exception
-				| EmailInvalidException | UserNameNullException | SimpleNameEmptyException
-				| SimpleNameBiggerThat30Exception | SimpleNameInvalidException error) {
-			throw new ServletException(error);
+			email = new Email(request.getParameter(EMAIL));
+		} catch (EmailEmptyException | EmailNullException | EmailBiggerThat120Exception | EmailInvalidException e) {
+			emailInvalid = true;
 		}
+		SimpleName username = null;
+		try {
+			username = new SimpleName(request.getParameter(USER));
+		} catch (UserNameNullException | SimpleNameEmptyException | SimpleNameBiggerThat30Exception
+				| SimpleNameInvalidException e) {
+			userInvalid = true;
+		}
+		if (userInvalid || emailInvalid) {
+			response.getOutputStream().write(errors( userInvalid,  userUnavailable,  emailUnavailable,  emailInvalid,  user));
+			response.getOutputStream().flush();
+			return;
+		} else {
+			try {
+				new OnContext(request).onProjectScenario().createUser(new User(email, username, password));
+				user = username.getName();
+			} catch (UserAndEmailDuplicationException error) {
+				userUnavailable = true;
+				emailUnavailable = true;
+			} catch (UserDuplicationException e) {
+				userUnavailable = true;
+			} catch (EmailDuplicationException e) {
+				emailUnavailable = true;
+			}
+		}
+		response.getOutputStream().write(errors( userInvalid,  userUnavailable,  emailUnavailable,  emailInvalid,  user));
+		response.getOutputStream().flush();
+	}
+
+	private byte[] errors(boolean userInvalid, boolean userUnavailable, boolean emailUnavailable, boolean emailInvalid, String user) {
+		return ("{\"userInvalid\":" + userInvalid + ",\"userUnavailable\":" + userUnavailable + ",\"emailUnavailable\":"
+				+ emailUnavailable + ",\"emailInvalid\":" + emailInvalid + ", \"user\":\"" + user + "\"}").getBytes();
 	}
 }

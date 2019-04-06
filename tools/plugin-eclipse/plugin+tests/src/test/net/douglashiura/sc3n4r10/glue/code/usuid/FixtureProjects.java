@@ -20,6 +20,18 @@ public class FixtureProjects {
 		return selenium.getText("project_create");
 	}
 
+	public String getSc3n4r10() {
+		return selenium.getText("tool");
+	}
+
+	public String getLogout() {
+		return selenium.getText("logout");
+	}
+
+	public String getUser() {
+		return selenium.getText("user");
+	}
+
 	public String getEmptyProject() {
 		return selenium.getText("empty_projects");
 	}
@@ -40,6 +52,10 @@ public class FixtureProjects {
 		return selenium.getText("projects_title");
 	}
 
+	public String getProject1() {
+		return selenium.getText("project_1");
+	}
+	
 	public String getUrl() {
 		return selenium.getUrl();
 	}
@@ -57,6 +73,19 @@ public class FixtureProjects {
 	public void toUserGuide(String action) {
 		if ("UserGuide".equals(action)) {
 			selenium.click("userGuide");
+		}
+	}
+	
+	public void toProjects(String action) throws InterruptedException {
+		if ("/douglashiura".equals(action)) {
+			selenium.click("user");
+		}
+	}
+	
+
+	public void toAuthentication(String action)  {
+		if ("Logout".equals(action)) {
+			selenium.click("logout");
 		}
 	}
 

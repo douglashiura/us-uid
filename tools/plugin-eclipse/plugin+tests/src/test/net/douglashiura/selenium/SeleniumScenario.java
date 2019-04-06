@@ -58,6 +58,7 @@ public class SeleniumScenario {
 	}
 
 	public void type(String id, String value) {
+		selenium.findElement(By.id(id)).clear();
 		selenium.findElement(By.id(id)).sendKeys(value);
 	}
 
@@ -88,6 +89,10 @@ public class SeleniumScenario {
 
 	public void clean(String id) {
 		selenium.findElement(By.id(id)).clear();
-		
+
+	}
+
+	public boolean isVisible(String id) {
+		return selenium.findElement(By.id(id)).isDisplayed();
 	}
 }

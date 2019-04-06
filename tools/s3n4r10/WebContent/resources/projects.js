@@ -64,7 +64,6 @@ function Load() {
 		});
 
 		request.done($.proxy(function(data) {
-			console.log(data);
 			var ul = document.createElement("ul")
 			this.projects.append(ul);
 			var i;
@@ -73,6 +72,7 @@ function Load() {
 				a.setAttribute("href", "App.jsp?user=" + user + "&project="
 						+ data[i]);
 				a.innerHTML = data[i];
+				a.setAttribute("id", "project_" + (i+1));
 				var li = document.createElement("li");
 				li.append(a);
 				var insert = new InsertFunctions(li, data[i]);

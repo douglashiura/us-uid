@@ -69,4 +69,12 @@ public class User {
 		return true;
 	}
 
+	public void setEmail(Email email) {
+		this.email = email;
+	}
+
+	public void setUser(SimpleName username) {
+		this.username = username;
+	}
+
 }

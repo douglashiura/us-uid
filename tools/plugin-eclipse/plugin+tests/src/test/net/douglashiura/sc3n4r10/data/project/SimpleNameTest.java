@@ -10,7 +10,7 @@ import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameEmptyException
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameInvalidException;
 import net.douglashiura.leb.uid.scenario.data.primitive.UserNameNullException;
 
-public class TesteUsername {
+public class SimpleNameTest {
 	@Test(expected = SimpleNameInvalidException.class)
 	public void invalid() throws Exception {
 		new SimpleName(" a invalid");
@@ -28,6 +28,7 @@ public class TesteUsername {
 		assertEquals("douglasHiura", new SimpleName("douglasHiura").toString());
 		assertEquals("douglas-hiura", new SimpleName("douglas-hiura").toString());
 		assertEquals("douglashiura", new SimpleName("douglashiura").toString());
+		assertEquals(new SimpleName("doug"), new SimpleName("doug"));
 	}
 
 	@Test(expected = SimpleNameInvalidException.class)

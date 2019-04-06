@@ -44,7 +44,25 @@ public class ProjectScenario {
 		return workDirectory;
 	}
 
-	public void createUser(User user) throws IOException, UserDuplicationException {
+	public void createUser(User user)
+			throws IOException, UserAndEmailDuplicationException, UserDuplicationException, EmailDuplicationException {
+		List<User> users;
+		try {
+			users = listUsers();
+			for (User user2 : users) {
+				if (user2.getEmail().equals(user.getEmail()) && user2.getUsername().equals(user.getUsername())) {
+					throw new UserAndEmailDuplicationException();
+				} else if (user2.getEmail().equals(user.getEmail())) {
+					throw new EmailDuplicationException();
+				} else if (user2.getUsername().equals(user.getUsername())) {
+					throw new UserDuplicationException();
+				}
+			}
+		} catch (EmailEmptyException | EmailNullException | EmailBiggerThat120Exception | EmailInvalidException
+				| UserNameNullException | SimpleNameEmptyException | SimpleNameBiggerThat30Exception
+				| SimpleNameInvalidException e) {
+			throw new RuntimeException("error in directory of users!");
+		}
 		File file = new File(workDirectory, user.getUsername().getName());
 		if (file.exists()) {
 			throw new UserDuplicationException();

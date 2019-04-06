@@ -24,6 +24,24 @@ public class FixtureProject {
 		selenium.type("inputFunctions", value);
 	}
 
+	public String getSc3n4r10() {
+		return selenium.getText("tool");
+	}
+	public String getLogout() {
+		return selenium.getText("logout");
+	}
+	public String getUser() {
+		return selenium.getText("user");
+	}
+	public String getProject() {
+		return selenium.getText("project");
+	}
+	
+	public String getUserGuide() {
+		return selenium.getText("userGuide");
+	}
+	
+	
 	public String getClone() {
 		return selenium.getText("clone");
 	}
@@ -97,9 +115,25 @@ public class FixtureProject {
 			selenium.click("rename");
 		} else if ("Clone(scenario:1)".equals(action)) {
 			selenium.click("clone");
+		}else if ("/first".equals(action)) {
+			selenium.click("project");
 		}
-
 	}
+	
+	public void toProjects(String action) {
+		if ("/douglashiura".equals(action)) {
+			selenium.click("user");
+		}
+	}
+	
+	
+	public void toAuthentication(String action) throws InterruptedException {
+		if ("Logout".equals(action)) {
+				selenium.click("logout");
+		}
+	}
+	
+	
 
 	public void toScenario(String action) {
 		if (action.equals("New scenario")) {

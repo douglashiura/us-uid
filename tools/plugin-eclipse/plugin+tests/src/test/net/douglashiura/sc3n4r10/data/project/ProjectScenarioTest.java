@@ -11,10 +11,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.douglashiura.leb.uid.scenario.data.EmailDuplicationException;
 import net.douglashiura.leb.uid.scenario.data.OnUser;
 import net.douglashiura.leb.uid.scenario.data.ProjectScenario;
 import net.douglashiura.leb.uid.scenario.data.User;
+import net.douglashiura.leb.uid.scenario.data.UserAndEmailDuplicationException;
 import net.douglashiura.leb.uid.scenario.data.UserDuplicationException;
+import net.douglashiura.leb.uid.scenario.data.primitive.Email;
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleName;
 import net.douglashiura.leb.uid.scenario.data.primitive.UserInvalidException;
 
 public class ProjectScenarioTest {
@@ -78,10 +82,26 @@ public class ProjectScenarioTest {
 		assertEquals(douglas, listUsers.get(0));
 	}
 
+	@Test(expected = UserAndEmailDuplicationException.class)
+	public void userAndDuplicate() throws Exception {
+		ProjectScenario scenario = new ProjectScenario();
+		scenario.createUser(douglas);
+		scenario.createUser(douglas);
+	}
+
+	@Test(expected = EmailDuplicationException.class)
+	public void emailDuplicate() throws Exception {
+		ProjectScenario scenario = new ProjectScenario();
+		scenario.createUser(douglas);
+		douglas.setUser(new SimpleName("doug"));
+		scenario.createUser(douglas);
+	}
+
 	@Test(expected = UserDuplicationException.class)
 	public void userDuplicate() throws Exception {
 		ProjectScenario scenario = new ProjectScenario();
 		scenario.createUser(douglas);
+		douglas.setEmail(new Email("douglas@gmail.com"));
 		scenario.createUser(douglas);
 	}
 
