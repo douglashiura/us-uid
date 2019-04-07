@@ -86,7 +86,10 @@ public class UploadCommandHandler extends AbstractHandler implements ICoreRunnab
 
 	private void sendAFile(CloseableHttpClient httpClient, FileScenario file, String fileName)
 			throws URISyntaxException, NotAFileException, IOException, ClientProtocolException {
-		URI uri2 = new URIBuilder(dialog.getURI("/scenario/update/")).setParameter("scenario", new FileName(fileName).getNameScenario()).build();
+		URI uri2 = new URIBuilder(dialog.getURI("/scenario/update/"))
+				.setParameter("scenario",
+						new FileName(fileName, System.getProperty("os.name").startsWith("Windows")).getNameScenario())
+				.build();
 		HttpPost httpPost = new HttpPost(uri2);
 		StringEntity entity = new StringEntity(file.toString(), StandardCharsets.UTF_8);
 		httpPost.setEntity(entity);

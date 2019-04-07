@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 
 public class SimpleName {
 
-	private static final String USER = "^[\\wW-]+";
-	public static final Pattern USERNAME = Pattern.compile(USER + "$");
+	public static final Pattern USERNAME = Pattern.compile("^[\\wW-]+$");
 
 	private String name;
 

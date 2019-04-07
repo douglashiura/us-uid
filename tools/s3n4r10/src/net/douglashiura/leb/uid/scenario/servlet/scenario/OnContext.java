@@ -62,7 +62,7 @@ public class OnContext {
 	public Scenario getScenario()
 			throws FileNotFoundException, ProjectInvalidExeception, UserInvalidException, UserNameNullException,
 			SimpleNameEmptyException, SimpleNameBiggerThat30Exception, SimpleNameInvalidException, NotAFileException {
-		return onProject().getScenario(new FileName(getFile()));
+		return onProject().getScenario(new FileName(getFile(), System.getProperty("os.name").startsWith("Windows")));
 	}
 
 	public String getFile() {

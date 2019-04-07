@@ -36,7 +36,8 @@ public class WebUpdate extends HttpServlet {
 			IOUtils.readFully(request.getInputStream(), all);
 			OnContext onContext = new OnContext(request);
 			OnProject onProject = onContext.onProject();
-			FileName fileName = new FileName(onContext.getFile());
+			boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+			FileName fileName = new FileName(onContext.getFile(), isWindows);
 			try {
 				onProject.getScenario(fileName).delete();
 			} catch (FileNotFoundException withoutFile) {

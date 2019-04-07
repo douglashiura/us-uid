@@ -1,37 +1,54 @@
 package net.douglashiura.leb.uid.scenario.servlet.util;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class FileName {
 	public static final String EXTENSION = ".us";
 	private String name;
 	private String directory;
+	private String separatorOut;
+	private String separatorIn;
+	public static final Pattern SEQUENCE = Pattern.compile("^[\\wW|.\\\\/]+$");
 
-	public FileName(String path) throws NotAFileException {
+	public FileName(String path, Boolean isWindowsOS) throws NotAFileException {
 		path = path.trim();
 		if (path.isEmpty() || !path.contains(".")) {
 			throw new NotAFileException("It is not a file!");
 		}
+		if (path.contains("/") && path.contains("\\")) {
+			throw new NotAFileException("Mix of path separator");
+		}
+		if (!SEQUENCE.matcher(path).matches()) {
+			throw new NotAFileException("Characters invalid");
+		}
+
+		separatorOut = isWindowsOS ? "\\" : "/";
+		separatorIn = path.contains("/") ? "/" : "\\";
 		if (path.endsWith(EXTENSION)) {
 			path = path.substring(0, path.length() - EXTENSION.length());
 		}
 		name = extractFile(path);
 		path = path.substring(0, path.length() - name.length());
 		if (path.contains(".")) {
-			path = path.replaceAll("\\.", File.separator);
+			path = path.replace(".", separatorIn);
 		}
-		if (!path.startsWith(File.separator)) {
-			path = File.separator + path;
+		if (!path.startsWith(separatorIn)) {
+			path = separatorIn + path;
 		}
 		directory = path.trim();
+		if (directory.contains(separatorIn)) {
+			directory = directory.replace(separatorIn, separatorOut);
+		}
 	}
 
-	public FileName(java.net.URI uri) throws NotAFileException {
-		this(uri.getPath());
+	public FileName(java.net.URI uri, Boolean isWindows) throws NotAFileException {
+		this(uri.getPath(), isWindows);
 	}
 
-	public FileName(String packaged, String name) throws NotAFileException {
-		this(mount(packaged, name));
+	public FileName(String packaged, String name, Boolean isWindowsOS) throws NotAFileException {
+		this(mount(packaged, name), isWindowsOS);
 	}
 
 	private static String mount(String packaged, String name) {
@@ -43,8 +60,8 @@ public class FileName {
 	}
 
 	private String extractFile(String path) throws NotAFileException {
-		if (path.contains(File.separator)) {
-			return path.substring(path.lastIndexOf(File.separator) + 1);
+		if (path.contains(separatorIn)) {
+			return path.substring(path.lastIndexOf(separatorIn) + 1);
 		} else if (path.contains(".")) {
 			return path.substring(path.lastIndexOf(".") + 1);
 
@@ -57,16 +74,29 @@ public class FileName {
 		return name + EXTENSION;
 	}
 
-	public String getDirectory() {
-		return directory;
+	public String[] getPathsOfDirectory() {
+		if (directory.startsWith(separatorOut)) {
+			return split(directory.substring(1));
+		} else {
+			return split(directory);
+		}
 	}
 
-	public String[] getPathsOfDirectory() {
-		if (directory.startsWith("/")) {
-			return directory.substring(1).split(File.separator);
-		} else {
-			return directory.split(File.separator);
+	private String[] split(String substring) {
+		List<String> directory = new ArrayList<>();
+		while (!substring.isEmpty()) {
+			int index = substring.indexOf(separatorOut);
+			if (index > 0) {
+				directory.add(substring.substring(0, index));
+				substring = substring.substring(index+1);
+			} else {
+				directory.add(substring);
+				substring = "";
+			}
 		}
+		String[] array = new String[directory.size()];
+		directory.toArray(array);
+		return array;
 	}
 
 	public String getNameWithoutExtension() {
@@ -74,7 +104,7 @@ public class FileName {
 	}
 
 	public String getNameScenario() {
-		return (directory + getName()).substring(1).replace(File.separator, ".");
+		return (directory + getName()).substring(1).replace(separatorOut, ".");
 	}
 
 }

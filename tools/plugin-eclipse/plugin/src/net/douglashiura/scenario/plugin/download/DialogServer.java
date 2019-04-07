@@ -132,7 +132,7 @@ public class DialogServer extends TitleAreaDialog {
 		dataFirstName.grabExcessHorizontalSpace = true;
 		dataFirstName.horizontalAlignment = GridData.FILL;
 		txtServer = new Text(container, SWT.BORDER);
-		txtServer.setText("http://localhost:8080/sc3n4r10/");
+		txtServer.setText("http://agil.inf.ufsc.br/us/");
 		txtServer.setLayoutData(dataFirstName);
 	}
 

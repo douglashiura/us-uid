@@ -35,8 +35,9 @@ public class WebRename extends HttpServlet {
 		Command command = gson.fromJson(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8),
 				Command.class);
 		try {
-			FileName file = new FileName(command.getActualFile());
-			new OnContext(request).onProject().getScenario(file).rename(new FileName(command.getNewFile()));
+			boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+			FileName file = new FileName(command.getActualFile(), isWindows);
+			new OnContext(request).onProject().getScenario(file).rename(new FileName(command.getNewFile(), isWindows));
 			response.setContentType("text/plain");
 		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
 				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {

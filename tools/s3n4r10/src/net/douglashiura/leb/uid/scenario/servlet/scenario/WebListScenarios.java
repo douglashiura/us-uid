@@ -37,8 +37,8 @@ public class WebListScenarios extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 		String folder = request.getParameter(FOLDER);
 		String name = request.getParameter(NAME).toString();
-		try {
-			FileName file = new FileName(folder, name);
+		try {boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+			FileName file = new FileName(folder, name, isWindows);
 			OnContext onContext = new OnContext(request);
 			onContext.onProject().createNewScenario(file);
 			onContext.setProject(resp);

@@ -13,11 +13,13 @@ public class Scenario {
 	private File file;
 	private File defaultDir;
 	private OnProject onProject;
+	private Boolean isWindows;
 
 	public Scenario(File file, File defaultDir, OnProject onProject) {
 		this.file = file;
 		this.defaultDir = defaultDir;
 		this.onProject = onProject;
+		isWindows = System.getProperty("os.name").startsWith("Windows");
 	}
 
 	public String getDocument() throws IOException {
@@ -35,7 +37,8 @@ public class Scenario {
 	}
 
 	public String getVirtualName() throws NotAFileException {
-		return new FileName(file.getAbsolutePath().replace(defaultDir.getAbsolutePath(), "")).getNameScenario();
+		return new FileName(file.getAbsolutePath().replace(defaultDir.getAbsolutePath(), ""), isWindows)
+				.getNameScenario();
 	}
 
 	public void create() throws IOException {

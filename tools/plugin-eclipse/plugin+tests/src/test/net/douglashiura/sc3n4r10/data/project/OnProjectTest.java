@@ -23,11 +23,13 @@ import net.douglashiura.leb.uid.scenario.servlet.util.FileName;
 public class OnProjectTest {
 
 	private User douglas;
+	private boolean isWindows;
 
 	@Before
 	public void setUp() {
 		File defaultDir = new File(System.getProperty("user.home"), "us-uid");
 		ProjectScenarioTest.deleteRecursive(defaultDir);
+		isWindows = System.getProperty("os.name").startsWith("Windows");
 	}
 
 	@Test
@@ -81,7 +83,7 @@ public class OnProjectTest {
 		SimpleName project = new SimpleName("test");
 		onUser.createProject(project);
 		OnProject testProject = onUser.onProject(project);
-		testProject.createNewScenario(new FileName("br.net.Test.us"));
+		testProject.createNewScenario(new FileName("br.net.Test.us", isWindows));
 		testProject.rename(project);
 	}
 
@@ -94,7 +96,7 @@ public class OnProjectTest {
 		onUser.createProject(project);
 		OnProject testProject = onUser.onProject(project);
 		SimpleName project2 = new SimpleName("test2");
-		testProject.createNewScenario(new FileName("br.net.Test.us"));
+		testProject.createNewScenario(new FileName("br.net.Test.us", isWindows));
 		testProject.rename(project2);
 		OnProject testProject2 = onUser.onProject(project2);
 		List<Scenario> listScenarios = testProject2.listScenarios();
@@ -114,7 +116,7 @@ public class OnProjectTest {
 		onUser.createProject(project);
 		OnProject testProject = onUser.onProject(project);
 		SimpleName project2 = new SimpleName("test2");
-		testProject.createNewScenario(new FileName("br.net.Test.us"));
+		testProject.createNewScenario(new FileName("br.net.Test.us", isWindows));
 		testProject.rename(project2);
 		onUser.onProject(project);
 	}
@@ -151,7 +153,7 @@ public class OnProjectTest {
 		SimpleName project = new SimpleName("test");
 		onUser.createProject(project);
 		OnProject testProject = onUser.onProject(project);
-		testProject.createNewScenario(new FileName("br.net.Test.us"));
+		testProject.createNewScenario(new FileName("br.net.Test.us", isWindows));
 		List<Scenario> listScenarios = testProject.listScenarios();
 		assertEquals(1, listScenarios.size());
 		assertEquals(1, testProject.listScenariosAsNames().size());

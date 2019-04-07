@@ -105,7 +105,7 @@ public class DownloadCommandHandler extends AbstractHandler implements ICoreRunn
 		HttpEntity entity = response.getEntity();
 		byte[] scenario = EntityUtils.toByteArray(entity);
 		httpGet.releaseConnection();
-		FileName fileName = new FileName(file);
+		FileName fileName = new FileName(file,System.getProperty("os.name").startsWith("Windows"));
 		IFolder aFolder = folder;
 		for (String path : fileName.getPathsOfDirectory()) {
 			aFolder = aFolder.getFolder(path);

@@ -36,7 +36,8 @@ public class WebDeleteScenario extends HttpServlet {
 		Command command = gson.fromJson(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8),
 				Command.class);
 		try {
-			FileName file= new FileName(command.getActualFile());
+			boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+			FileName file= new FileName(command.getActualFile(),isWindows);
 			new OnContext(request).onProject().getScenario(file).delete();
 			response.setContentType("text/plain");
 		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
