@@ -6,14 +6,14 @@ function InsertFunctions(li, data) {
 
 InsertFunctions.prototype.clickClone = function() {
 	return function(event) {
-		new br.ufsc.leb.uid.scenario.io.Store().clone(this.file,
+		new br.ufsc.leb.uid.scenario.io.Store().cloneScenario(this.file,
 				this.input.value);
 	}.bind(this);
 };
 
 InsertFunctions.prototype.clickRename = function() {
 	return function() {
-		new br.ufsc.leb.uid.scenario.io.Store().rename(this.file,
+		new br.ufsc.leb.uid.scenario.io.Store().renameScenario(this.file,
 				this.input.value);
 	}.bind(this);
 }

@@ -1,3 +1,31 @@
+function createProject() {
+	var request = $.ajax({
+		url : 'newProject?user=' + user,
+		type : 'POST',
+		dataType : 'json',
+		data : $('form#newProject').serialize(),
+	}).complete(
+			function(msg, text) {
+				var data = JSON.parse(msg.responseText);
+				setError(document.getElementById("nameUnavailable"),
+						data.nameUnavailable);
+				setError(document.getElementById("nameInvalid"),
+						data.nameInvalid);
+				if (!(data.nameInvalid || data.nameUnavailable)) {
+					window.location = "App.jsp?user=" + user + "&project="
+							+ data.project;
+				}
+			});
+}
+
+function setError(label, error) {
+	if (error) {
+		label.setAttribute("style", "display:block;");
+	} else {
+		label.setAttribute("style", "display:none;");
+	}
+}
+
 function InsertFunctions(li, data) {
 	this.li = li;
 	this.data = data;
@@ -5,14 +33,39 @@ function InsertFunctions(li, data) {
 }
 InsertFunctions.prototype.clickRename = function() {
 	return function() {
-		new br.ufsc.leb.uid.scenario.io.Store().renameProject(this.file,
-				this.input.value);
+		var request = $.ajax({
+			url : "project/rename/?user=" + user + "&project=" + this.file,
+			method : "POST",
+			data : JSON.stringify({
+				'actualFile' : this.file,
+				'newFile' : this.input.value
+			}, null, 2),
+			dataType : "json"
+		});
+		request.complete(function(msg) {
+			var data = JSON.parse(msg.responseText);
+			setError(document.getElementById("nameInputUnavailable"),
+					data.nameUnavailable);
+			setError(document.getElementById("nameInputInvalid"),
+					data.nameInvalid);
+			if (!(data.nameInvalid || data.nameUnavailable)) {
+				$(window).load();
+			}
+		});
 	}.bind(this);
 }
 
 InsertFunctions.prototype.clickDelete = function() {
 	return function() {
-		new br.ufsc.leb.uid.scenario.io.Store().deleteProject(this.file);
+		$.ajax({
+			url : "project/delete/?user=" + user + "&project=" + this.file,
+			method : "POST",
+			data : JSON.stringify({}, null, 2),
+			dataType : "json",
+			contentType : "application/json"
+		}).complete(function(msg) {
+			$(window).load();
+		});
 	}.bind(this);
 }
 
@@ -26,10 +79,12 @@ InsertFunctions.prototype.eventFunction = function() {
 		var rename = document.createElement("button");
 		rename.innerHTML = "Rename";
 		rename.addEventListener('click', this.clickRename());
+		rename.setAttribute("id", "rename");
 
 		var deleteButton = document.createElement("button");
 		deleteButton.innerHTML = "Delete"
 		deleteButton.addEventListener('click', this.clickDelete());
+		deleteButton.setAttribute("id", "delete");
 
 		this.section = document.createElement("section");
 		this.section.setAttribute("style", "padding-bottom: 30px;");
@@ -37,9 +92,25 @@ InsertFunctions.prototype.eventFunction = function() {
 		this.section.append(this.input);
 		this.section.append(rename);
 		this.section.append(deleteButton);
+		this.section.append(createElementError("Project name unavailable!",
+				"nameInputUnavailable"));
+		this.section.append(createElementError("Type only letters or numbers!",
+				"nameInputInvalid"));
 		this.li.append(this.section);
 	}.bind(this);
 };
+
+function createElementError(error, id) {
+	var span = document.createElement("span");
+	span.setAttribute("style", "color: red;");
+	span.innerHTML = error;
+	var label = document.createElement("label");
+	label.setAttribute("style", "display: none;");
+	label.setAttribute("id", id);
+	label.append(span);
+
+	return label;
+}
 
 function RemoveFunctions(insert) {
 	this.insert = insert;
@@ -72,7 +143,7 @@ function Load() {
 				a.setAttribute("href", "App.jsp?user=" + user + "&project="
 						+ data[i]);
 				a.innerHTML = data[i];
-				a.setAttribute("id", "project_" + (i+1));
+				a.setAttribute("id", "project_" + (i + 1));
 				var li = document.createElement("li");
 				li.append(a);
 				var insert = new InsertFunctions(li, data[i]);

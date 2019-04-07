@@ -56,7 +56,7 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.getUniformity = function() {
 	}, this));
 }
 
-br.ufsc.leb.uid.scenario.io.Store.prototype.rename = function(actualFile,
+br.ufsc.leb.uid.scenario.io.Store.prototype.renameScenario = function(actualFile,
 		newFile) {
 	var request = $.ajax({
 		url : "scenario/rename/?user=" + user + "&project=" + project,
@@ -87,7 +87,7 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.deleteScenario = function(
 	});
 };
 
-br.ufsc.leb.uid.scenario.io.Store.prototype.clone = function(actualFile,
+br.ufsc.leb.uid.scenario.io.Store.prototype.cloneScenario = function(actualFile,
 		newFile) {
 	$.ajax({
 		url : "scenario/clone?user=" + user + "&project=" + project,
@@ -102,3 +102,5 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.clone = function(actualFile,
 		$(window).load();
 	});
 };
+
+

@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.douglashiura.leb.uid.scenario.data.primitive.SimpleName;
 import net.douglashiura.leb.uid.scenario.servlet.util.FileName;
 import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
 
@@ -88,6 +89,19 @@ public class OnProject {
 		} else {
 			throw new FileNotFoundException();
 		}
+	}
+
+	public void delete() {
+		workDirectoryOfProject.delete();
+	}
+
+	public void rename(SimpleName name) throws ProjectUnavailableException {
+		File dest = new File(workDirectoryOfProject.getParent(), name.getName());
+		if(dest.exists()) {
+			throw new ProjectUnavailableException();
+		}
+		workDirectoryOfProject.renameTo(dest);
+
 	}
 
 }

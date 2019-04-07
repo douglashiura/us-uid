@@ -2,6 +2,8 @@ package net.douglashiura.leb.uid.scenario.data;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleName;
@@ -18,8 +20,11 @@ public class OnUser {
 		this.workDirectoryOfUser = workDirectoryUser;
 	}
 
-	public Project createProject(SimpleName project) {
+	public Project createProject(SimpleName project) throws ProjectDuplicationException {
 		File directory = new File(workDirectoryOfUser, project.getName());
+		if (directory.exists()) {
+			throw new ProjectDuplicationException();
+		}
 		directory.mkdir();
 		return new Project(directory, project);
 	}
@@ -32,6 +37,14 @@ public class OnUser {
 				projects.add(new Project(directory, new SimpleName(directory.getName())));
 			}
 		}
+		Comparator<Project> comparator = new Comparator<Project>() {
+
+			@Override
+			public int compare(Project a, Project b) {
+				return a.getName().getName().compareTo(b.getName().getName());
+			}
+		};
+		Collections.sort(projects, comparator);
 		return projects;
 	}
 

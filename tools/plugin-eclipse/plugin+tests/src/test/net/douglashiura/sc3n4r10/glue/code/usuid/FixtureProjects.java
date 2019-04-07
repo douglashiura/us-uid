@@ -12,6 +12,10 @@ public class FixtureProjects {
 		selenium = SeleniumScenario.getInstance();
 	}
 
+	public void setInputProject(String value) {
+		selenium.type("inputFunctions", value);
+	}
+
 	public void setName(String value) {
 		selenium.type("project_name", value);
 	}
@@ -40,6 +44,10 @@ public class FixtureProjects {
 		return selenium.getText("name_label");
 	}
 
+	public String getNameValue() {
+		return selenium.getValue("project_name");
+	}
+
 	public String getPlaceholderName() {
 		return selenium.getPlaceholder("project_name");
 	}
@@ -52,10 +60,38 @@ public class FixtureProjects {
 		return selenium.getText("projects_title");
 	}
 
+	public String getInputProject() {
+		return selenium.getValue("inputFunctions");
+	}
+
 	public String getProject1() {
 		return selenium.getText("project_1");
 	}
-	
+
+	public String getProject2() {
+		return selenium.getText("project_2");
+	}
+
+	public String getRename() {
+		return selenium.getText("rename");
+	}
+
+	public String getDelete() {
+		return selenium.getText("delete");
+	}
+
+	public String getNameUnavailable() {
+		return selenium.getText("nameUnavailable");
+	}
+
+	public String getInputInvalid() {
+		return selenium.getText("nameInputInvalid");
+	}
+
+	public String getInputUnavailable() {
+		return selenium.getText("nameInputUnavailable");
+	}
+
 	public String getUrl() {
 		return selenium.getUrl();
 	}
@@ -75,15 +111,40 @@ public class FixtureProjects {
 			selenium.click("userGuide");
 		}
 	}
-	
-	public void toProjects(String action) throws InterruptedException {
-		if ("/douglashiura".equals(action)) {
-			selenium.click("user");
-		}
-	}
-	
 
-	public void toAuthentication(String action)  {
+	public String getErroName() {
+		return selenium.getText("nameInvalid");
+	}
+
+	public void toProjects(String action) throws InterruptedException {
+		if ("douglashiura".equals(action)) {
+			selenium.click("user");
+		} else if ("MouseOn(project:1)".equals(action)) {
+			selenium.onMouse("userGuide");
+			selenium.onMouse("project_1");
+			Thread.sleep(200);
+		} else if ("MouseOn(project:2)".equals(action)) {
+			selenium.onMouse("userGuide");
+			selenium.onMouse("project_2");
+			Thread.sleep(200);
+		} else if ("Delete(project:1)".equals(action)) {
+			selenium.click("delete");
+		} else if ("Rename(project:1)".equals(action)) {
+			selenium.click("rename");
+			Thread.sleep(200);
+		} else if ("Create".equals(action)) {
+			selenium.click("project_create");
+		} else if ("Rename(project:2)".equals(action)) {
+			selenium.click("rename");
+			Thread.sleep(200);
+		} else if ("Rename(project:1)-duplication".equals(action)) {
+			selenium.click("rename");
+			Thread.sleep(500);
+		}
+
+	}
+
+	public void toAuthentication(String action) {
 		if ("Logout".equals(action)) {
 			selenium.click("logout");
 		}

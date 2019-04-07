@@ -121,7 +121,7 @@ public class FixtureProject {
 	}
 	
 	public void toProjects(String action) {
-		if ("/douglashiura".equals(action)) {
+		if ("douglashiura".equals(action)) {
 			selenium.click("user");
 		}
 	}
