@@ -64,6 +64,8 @@
 			<span id="projects_title">Projects</span>
 		</h2>
 		<div id="projects"></div>
+		
 	</div>
+	<div id="down"></div>
 </body>
 </html>

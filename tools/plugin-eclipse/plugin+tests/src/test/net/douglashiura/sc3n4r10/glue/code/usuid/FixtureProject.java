@@ -142,9 +142,9 @@ public class FixtureProject {
 			selenium.onMouse("scenario_1");
 			Thread.sleep(200);
 		} else if ("MouseOn(scenario:2)".equals(action)) {
-			selenium.onMouse("new_scenario");
+			selenium.onMouse("down");
 			selenium.onMouse("scenario_2");
-			Thread.sleep(200);
+			Thread.sleep(700);
 		} else if ("Delete(senario:1)".equals(action)) {
 			selenium.click("delete");
 		} else if ("Rename(scenario:1)".equals(action)) {
@@ -163,6 +163,7 @@ public class FixtureProject {
 			selenium.click("rename");
 			Thread.sleep(200);
 		}
+		Thread.sleep(100);
 	}
 
 	public void toProjects(String action) {

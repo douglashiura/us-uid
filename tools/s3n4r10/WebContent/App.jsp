@@ -72,5 +72,6 @@
 		<h2 id="project_title">User scenarios</h2>
 		<div id="scenarios"></div>
 	</div>
+	<div id="down"></div>
 </body>
 </html>
