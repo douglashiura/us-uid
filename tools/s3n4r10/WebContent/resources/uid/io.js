@@ -56,51 +56,5 @@ br.ufsc.leb.uid.scenario.io.Store.prototype.getUniformity = function() {
 	}, this));
 }
 
-br.ufsc.leb.uid.scenario.io.Store.prototype.renameScenario = function(actualFile,
-		newFile) {
-	var request = $.ajax({
-		url : "scenario/rename/?user=" + user + "&project=" + project,
-		method : "POST",
-		data : JSON.stringify({
-			'actualFile' : actualFile,
-			'newFile' : newFile
-		}, null, 2),
-		dataType : "json"
-	});
-	request.complete(function(msg) {
-		$(window).load();
-	});
-};
-
-br.ufsc.leb.uid.scenario.io.Store.prototype.deleteScenario = function(
-		actualFile) {
-	$.ajax({
-		url : "scenario/delete/?user=" + user + "&project=" + project,
-		method : "POST",
-		data : JSON.stringify({
-			'actualFile' : actualFile,
-		}, null, 2),
-		dataType : "json",
-		contentType : "application/json"
-	}).complete(function(msg) {
-		$(window).load();
-	});
-};
-
-br.ufsc.leb.uid.scenario.io.Store.prototype.cloneScenario = function(actualFile,
-		newFile) {
-	$.ajax({
-		url : "scenario/clone?user=" + user + "&project=" + project,
-		method : "POST",
-		data : JSON.stringify({
-			'actualFile' : actualFile,
-			'newFile' : newFile
-		}, null, 2),
-		dataType : "json",
-		contentType : "application/json"
-	}).complete(function(msg) {
-		$(window).load();
-	});
-};
 
 

@@ -1,3 +1,33 @@
+function createScenario() {
+	var request = $.ajax({
+
+		url : "scenarios?user=" + user + "&project=" + project,
+		type : 'POST',
+		dataType : 'json',
+		data : $('form#newScenario').serialize(),
+	}).complete(
+			function(msg, text) {
+				var data = JSON.parse(msg.responseText);
+				setError(document.getElementById("scenarioUnavailable"),
+						data.nameUnavailable);
+				setError(document.getElementById("scenarioInvalid"),
+						data.nameInvalid);
+				if (!(data.nameInvalid || data.nameUnavailable)) {
+					window.location = "Editor.jsp?user=" + user + "&project="
+							+ project + "&scenario=" + data.scenario;
+				}
+			});
+}
+
+function setError(label, error) {
+	if (error) {
+		label.setAttribute("style", "display:block;");
+	} else {
+		label.setAttribute("style", "display:none;");
+	}
+}
+
+
 function InsertFunctions(li, data) {
 	this.li = li;
 	this.data = data;
@@ -6,21 +36,65 @@ function InsertFunctions(li, data) {
 
 InsertFunctions.prototype.clickClone = function() {
 	return function(event) {
-		new br.ufsc.leb.uid.scenario.io.Store().cloneScenario(this.file,
-				this.input.value);
+		$.ajax({
+			url : "scenario/clone?user=" + user + "&project=" + project,
+			method : "POST",
+			data : JSON.stringify({
+				'actualFile' : this.file,
+				'newFile' : this.input.value
+			}, null, 2),
+			dataType : "json",
+			contentType : "application/json"
+		}).complete(function(msg) {
+			var data = JSON.parse(msg.responseText);
+			setError(document.getElementById("nameInputUnavailable"),
+					data.nameUnavailable);
+			setError(document.getElementById("nameInputInvalid"),
+					data.nameInvalid);
+			if (!(data.nameInvalid || data.nameUnavailable)) {
+				$(window).load();
+			}
+		});
 	}.bind(this);
 };
 
 InsertFunctions.prototype.clickRename = function() {
 	return function() {
-		new br.ufsc.leb.uid.scenario.io.Store().renameScenario(this.file,
-				this.input.value);
+		var request = $.ajax({
+			url : "scenario/rename/?user=" + user + "&project=" + project,
+			method : "POST",
+			data : JSON.stringify({
+				'actualFile' : this.file,
+				'newFile' : this.input.value
+			}, null, 2),
+			dataType : "json"
+		});
+		request.complete(function(msg) {
+			var data = JSON.parse(msg.responseText);
+			setError(document.getElementById("nameInputUnavailable"),
+					data.nameUnavailable);
+			setError(document.getElementById("nameInputInvalid"),
+					data.nameInvalid);
+			if (!(data.nameInvalid || data.nameUnavailable)) {
+				$(window).load();
+			}
+		});
 	}.bind(this);
 }
 
 InsertFunctions.prototype.clickDelete = function() {
 	return function() {
-		new br.ufsc.leb.uid.scenario.io.Store().deleteScenario(this.file);
+		$.ajax({
+			url : "scenario/delete/?user=" + user + "&project=" + project,
+			method : "POST",
+			data : JSON.stringify({
+				'actualFile' : this.file,
+			}, null, 2),
+			dataType : "json",
+			contentType : "application/json"
+		}).complete(function(msg) {
+			$(window).load();
+		});
 	}.bind(this);
 }
 
@@ -52,6 +126,10 @@ InsertFunctions.prototype.eventFunction = function() {
 		this.section.append(rename);
 		this.section.append(clone);
 		this.section.append(deleteButton);
+		this.section.append(createElementError("Scenario name unavailable!",
+				"nameInputUnavailable"));
+		this.section.append(createElementError("Type only letters, numbers or . !",
+				"nameInputInvalid"));
 		this.li.append(this.section);
 	}.bind(this);
 };
@@ -102,5 +180,18 @@ function Load() {
 		}, this));
 	}
 }
+
+
+function createElementError(error, id) {
+	var span = document.createElement("span");
+	span.setAttribute("style", "color: red;");
+	span.innerHTML = error;
+	var label = document.createElement("label");
+	label.setAttribute("style", "display: none;");
+	label.setAttribute("id", id);
+	label.append(span);
+	return label;
+}
+
 
 $(window).load(new Load());

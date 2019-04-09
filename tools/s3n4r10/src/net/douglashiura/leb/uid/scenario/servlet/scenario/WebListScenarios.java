@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.douglashiura.leb.uid.scenario.data.DuplicationScenarioException;
 import net.douglashiura.leb.uid.scenario.data.ProjectInvalidExeception;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameBiggerThat30Exception;
@@ -18,10 +19,6 @@ import net.douglashiura.leb.uid.scenario.data.primitive.UserInvalidException;
 import net.douglashiura.leb.uid.scenario.data.primitive.UserNameNullException;
 import net.douglashiura.leb.uid.scenario.servlet.util.FileName;
 import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
-
-/**
- * Servlet implementation class WebList
- */
 @WebServlet("/scenarios/*")
 public class WebListScenarios extends HttpServlet {
 
@@ -29,26 +26,41 @@ public class WebListScenarios extends HttpServlet {
 
 	private static final String NAME = "scenario";
 	private static final String FOLDER = "folder";
-	private String EDITOR = "Editor.jsp?user=%s&project=%s&scenario=%s";
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/plain; charset=utf-8");
 		resp.setCharacterEncoding("UTF-8");
+		boolean isWindows = System.getProperty("os.name").startsWith("Windows");
 		String folder = request.getParameter(FOLDER);
 		String name = request.getParameter(NAME).toString();
-		try {boolean isWindows = System.getProperty("os.name").startsWith("Windows");
-			FileName file = new FileName(folder, name, isWindows);
-			OnContext onContext = new OnContext(request);
-			onContext.onProject().createNewScenario(file);
-			onContext.setProject(resp);
-			onContext.setFile(resp, file);
-			resp.sendRedirect(
-					String.format(EDITOR, onContext.getUser(), onContext.getProject(), file.getNameScenario()));
-		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
-				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {
-			throw new ServletException(e);
+		boolean nameUnavailable = false;
+		boolean nameInvalid = false;
+		FileName file = null;
+		try {
+			file = new FileName(folder, name, isWindows);
+		} catch (NotAFileException e1) {
+			nameInvalid = true;
 		}
+
+		if (!nameInvalid) {
+			try {
+				OnContext onContext = new OnContext(request);
+				onContext.onProject().createNewScenario(file);
+			} catch (ProjectInvalidExeception | UserInvalidException | UserNameNullException | SimpleNameEmptyException
+					| SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {
+				throw new ServletException(e);
+			} catch (DuplicationScenarioException e) {
+				nameUnavailable = true;
+			}
+		}
+		resp.getOutputStream()
+				.write(errors(nameInvalid, nameUnavailable, file == null ? null : file.getNameScenario()));
+	}
+
+	private byte[] errors(boolean nameInvalid, boolean nameUnavailable, String scenario) {
+		return ("{\"nameInvalid\":" + nameInvalid + ",\"nameUnavailable\":" + nameUnavailable + ", \"scenario\":\""
+				+ scenario + "\"}").getBytes();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

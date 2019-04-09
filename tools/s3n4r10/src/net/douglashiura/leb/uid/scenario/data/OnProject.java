@@ -9,6 +9,8 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleName;
 import net.douglashiura.leb.uid.scenario.servlet.util.FileName;
 import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
@@ -64,7 +66,7 @@ public class OnProject {
 		return manyScenarios;
 	}
 
-	public Scenario createNewScenario(FileName fileName) throws IOException {
+	public Scenario createNewScenario(FileName fileName) throws IOException, DuplicationScenarioException {
 		File directory = workDirectoryOfProject;
 		for (String path : fileName.getPathsOfDirectory()) {
 			directory = new File(directory, path);
@@ -73,6 +75,9 @@ public class OnProject {
 			}
 		}
 		File file = new File(directory, String.format("%s.us", fileName.getNameWithoutExtension()));
+		if (file.exists()) {
+			throw new DuplicationScenarioException();
+		}
 		Scenario scenario = new Scenario(file, workDirectoryOfProject, this);
 		scenario.create();
 		return scenario;
@@ -91,13 +96,15 @@ public class OnProject {
 		}
 	}
 
-	public void delete() {
-		workDirectoryOfProject.delete();
+	public void delete() throws IOException {
+		if (!workDirectoryOfProject.delete() && listScenarios().isEmpty()) {
+			FileUtils.forceDelete(workDirectoryOfProject);
+		}
 	}
 
 	public void rename(SimpleName name) throws ProjectUnavailableException {
 		File dest = new File(workDirectoryOfProject.getParent(), name.getName());
-		if(dest.exists()) {
+		if (dest.exists()) {
 			throw new ProjectUnavailableException();
 		}
 		workDirectoryOfProject.renameTo(dest);

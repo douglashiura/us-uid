@@ -20,28 +20,34 @@ public class FixtureProject {
 	}
 
 	public void setScenarioInput(String value) {
-		selenium.clean("inputFunctions");
 		selenium.type("inputFunctions", value);
 	}
 
 	public String getSc3n4r10() {
 		return selenium.getText("tool");
 	}
+	public String getNameValue() {
+		return selenium.getValue("scenario");
+	}
+	public String getPackageValue() {
+		return selenium.getValue("folder");
+	}
 	public String getLogout() {
 		return selenium.getText("logout");
 	}
+
 	public String getUser() {
 		return selenium.getText("user");
 	}
+
 	public String getProject() {
 		return selenium.getText("project");
 	}
-	
+
 	public String getUserGuide() {
 		return selenium.getText("userGuide");
 	}
-	
-	
+
 	public String getClone() {
 		return selenium.getText("clone");
 	}
@@ -62,6 +68,8 @@ public class FixtureProject {
 		return selenium.getText("name");
 	}
 
+	
+
 	public String getNewScenario() {
 		return selenium.getText("new_scenario");
 	}
@@ -69,6 +77,8 @@ public class FixtureProject {
 	public String getPackage() {
 		return selenium.getText("package");
 	}
+
+	
 
 	public String getPlaceholderName() {
 		return selenium.getPlaceholder("scenario");
@@ -94,6 +104,30 @@ public class FixtureProject {
 		return selenium.getText("new_scenario_title");
 	}
 
+	public String getScenarioUnavailable() {
+		return selenium.getText("scenarioUnavailable");
+	}
+
+	public String getScenarioInvalid() {
+		return selenium.getText("scenarioInvalid");
+	}
+
+	public String getNameInvalid() {
+		return selenium.getText("scenarioInvalid");
+	}
+
+	public String getScenarioInputValue() {
+		return selenium.getValue("inputFunctions");
+	}
+
+	public String getScenarioInputUnavailable() {
+		return selenium.getText("nameInputUnavailable");
+	}
+
+	public String getScenarioInputInvalid() {
+		return selenium.getText("nameInputInvalid");
+	}
+
 	public String getTitleUserScenario() {
 		return selenium.getText("project_title");
 	}
@@ -108,32 +142,40 @@ public class FixtureProject {
 			selenium.onMouse("scenario_1");
 			Thread.sleep(200);
 		} else if ("MouseOn(scenario:2)".equals(action)) {
+			selenium.onMouse("new_scenario");
 			selenium.onMouse("scenario_2");
+			Thread.sleep(200);
 		} else if ("Delete(senario:1)".equals(action)) {
 			selenium.click("delete");
 		} else if ("Rename(scenario:1)".equals(action)) {
 			selenium.click("rename");
 		} else if ("Clone(scenario:1)".equals(action)) {
 			selenium.click("clone");
-		}else if ("/first".equals(action)) {
+		} else if ("/first".equals(action)) {
 			selenium.click("project");
+		} else if ("New scenario".equals(action)) {
+			selenium.click("new_scenario");
+		} else if ("Delete(scenario:2)".equals(action)) {
+			selenium.click("delete");
+		} else if ("Clone(scenario:2)".equals(action)) {
+			selenium.click("clone");
+		} else if ("Rename(scenario:2)".equals(action)) {
+			selenium.click("rename");
+			Thread.sleep(200);
 		}
 	}
-	
+
 	public void toProjects(String action) {
 		if ("douglashiura".equals(action)) {
 			selenium.click("user");
 		}
 	}
-	
-	
+
 	public void toAuthentication(String action) throws InterruptedException {
 		if ("Logout".equals(action)) {
-				selenium.click("logout");
+			selenium.click("logout");
 		}
 	}
-	
-	
 
 	public void toScenario(String action) {
 		if (action.equals("New scenario")) {

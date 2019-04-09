@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
+import net.douglashiura.leb.uid.scenario.data.DuplicationScenarioException;
 import net.douglashiura.leb.uid.scenario.data.OnProject;
 import net.douglashiura.leb.uid.scenario.data.ProjectInvalidExeception;
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameBiggerThat30Exception;
@@ -44,7 +45,7 @@ public class WebUpdate extends HttpServlet {
 			}
 			onProject.createNewScenario(fileName).write(all);
 		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
-				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {
+				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException | DuplicationScenarioException e) {
 			throw new ServletException(e);
 		}
 	}

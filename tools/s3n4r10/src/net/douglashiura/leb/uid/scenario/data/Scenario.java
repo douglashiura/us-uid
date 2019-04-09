@@ -46,7 +46,7 @@ public class Scenario {
 		write("".getBytes());
 	}
 
-	public void rename(FileName fileName) throws IOException {
+	public void rename(FileName fileName) throws IOException, DuplicationScenarioException {
 		byte[] data = getDocument().getBytes();
 		delete();
 		onProject.createNewScenario(fileName).write(data);
@@ -56,7 +56,7 @@ public class Scenario {
 		file.delete();
 	}
 
-	public void clone(FileName file) throws IOException {
+	public void clone(FileName file) throws IOException, DuplicationScenarioException {
 		byte[] data = getDocument().getBytes();
 		onProject.createNewScenario(file).write(data);
 	}

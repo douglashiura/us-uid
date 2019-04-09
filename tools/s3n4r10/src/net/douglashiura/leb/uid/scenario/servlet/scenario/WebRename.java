@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import net.douglashiura.leb.uid.scenario.data.DuplicationScenarioException;
 import net.douglashiura.leb.uid.scenario.data.ProjectInvalidExeception;
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameBiggerThat30Exception;
 import net.douglashiura.leb.uid.scenario.data.primitive.SimpleNameEmptyException;
@@ -34,16 +35,34 @@ public class WebRename extends HttpServlet {
 		Gson gson = new GsonBuilder().create();
 		Command command = gson.fromJson(new InputStreamReader(request.getInputStream(), StandardCharsets.UTF_8),
 				Command.class);
-		try {
-			boolean isWindows = System.getProperty("os.name").startsWith("Windows");
-			FileName file = new FileName(command.getActualFile(), isWindows);
-			new OnContext(request).onProject().getScenario(file).rename(new FileName(command.getNewFile(), isWindows));
-			response.setContentType("text/plain");
-		} catch (NotAFileException | ProjectInvalidExeception | UserInvalidException | UserNameNullException
-				| SimpleNameEmptyException | SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {
-			throw new ServletException(e);
-		}
 
+		boolean nameInvalid = false;
+		boolean nameUnavailable = false;
+		boolean isWindows = System.getProperty("os.name").startsWith("Windows");
+		FileName file = null;
+		FileName newName = null;
+		try {
+			file = new FileName(command.getActualFile(), isWindows);
+			newName = new FileName(command.getNewFile(), isWindows);
+		} catch (NotAFileException e1) {
+			nameInvalid = true;
+		}
+		if (!nameInvalid) {
+			try {
+				new OnContext(request).onProject().getScenario(file).rename(newName);
+				response.setContentType("text/plain");
+			} catch (ProjectInvalidExeception | UserInvalidException | UserNameNullException | SimpleNameEmptyException
+					| SimpleNameBiggerThat30Exception | SimpleNameInvalidException e) {
+				throw new ServletException(e);
+			} catch (DuplicationScenarioException e) {
+				nameUnavailable = true;
+			}
+		}
+		response.getOutputStream().write(errors(nameInvalid, nameUnavailable));
+	}
+
+	private byte[] errors(boolean nameInvalid, boolean nameUnavailable) {
+		return ("{\"nameInvalid\":" + nameInvalid + ",\"nameUnavailable\":" + nameUnavailable + "}").getBytes();
 	}
 
 }

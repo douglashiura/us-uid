@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 
+import net.douglashiura.leb.uid.scenario.data.DuplicationScenarioException;
 import net.douglashiura.leb.uid.scenario.data.OnProject;
 import net.douglashiura.leb.uid.scenario.data.OnUser;
 import net.douglashiura.leb.uid.scenario.data.ProjectScenario;
@@ -45,6 +46,13 @@ public class SenarioTest {
 		FileName test = new FileName("net.douglashiura.Test", isWindows);
 		onProject.createNewScenario(test);
 		assertEquals("", onProject.getScenario(test).getDocument());
+	}
+
+	@Test(expected=DuplicationScenarioException.class)
+	public void createDuplicationScenario() throws Exception {
+		FileName test = new FileName("net.douglashiura.Test", isWindows);
+		onProject.createNewScenario(test);
+		onProject.createNewScenario(test);
 	}
 
 	@Test

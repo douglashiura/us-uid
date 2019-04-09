@@ -134,6 +134,20 @@ public class OnProjectTest {
 	}
 
 	@Test()
+	public void deleteProjectAfterCreateAnDeleteScenario() throws Exception {
+		ProjectScenario scenario = new ProjectScenario();
+		scenario.createUser(douglas);
+		OnUser onUser = scenario.onUser(douglas);
+		SimpleName project = new SimpleName("test");
+		onUser.createProject(project);
+		OnProject testProject = onUser.onProject(project);
+		FileName fileName= new FileName("br.net.douglashiura", "teste", isWindows);
+		testProject.createNewScenario(fileName).delete();;
+		testProject.delete();
+		assertTrue(onUser.listProjects().isEmpty());
+	}
+
+	@Test()
 	public void deleteProjectWithoutOnUser() throws Exception {
 		ProjectScenario scenario = new ProjectScenario();
 		scenario.createUser(douglas);
