@@ -15,6 +15,8 @@ public class SeleniumScenario {
 	private static final String FOLDER_DOWNLOAD = "/tmp/";
 	private static final Integer TIMEOUT_MILISEGUNDOS = 1000 * 5;
 
+	private static final int PAUSE = 1000;
+
 	private FirefoxDriver selenium;
 
 	public SeleniumScenario() {
@@ -94,5 +96,22 @@ public class SeleniumScenario {
 
 	public boolean isVisible(String id) {
 		return selenium.findElement(By.id(id)).isDisplayed();
+	}
+
+	public void pause() {
+		try {
+			Thread.sleep(PAUSE / 2);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void shortPause() {
+		try {
+			Thread.sleep(PAUSE / 4);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+
 	}
 }

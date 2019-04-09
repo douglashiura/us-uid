@@ -7,7 +7,7 @@ import test.net.douglashiura.selenium.SeleniumScenario;
 public class FixtureProject {
 	private SeleniumScenario selenium;
 
-	public FixtureProject() throws InterruptedException {
+	public FixtureProject()  {
 		selenium = SeleniumScenario.getInstance();
 	}
 
@@ -26,12 +26,15 @@ public class FixtureProject {
 	public String getSc3n4r10() {
 		return selenium.getText("tool");
 	}
+
 	public String getNameValue() {
 		return selenium.getValue("scenario");
 	}
+
 	public String getPackageValue() {
 		return selenium.getValue("folder");
 	}
+
 	public String getLogout() {
 		return selenium.getText("logout");
 	}
@@ -68,8 +71,6 @@ public class FixtureProject {
 		return selenium.getText("name");
 	}
 
-	
-
 	public String getNewScenario() {
 		return selenium.getText("new_scenario");
 	}
@@ -77,8 +78,6 @@ public class FixtureProject {
 	public String getPackage() {
 		return selenium.getText("package");
 	}
-
-	
 
 	public String getPlaceholderName() {
 		return selenium.getPlaceholder("scenario");
@@ -88,11 +87,11 @@ public class FixtureProject {
 		return selenium.getPlaceholder("folder");
 	}
 
-	public String getScenario1() throws InterruptedException {
+	public String getScenario1(){
 		return selenium.getText("scenario_1");
 	}
 
-	public String getScenario2() throws InterruptedException {
+	public String getScenario2() {
 		return selenium.getText("scenario_2");
 	}
 
@@ -136,15 +135,15 @@ public class FixtureProject {
 		return selenium.getUrl();
 	}
 
-	public void toProject(String action) throws InterruptedException {
+	public void toProject(String action)  {
 		if ("MouseOn(scenario:1)".equals(action)) {
 			selenium.onMouse("new_scenario");
 			selenium.onMouse("scenario_1");
-			Thread.sleep(200);
+			selenium.pause();
 		} else if ("MouseOn(scenario:2)".equals(action)) {
 			selenium.onMouse("down");
 			selenium.onMouse("scenario_2");
-			Thread.sleep(700);
+			selenium.pause();
 		} else if ("Delete(senario:1)".equals(action)) {
 			selenium.click("delete");
 		} else if ("Rename(scenario:1)".equals(action)) {
@@ -161,9 +160,9 @@ public class FixtureProject {
 			selenium.click("clone");
 		} else if ("Rename(scenario:2)".equals(action)) {
 			selenium.click("rename");
-			Thread.sleep(200);
+			selenium.pause();
 		}
-		Thread.sleep(100);
+		selenium.shortPause();
 	}
 
 	public void toProjects(String action) {
@@ -172,7 +171,7 @@ public class FixtureProject {
 		}
 	}
 
-	public void toAuthentication(String action) throws InterruptedException {
+	public void toAuthentication(String action) {
 		if ("Logout".equals(action)) {
 			selenium.click("logout");
 		}
