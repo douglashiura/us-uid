@@ -138,7 +138,7 @@ function RemoveFunctions(insert) {
 	this.insert = insert;
 	return function(event) {
 		this.insert.data = this.insert.input.value;
-		event.originalTarget.removeChild(this.insert.section);
+		event.currentTarget.removeChild(this.insert.section);
 	}.bind(this);
 }
 
