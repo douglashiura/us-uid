@@ -100,10 +100,8 @@ public class FixtureProjects {
 		return selenium.getText("userGuide");
 	}
 
-	public void toProject(String action) {
-		if ("Create".equals(action)) {
-			selenium.click("project_create");
-		}
+	public String getErroName() {
+		return selenium.getText("nameInvalid");
 	}
 
 	public void toUserGuide(String action) {
@@ -112,34 +110,36 @@ public class FixtureProjects {
 		}
 	}
 
-	public String getErroName() {
-		return selenium.getText("nameInvalid");
+	public void toProject(String action) {
+		if ("Create".equals(action)) {
+			selenium.click("project_create");
+		}
 	}
 
-	public void toProjects(String action) throws InterruptedException {
+	public void toProjects(String action) {
 		if ("douglashiura".equals(action)) {
 			selenium.click("user");
 		} else if ("MouseOn(project:1)".equals(action)) {
 			selenium.onMouse("userGuide");
 			selenium.onMouse("project_1");
-			Thread.sleep(200);
+			selenium.pause();
 		} else if ("MouseOn(project:2)".equals(action)) {
-			selenium.onMouse("userGuide");
+			selenium.onMouse("down");
 			selenium.onMouse("project_2");
-			Thread.sleep(200);
+			selenium.pause();
 		} else if ("Delete(project:1)".equals(action)) {
 			selenium.click("delete");
 		} else if ("Rename(project:1)".equals(action)) {
 			selenium.click("rename");
-			Thread.sleep(200);
+			selenium.pause();
 		} else if ("Create".equals(action)) {
 			selenium.click("project_create");
 		} else if ("Rename(project:2)".equals(action)) {
 			selenium.click("rename");
-			Thread.sleep(200);
+			selenium.pause();
 		} else if ("Rename(project:1)-duplication".equals(action)) {
 			selenium.click("rename");
-			Thread.sleep(500);
+			selenium.pause();
 		}
 
 	}
