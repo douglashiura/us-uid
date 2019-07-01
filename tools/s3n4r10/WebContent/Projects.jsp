@@ -16,7 +16,7 @@
 	<div id="top"
 		style="color: white; text-align: left; background-color: #3f51b5; padding: 10px;">
 		<a id="tool" style="color: white;"
-			href="http://${header['host']}${pageContext.request.contextPath}/">Sc3n4r10</a>
+			href="http://${header['host']}${pageContext.request.contextPath}/">Scenario</a>
 		<div style="float: right;">
 			<span><a style="color: white;" href="UserGuide.html"
 				id="userGuide">User Guide</a></span> <span style="padding-left: 20px;"><a
