@@ -222,7 +222,7 @@
     "alpha": 1.0,
     "userData": {
       "result": "",
-      "model": "",
+      "model": "asa",
       "model2": "termo"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",
@@ -1074,7 +1074,7 @@
     "alpha": 1.0,
     "userData": {
       "result": "",
-      "model": "",
+      "model": "senha",
       "model2": "senha"
     },
     "cssClass": "br_ufsc_leb_uid_scenario_SystemOutput",

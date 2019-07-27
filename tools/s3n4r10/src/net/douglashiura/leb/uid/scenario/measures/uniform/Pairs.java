@@ -6,9 +6,10 @@ import java.util.List;
 
 import net.douglashiura.leb.uid.scenario.EmptyScenarioException;
 import net.douglashiura.leb.uid.scenario.data.Scenario;
+import net.douglashiura.leb.uid.scenario.servlet.util.NotAFileException;
 
 public class Pairs {
-	public static List<Pair> pairs(List<Scenario> scenarios) throws IOException {
+	public static List<Pair> pairs(List<Scenario> scenarios) throws IOException, NotAFileException {
 		List<Pair> pairs = new ArrayList<>();
 		for (int i = 0; i < scenarios.size(); i++) {
 			for (int j = 0; j < scenarios.size(); j++) {

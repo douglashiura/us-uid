@@ -20,9 +20,11 @@ public class ScenarioFromText {
 	private HashMap<UUID, InteractionTree> interactions;
 	private List<InteractionTree> firsts;
 	private List<LinkedTreeMap<String, ?>> elements;
+	private String file;
 
 	@SuppressWarnings("unchecked")
-	public ScenarioFromText(String jsonText) {
+	public ScenarioFromText(String jsonText,String file) {
+		this.file=file;	
 		if (jsonText == null || jsonText.equals(""))
 			jsonText = "[]";
 		this.elements = new GsonBuilder().create().fromJson(jsonText, List.class);
@@ -75,9 +77,15 @@ public class ScenarioFromText {
 	private void extractOutputs() {
 		for (LinkedTreeMap<String, ?> object : elements) {
 			if (OUTPUT.equals(object.get("type"))) {
-				InteractionTree composite = interactions.get(UUID.fromString(object.get("composite").toString()));
-				Output output = new Output(extractId(object), extractFixture(object), extractValue(object));
-				composite.addOutput(output);
+				InteractionTree composite = null;
+				try {
+					String uidParent = object.get("composite").toString();
+					Output output = new Output(extractId(object), extractFixture(object), extractValue(object));
+					composite = interactions.get(UUID.fromString(uidParent));
+					composite.addOutput(output);
+				} catch (Exception e) {
+					System.out.println(extractId(object)+ " "+ extractValue(object)+  " sem composite " + file);
+				}
 			}
 		}
 	}
