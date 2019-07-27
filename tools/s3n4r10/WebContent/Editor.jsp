@@ -66,7 +66,7 @@
 	<div id="container">
 		<div id="logo" style="margin-top: 0px;">
 			<a id="project"
-				href="http://${header['host']}${pageContext.request.contextPath}/App.jsp?user=${param.user}&project=${param.project}">Sc3n4r10</a>
+				href="http://${header['host']}${pageContext.request.contextPath}/App.jsp?user=${param.user}&project=${param.project}">Scenario</a>
 		</div>
 		<div id="toolbar" class="navbar-default"></div>
 		<div id="propertyPane" style="margin-top: 10px;">

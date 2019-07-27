@@ -11,7 +11,7 @@ Organization:
 Second level:
 
 tools:        
-* s4n4r10 - is a Web Editor to specify requirements in format of US-UIDs  
+* s3n4r10 - is a Web Editor to specify requirements in format of US-UIDs  
 * us - is the System of Test
 * scenario - is an Eclipse plug-in to execute (with us) the US-UIDs
 
