@@ -65,6 +65,9 @@ public class Executor {
 				}
 			} else if (!isSame(lastScenario, scenarioProcessing)) {
 				last = null;
+				delivery(new Result(null, scenarioProcessing.getIndex(), Results.FAIL, "unavaliable"));
+			}else {
+				delivery(new Result(null, scenarioProcessing.getIndex(), Results.FAIL, "unavaliable"));
 			}
 		} else {
 			processor.exit();

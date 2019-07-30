@@ -2,7 +2,7 @@
 <feature
       id="net.douglashiura.scenario"
       label="Scenario"
-      version="1.0.10"
+      version="1.0.11"
       provider-name="LEB (Douglas Hiura Longo)">
 
    <description url="http://agil.inf.ufsc.br/us/">
@@ -39,6 +39,6 @@ Scenario is a plugin to execute US-UIDs.
          id="us_uid"
          download-size="0"
          install-size="0"
-         version="1.0.10"/>
+         version="1.0.11"/>
 
 </feature>
