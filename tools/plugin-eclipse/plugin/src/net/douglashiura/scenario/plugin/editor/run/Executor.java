@@ -27,6 +27,7 @@ public class Executor {
 	private Iterator<PathScenario> scenarios;
 	private Integer total;
 	private Processor processor;
+	private Results last;
 
 	public Executor(List<FileScenario> scenarios) {
 		List<PathScenario> manyPaths = new ArrayList<PathScenario>();
@@ -49,30 +50,45 @@ public class Executor {
 
 	private void next() throws CoreException {
 		if (scenarios.hasNext()) {
+			PathScenario lastScenario = scenarioProcessing;
 			scenarioProcessing = scenarios.next();
-			FileScenario fileScenario = scenarioProcessing.getFileScenario();
-			fileScenario.prepareToExecute();
-			try {
-				processor.write(new InputFile(fileScenario.getName(), scenarioProcessing.getScenario(),
-						scenarioProcessing.getIndex()));
-			} catch (IOException e) {
-				IStatus status = new Status(0, "net.douglashiura.scenario.plugin.editor.ScenarioView", e.getMessage(),
-						e);
-				throw new CoreException(status);
+			if (!(isSame(lastScenario, scenarioProcessing) && lastIsErro())) {
+				FileScenario fileScenario = scenarioProcessing.getFileScenario();
+				fileScenario.prepareToExecute();
+				try {
+					processor.write(new InputFile(fileScenario.getName(), scenarioProcessing.getScenario(),
+							scenarioProcessing.getIndex()));
+				} catch (IOException e) {
+					IStatus status = new Status(0, "net.douglashiura.scenario.plugin.editor.ScenarioView",
+							e.getMessage(), e);
+					throw new CoreException(status);
+				}
+			} else if (!isSame(lastScenario, scenarioProcessing)) {
+				last = null;
 			}
 		} else {
 			processor.exit();
 		}
 	}
 
+	private boolean isSame(PathScenario lastScenario, PathScenario scenarioProcessing) {
+		return lastScenario != null && scenarioProcessing != null
+				&& lastScenario.getFileScenario().getName().equals(scenarioProcessing.getFileScenario().getName());
+	}
+
+	private boolean lastIsErro() {
+		return (Results.ERROR.equals(last) || Results.FAIL.equals(last));
+	}
+
 	public void delivery(Result result) {
+		this.last = result.getResult();
 		scenarioProcessing.getFileScenario().addResult(result);
 		if (Results.isExecutionFinishy(result.getResult())) {
-				try {
-					next();
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}
+			try {
+				next();
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
