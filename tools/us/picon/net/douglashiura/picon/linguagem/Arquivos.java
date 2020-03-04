@@ -21,10 +21,10 @@ public class Arquivos {
 
 	private Arquivos() throws ProblemaDeCompilacaoException {
 		System.out.println(
-				"Licen√ßa do Picon - est√° vers√£o √© gr√°tis para desenvolvimento de software livre ou n√£o comercial.\n"
-						+ "Para uso durante o desenvolvimento de software comercial contate\no Laborat√≥rio de Engenharia de Software e Banco de Dados situado na \n"
-						+ "Universidade Federal de Santa Catarina\n" + "Campus Universit√°rio\n" + "INE ‚Äì Sala 308\n"
-						+ "Florian√≥polis, Santa Catarina, Brasil\n" + "Telefone: +55 (48) 3721-4712");
+				"LicenÁa do Picon - est· vers„o È gr·tis para desenvolvimento de software livre ou n„o comercial.\n"
+						+ "Para uso durante o desenvolvimento de software comercial contate\no LaboratÛrio de Engenharia de Software e Banco de Dados situado na \n"
+						+ "Universidade Federal de Santa Catarina\n" + "Campus UniversitÛrio\n" + "INE-CTC, Sala 308\n"
+						+ "FlorianÛpolis, Santa Catarina, Brasil\n" + "Telefone: +55 (48) 3721-4712");
 		try {
 			Arquivos.class.getClassLoader();
 			Enumeration<URL> recursos = ClassLoader.getSystemResources("");

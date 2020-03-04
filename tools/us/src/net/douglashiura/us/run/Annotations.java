@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.douglashiura.picon.linguagem.Carregadores;
 import net.douglashiura.us.Fixture;
 
 public class Annotations {
@@ -45,7 +46,8 @@ public class Annotations {
 		Enumeration<URL> recursos = ClassLoader.getSystemResources("");
 		while (recursos.hasMoreElements()) {
 			URL url = (URL) recursos.nextElement();
-			read(new File(url.toURI()), classes, url.getPath());
+			String relative=url.getPath().replace("\\" , ".").replace("/", ".");
+			read(new File(url.toURI()), classes, relative);
 		}
 		return classes;
 	}
@@ -53,18 +55,24 @@ public class Annotations {
 	private static void read(File file, List<Class<?>> classes, String relative)
 			throws ClassNotFoundException, IOException {
 		Class<?> classe;
-		if (file.isFile() && ((classe = getCLassAnnotation(file, relative)) != null))
+		if (file.isFile() && ((classe = getClassAnnotation(file, relative)) != null))
 			classes.add(classe);
 		if (file.isDirectory())
-			for (File filho : file.listFiles())
-				read(filho, classes, relative);
+			for (File son : file.listFiles())
+				read(son, classes, relative);
 	}
 
-	private static Class<?> getCLassAnnotation(File file, String relative) throws ClassNotFoundException, IOException {
+	private static Class<?> getClassAnnotation(File file, String relative) throws ClassNotFoundException, IOException {
 		if (file.getName().endsWith(".class")) {
-			String name = file.getAbsolutePath().replace(relative, "").replace(".class", "").replace("/", ".");
+			String name = file.getAbsolutePath().replace(".class", "").replace("/", ".")
+					.replace("\\", ".");
+			if(name.indexOf(relative)>-1) {
+				name=name.replace(relative, "");				
+			}else {
+				name=name.replace(relative.subSequence(1, relative.length()), "");
+			}
 			try {
-				Class<?> klass = Class.forName(name);
+				Class<?> klass = Carregadores.buscarClasse(name);
 				if (klass.getAnnotation(Fixture.class) != null)
 					return klass;
 			} catch (SecurityException e) {
