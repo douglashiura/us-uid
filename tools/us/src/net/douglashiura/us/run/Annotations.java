@@ -46,7 +46,7 @@ public class Annotations {
 		Enumeration<URL> recursos = ClassLoader.getSystemResources("");
 		while (recursos.hasMoreElements()) {
 			URL url = (URL) recursos.nextElement();
-			String relative=url.getPath().replace("\\" , ".").replace("/", ".");
+			String relative = url.getPath().replace("\\", ".").replace("/", ".");
 			read(new File(url.toURI()), classes, relative);
 		}
 		return classes;
@@ -64,12 +64,11 @@ public class Annotations {
 
 	private static Class<?> getClassAnnotation(File file, String relative) throws ClassNotFoundException, IOException {
 		if (file.getName().endsWith(".class")) {
-			String name = file.getAbsolutePath().replace(".class", "").replace("/", ".")
-					.replace("\\", ".");
-			if(name.indexOf(relative)>-1) {
-				name=name.replace(relative, "");				
-			}else {
-				name=name.replace(relative.subSequence(1, relative.length()), "");
+			String name = file.getAbsolutePath().replace(".class", "").replace("/", ".").replace("\\", ".");
+			if (name.indexOf(relative) > -1) {
+				name = name.replace(relative, "");
+			} else {
+				name = name.split("bin")[1].substring(1);
 			}
 			try {
 				Class<?> klass = Carregadores.buscarClasse(name);
