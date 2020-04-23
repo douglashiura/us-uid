@@ -11,7 +11,6 @@ public class Carregadores {
 			} catch (ClassNotFoundException semClasse) {
 			}
 		}
-		System.out.println(nomeDaKlasse);
 		throw new ClassNotFoundException();
 	}
 

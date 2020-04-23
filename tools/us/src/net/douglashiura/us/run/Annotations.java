@@ -47,7 +47,7 @@ public class Annotations {
 		while (recursos.hasMoreElements()) {
 			URL url = (URL) recursos.nextElement();
 			String relative = url.getPath().replace("\\", ".").replace("/", ".");
-			read(new File(url.toURI()), classes, relative);
+			read(new File(url.getFile()), classes, relative);
 		}
 		return classes;
 	}
