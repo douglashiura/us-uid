@@ -60,6 +60,31 @@ example.Toolbar = Class
 				this.html.append($(delimiter));
 				this.uniformity = $("<span id='spanUniformity' style='color: white;'>Uniformity:<span id='uniformity'>0</span></span>");
 				this.html.append(this.uniformity);
+				
+				this.html.append($(delimiter));
+
+				this.svg = $("<button id='downloadSvg' class='gray'>Download SVG</button>");
+				this.html.append(this.svg);
+				this.svg.click($.proxy(function() {
+						var writer = new draw2d.io.svg.Writer();
+						writer.marshal(this.view, function(svg){
+							var blob = new Blob([svg], {type: 'image/svg+xml'});
+							var url = URL.createObjectURL(blob);
+    						var a = document.createElement('a');
+    						a.style.display = 'none';
+    						a.href = url;
+   							a.download = 'file.svg';
+    						document.body.appendChild(a);
+    						a.click();
+    						window.URL.revokeObjectURL(url);
+						
+						
+						});
+					
+				}, this));
+				
+				
+				
 				var io = new br.ufsc.leb.uid.scenario.io.Store(this.view);
 				io.getUniformity();
 
